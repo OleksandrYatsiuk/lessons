@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
+import { environment } from '../../../environments/environment.prod'
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentService {
-  public apiUrl = 'http://localhost:5000/api/v1';
+  public apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -14,5 +15,5 @@ export class PaymentService {
     return this.http.post(`${this.apiUrl}/payments`, params).pipe(pluck('result'));
   }
 
-  
+
 }
