@@ -14,4 +14,5 @@ export class PaymentService {
     return this.http.post(`${this.apiUrl}/payments`, params).pipe(pluck('result'));
   }
 
+  
 }

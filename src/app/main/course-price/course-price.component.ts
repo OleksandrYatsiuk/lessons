@@ -8,7 +8,7 @@ import { PaymentService } from '../../core/services/payment.service';
 })
 export class CoursePriceComponent implements OnInit {
   public price: number= 10;
-  public orderId: string= 'aazz123'
+  public orderId: string= 'aazz123';
   constructor(private payment: PaymentService) { }
 
   ngOnInit(): void {
