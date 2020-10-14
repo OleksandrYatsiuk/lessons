@@ -8,6 +8,8 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { MainModule } from './main/main.module';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,14 +17,16 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     RouterModule,
+    HttpClientModule,
     SharedModule,
     CoreModule,
     MainModule
   ],
-  exports:[
+  exports: [
     SharedModule
   ],
   providers: [],

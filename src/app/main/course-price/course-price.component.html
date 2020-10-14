@@ -1,0 +1,7 @@
+<hr>
+<strong>Ціна курсу:</strong>
+<p>У вартість входить 14 уроків, 14 практичних завдань та супроводження куратора протягом всього курсу.</p>
+<div id="liqpay_checkout" ></div>
+<input type="number" [(ngModel)]="price" placeholder="Enter price" >
+<input type="text" [(ngModel)]="orderId" placeholder="Enter order ID">
+<button (click)="addPayment(price, orderId)" >Оплатити {{price}} UAH</button>
