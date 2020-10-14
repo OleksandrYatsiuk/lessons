@@ -10,17 +10,18 @@ import { MainModule } from './main/main.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { StartBotComponent } from './start-bot/start-bot.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StartBotComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    RouterModule,
     HttpClientModule,
     SharedModule,
     CoreModule,

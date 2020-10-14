@@ -10,8 +10,6 @@ import { CoursePriceComponent } from './course-price/course-price.component';
 import { QuestionComponent } from './question/question.component';
 import { FormsModule } from '@angular/forms';
 
-
-
 @NgModule({
   declarations: [
     MainComponent,
@@ -24,7 +22,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     MainRoutingModule,
-    FormsModule
+    FormsModule,
   ]
 })
 export class MainModule { }
