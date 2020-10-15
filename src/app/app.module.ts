@@ -11,11 +11,15 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { StartBotComponent } from './start-bot/start-bot.component';
+import { PaymentComponent } from './payment/payment.component';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StartBotComponent
+    StartBotComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,10 @@ import { StartBotComponent } from './start-bot/start-bot.component';
   exports: [
     SharedModule
   ],
-  providers: [],
+  providers: [
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

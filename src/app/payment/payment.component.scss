@@ -1,0 +1,11 @@
+.payment-form {
+    min-width: 350px;
+    max-width: 500px;
+    min-height: 300px;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 0 30px -6px rgba(0, 0, 0, 0.15);
+}
+mat-form-field {
+    width: 100%;
+}
