@@ -5,6 +5,7 @@ import { StartBotComponent } from './start-bot/start-bot.component';
 
 const routes: Routes = [
   { path: '', loadChildren: () => import('./main/main.module').then(mod => mod.MainModule) },
+  { path: 'admin', loadChildren: () => import('./admin-panel/admin-panel.module').then(mod => mod.AdminPanelModule) },
   { path: 'start', component: StartBotComponent },
   { path: 'payment', component: PaymentComponent },
   { path: '**', redirectTo: '/' },

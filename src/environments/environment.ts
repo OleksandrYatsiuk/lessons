@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl:'hhttps://lesson-backend.herokuapp.com'
+  apiUrl:'https://lesson-backend.herokuapp.com/api/v1',
+  telegaBotToken:'1370117694:AAFSUwYsNVwD-x-_vIFN23zqTG-P2q3dLPk'
 };
 
 /*
