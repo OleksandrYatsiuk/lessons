@@ -3,8 +3,13 @@
         <h3>Оплатити курс <strong> "Practical Legal Courses" </strong></h3>
         <form [formGroup]="form" (ngSubmit)="pay()">
             <mat-form-field appearance="outline">
-                <mat-label>Повне ім'я</mat-label>
-                <input matInput placeholder="Введіть ім'я" formControlName="name">
+                <mat-label>Ім'я</mat-label>
+                <input matInput placeholder="Введіть ім'я" formControlName="firstName">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Прізвище</mat-label>
+                <input matInput placeholder="Введіть прізвище" formControlName="lastName">
             </mat-form-field>
 
             <mat-form-field appearance="outline">
