@@ -21,4 +21,10 @@ export class UserDataService {
   public update(user: Partial<User>): Observable<User> {
     return this.http.patch(`${this.apiUrl}${this.path}/current`, user).pipe(pluck('result'));
   }
+  public remove(id: User['id']): Observable<string> {
+    return this.http.delete(`${this.apiUrl}${this.path}/${id}`).pipe(pluck('result'));
+  }
+  public getItem(user): Observable<User> {
+    return this.http.get(`${this.apiUrl}${this.path}`, { params: user }).pipe(pluck('result'));
+  }
 }

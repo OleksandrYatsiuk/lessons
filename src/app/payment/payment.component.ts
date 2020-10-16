@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentService } from '../core/services/payment.service';
 import { UserDataService } from '../core/services/user-data.service';
 
@@ -10,23 +11,32 @@ import { UserDataService } from '../core/services/user-data.service';
 })
 export class PaymentComponent implements OnInit {
   public form: FormGroup;
+  public user: any
   private maxLength = 100;
-  constructor(private fb: FormBuilder, private payment: PaymentService, private http: UserDataService) { }
+  constructor(private fb: FormBuilder,
+    private payment: PaymentService,
+    private http: UserDataService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
+    this.route
+      .queryParams
+      .subscribe(params => {
+        this.http.getItem({ chat_id: params.chat_id })
+          .subscribe(user => this.form.patchValue(user))
+      });
   }
   public initForm(): void {
     this.form = this.fb.group({
       firstName: [''],
       lastName: [''],
-      email: ['',],
-      phone: ['',]
+      email: [''],
+      phone: ['']
     })
   }
   public pay(): void {
-    console.log(this.form.value)
-
     if (this.form.valid) {
       this.http.update(this.form.value).subscribe(user => {
         console.log(user);

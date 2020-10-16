@@ -18,13 +18,23 @@ export interface User {
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  displayedColumns: string[] = ['fullName', 'phone', 'email', 'chat_id', 'createdAt', 'updatedAt'];
-  public dataSource: User[];
+  displayedColumns: string[] = ['fullName', 'phone', 'email', 'chat_id', 'createdAt', 'updatedAt', 'delete'];
+  public users: User[];
   constructor(private http: UserDataService) { }
 
   ngOnInit(): void {
-    this.http.getList().subscribe(users => this.dataSource = users);
+    this.getData()
+  }
+  public getData(): void {
+    this.http.getList().subscribe(users => this.users = users);
   }
 
+  public remove(user: User): void {
+    this.http.remove(user.id).subscribe(response => {
+      this.getData()
+    }, error => {
+      console.error(error);
+    });
+  }
 
 }
