@@ -18,7 +18,7 @@ export class StartBotComponent implements OnInit {
     if (this.phone.valid) {
       this.http.register({ phone: this.phone.value }).subscribe(user => {
         console.log(user);
-        window.open('https://t.me/practical_lagacy_courses_bot?command=/start', '_blank');
+        window.open(`https://t.me/practical_lagacy_courses_bot?start=${user.phone}`, '_blank');
       }, (error) => {
         console.log(error);
       })
