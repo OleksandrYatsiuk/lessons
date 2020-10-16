@@ -25,6 +25,6 @@ export class UserDataService {
     return this.http.delete(`${this.apiUrl}${this.path}/${id}`).pipe(pluck('result'));
   }
   public getItem(user): Observable<User> {
-    return this.http.get(`${this.apiUrl}${this.path}`, { params: user }).pipe(pluck('result'));
+    return this.http.get(`${this.apiUrl}${this.path}/user`, { params: user }).pipe(pluck('result'));
   }
 }
