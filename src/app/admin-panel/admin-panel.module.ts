@@ -6,6 +6,7 @@ import { PageContextComponent } from './page-context/page-context.component';
 import { AdminPanelComponent } from './admin-panel.component';
 import { AdminPanelRoutingModule } from './admin-panel-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { CoursesComponent } from './courses/courses.component';
 
 
 
@@ -14,7 +15,8 @@ import { SharedModule } from '../shared/shared.module';
     UsersComponent,
     MessagesComponent,
     PageContextComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    CoursesComponent,
   ],
   imports: [
     CommonModule,

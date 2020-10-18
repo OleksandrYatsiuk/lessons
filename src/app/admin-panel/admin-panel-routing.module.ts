@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UsersComponent } from './users/users.component';
 import { PageContextComponent } from './page-context/page-context.component';
 import { MessagesComponent } from './messages/messages.component';
+import { CoursesComponent } from './courses/courses.component';
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
     children: [
       { path: 'users', component: UsersComponent },
       { path: 'pages', component: PageContextComponent },
-      { path: 'messages', component: MessagesComponent }
+      { path: 'messages', component: MessagesComponent },
+      { path: 'courses', loadChildren: () => import('./courses/courses.module').then(mod => mod.CoursesModule) },
     ]
   },
 ];

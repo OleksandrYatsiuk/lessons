@@ -16,16 +16,18 @@ export class PaymentComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private payment: PaymentService,
     private http: UserDataService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.initForm();
     this.route
       .queryParams
-      .subscribe(params => {
-        this.http.getItem({ chat_id: params.chat_id })
-          .subscribe(user => this.form.patchValue(user))
+      .subscribe(({ chat_id }) => {
+        if (chat_id) {
+          this.http.getItem({ chat_id: chat_id })
+            .subscribe(user => this.form.patchValue(user))
+        }
       });
   }
   public initForm(): void {

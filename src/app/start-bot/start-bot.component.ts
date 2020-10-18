@@ -15,6 +15,7 @@ export class StartBotComponent implements OnInit {
   }
 
   public openTelegram(): void {
+    this.phone.markAllAsTouched();
     if (this.phone.valid) {
       this.http.register({ phone: this.phone.value }).subscribe(user => {
         console.log(user);
