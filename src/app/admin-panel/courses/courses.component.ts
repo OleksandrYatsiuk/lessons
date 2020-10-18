@@ -9,6 +9,7 @@ import { CourseDataService } from 'src/app/core/services/course-data.service';
 })
 export class CoursesComponent implements OnInit {
   public courses = [];
+  displayedColumns: string[] = ['name', 'createdAt', 'updatedAt', 'status', 'delete'];
   public name = new FormControl('', Validators.required)
   constructor(private http: CourseDataService) { }
 
@@ -27,5 +28,11 @@ export class CoursesComponent implements OnInit {
   }
   public getList(): void {
     this.http.getCourses().subscribe(courses => this.courses = courses)
+  }
+
+  public delete(course):void{
+    this.http.delete(course.id).subscribe(courses => {
+    })
+
   }
 }

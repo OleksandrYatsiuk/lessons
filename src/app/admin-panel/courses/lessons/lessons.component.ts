@@ -11,6 +11,7 @@ export class LessonsComponent implements OnInit {
 
   @Input() courseId: string;
   public form: FormGroup;
+  displayedColumns: string[] = ['name', 'createdAt', 'updatedAt', 'status', 'delete'];
   public lessons = [];
   constructor(private http: LessonsDataService, private fb: FormBuilder) { }
 
@@ -31,8 +32,11 @@ export class LessonsComponent implements OnInit {
   public getList(): void {
     this.http.getLessons({ params: { courseId: this.courseId } }).subscribe(lessons => this.lessons = lessons)
   }
-  public deleteLesson(id: string) {
-    this.http.delete(id).subscribe(result => console.log(result));
+  public delete(id: string) {
+    this.http.delete(id).subscribe(result => {
+      this.getList();
+      console.log(result)
+    });
   }
   public initForm(): void {
     this.form = this.fb.group({
