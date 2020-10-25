@@ -7,6 +7,8 @@ import { AdminPanelComponent } from './admin-panel.component';
 import { AdminPanelRoutingModule } from './admin-panel-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { CoursesComponent } from './courses/courses.component';
+import { MessageItemComponent } from './messages/message-item/message-item.component';
+import { ChatActionsComponent } from './messages/chat-actions/chat-actions.component';
 
 
 
@@ -17,6 +19,8 @@ import { CoursesComponent } from './courses/courses.component';
     PageContextComponent,
     AdminPanelComponent,
     CoursesComponent,
+    MessageItemComponent,
+    ChatActionsComponent,
   ],
   imports: [
     CommonModule,

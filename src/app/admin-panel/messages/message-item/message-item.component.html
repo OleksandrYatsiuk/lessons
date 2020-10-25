@@ -1,0 +1,21 @@
+<ng-container [ngSwitch]="item.message.file.type">
+    <ng-container *ngSwitchCase="null">
+        <div class="msg-container">
+            <div class="msg-text">{{item.message.text}}</div>
+            <div class="msg-date">{{item.message.date*1000|date}}</div>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="types.file">
+        <div class="msg-container">
+            <a class="msg-text" [href]="item.message.file.link">download file</a>
+            <div class="msg-text">{{item.message.file.caption}}</div>
+            <div class="msg-date">{{item.message.date*1000|date}}</div>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="types.photo">
+        <div class="msg-container">
+            <img class="msg-text" [src]="item.message.file.link" [alt]="item.message.file.link">
+            <div class="msg-text">{{item.message.file.caption}}</div>
+            <div class="msg-date">{{item.message.date*1000|date}}</div>
+        </div>
+    </ng-container>

@@ -1,15 +1,11 @@
 <p>Chat ID: {{chat}}</p>
-<div>
-    <strong>Send text message to me</strong>
-    <br>
-    <input type="text" name='message' [(ngModel)]="text">
-    <br>
-    <button (click)="sendMessage(text)">Send</button>
-</div>
-<br>
-<div>
-    <strong>Send photo with image to me</strong><br>
-    <input type="text" name='message' [(ngModel)]="message">
-    <input type="file" name="photo" id="photo" (change)="setFiles($event)"><br>
-    <button (click)="sendPhoto()">Send File</button>
+<div class="chat">
+    <div class="chat-list">
+        <div class='message-content' *ngFor="let message of messages">
+            <app-message-item [item]="message"></app-message-item>
+        </div>
+    </div>
+    <div class="chat-actions">
+        <app-chat-actions [chat_id]="chat"></app-chat-actions>
+    </div>
 </div>

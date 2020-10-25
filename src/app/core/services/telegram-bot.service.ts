@@ -1,20 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {environment} from '../../../environments/environment.prod'
+import { environment } from '../../../environments/environment.prod'
 @Injectable({
   providedIn: 'root'
 })
 export class TelegramBotService {
+  
   public url = `https://api.telegram.org/bot${environment.telegaBotToken}/`;
   constructor(private http: HttpClient) { }
 
-  public sendMessage(chat_id, text): Observable<any> {
+  public sendMessage(chat_id: number, text: string): Observable<any> {
     return this.http.post(this.url + 'sendMessage', {
       chat_id, text
     })
   }
- 
+
   public sendPhoto(body?: any): Observable<any> {
     const formData = this.getFormData(body);
     return this.http.post(this.url + 'sendPhoto', formData);

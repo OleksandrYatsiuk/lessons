@@ -1,0 +1,19 @@
+.msg {
+    &-container {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        border: 2px solid #312f2f;
+        background-color: gray;
+        border-radius: 10px;
+    }
+    &-text {
+        padding: 10px;
+        max-width: 80%;
+        word-break: break-word;
+    }
+    &-date {
+        padding: 5px;
+        min-width: 90px;
+    }
+}
