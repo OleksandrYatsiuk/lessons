@@ -1,6 +1,7 @@
-import { CustomMessage } from './../message.interface';
+import { CustomMessage, EContentTypes, EMessageTypes } from './../message.interface';
 import { Component, Input, OnInit } from '@angular/core';
 import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
+import { pluck } from 'rxjs/operators';
 
 
 @Component({
@@ -20,15 +21,33 @@ export class ChatActionsComponent implements OnInit {
   ngOnInit(): void {
   }
   public sendMessage(text: string, file?: File): void {
+    console.log(file);
     if (file) {
       this.http.sendPhoto({
         chat_id: this.chat_id,
         photo: this.file,
         caption: this.message
-      }).subscribe(res => console.log(res));
+      }).subscribe(res => this.save(res, EContentTypes.photo));
     } else {
-      this.http.sendMessage(this.chat_id, text).subscribe(res => console.log(res))
+      this.http.sendMessage(this.chat_id, text).subscribe(res => this.save(res, EContentTypes.text, text))
     }
+  }
+
+
+  private save(res: any, type: EContentTypes, text?: string) {
+    this.http.saveMessage({
+      chat_id: this.chat_id,
+      lessonId: this.lessonId,
+      type: EMessageTypes.bot,
+      message: {
+        id: res.result.message_id,
+        content: {
+          type: type,
+          text: text || res.result.caption,
+          link: type == EContentTypes.text ? null : res.result.photo[0].file_id
+        }
+      }
+    }).pipe(pluck('result')).subscribe(result => console.log(result))
   }
 
   public setFiles(event: Event & { srcElement: any }) {

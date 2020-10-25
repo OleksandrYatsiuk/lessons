@@ -1,24 +1,43 @@
+import { CustomMessage } from './../../admin-panel/messages/message.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment.prod'
+import { environment } from '../../../environments/environment.prod';
+
+export enum ERequest {
+  sendMessage = 'sendMessage',
+  sendPhoto = 'sendPhoto',
+  sendDocument = 'sendDocument'
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class TelegramBotService {
-  
   public url = `https://api.telegram.org/bot${environment.telegaBotToken}/`;
+  public apiUrl = environment.apiUrl;
+
+
   constructor(private http: HttpClient) { }
 
-  public sendMessage(chat_id: number, text: string): Observable<any> {
-    return this.http.post(this.url + 'sendMessage', {
+  public sendMessage(chat_id: number, text: string) {
+    return this.http.post(this.url + ERequest.sendMessage, {
       chat_id, text
     })
   }
 
   public sendPhoto(body?: any): Observable<any> {
     const formData = this.getFormData(body);
-    return this.http.post(this.url + 'sendPhoto', formData);
+    return this.http.post(this.url + ERequest.sendPhoto, formData);
+  }
+
+  public sendDocument(body?: any): Observable<any> {
+    const formData = this.getFormData(body);
+    return this.http.post(this.url + ERequest.sendDocument, formData);
+  }
+
+  public saveMessage(message: CustomMessage): Observable<any> {
+    return this.http.post(this.apiUrl + '/messages/message', message);
   }
 
   private getFormData(raw: object): FormData {
