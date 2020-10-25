@@ -15,6 +15,7 @@ export class ChatActionsComponent implements OnInit {
   message: string;
   file: File;
   @Input() chat_id: number;
+  @Input() lessonId: string;
 
   ngOnInit(): void {
   }

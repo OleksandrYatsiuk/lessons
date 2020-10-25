@@ -1,33 +1,28 @@
-export interface Messages {
-    readonly id: string;
-    message: Message;
-    chat_id: string;
-    lessonId: string;
-    createdAt?: number;
-}
-
-
 export interface CustomMessage {
-    readonly id: string;
-    message: Message;
+    readonly id?: string;
     chat_id: number;
     lessonId: string;
+    type: EMessageTypes;
+    message: Message;
     createdAt?: number;
 }
 
 interface Message {
     id: number;
-    text: string;
-    date: number;
-    file: FileOptions;
+    content?: MessageOptions;
 }
-export interface FileOptions {
-    type: EFileTypes;
-    link: string;
-    caption: string;
+export interface MessageOptions {
+    type: EContentTypes;
+    link: string | null;
+    text: string | null;
 }
 
-export enum EFileTypes {
+export enum EContentTypes {
     file = 'file',
-    photo = 'photo'
+    photo = 'photo',
+    text = 'text'
+}
+export enum EMessageTypes {
+    bot = 'bot',
+    user = 'user'
 }

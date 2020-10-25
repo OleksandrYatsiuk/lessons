@@ -1,4 +1,4 @@
-import { CustomMessage, EFileTypes, FileOptions } from './../message.interface';
+import { CustomMessage, EMessageTypes, EContentTypes } from './../message.interface';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -9,11 +9,12 @@ import { Component, Input, OnInit } from '@angular/core';
 export class MessageItemComponent implements OnInit {
 
   @Input() item: CustomMessage;
-  types = EFileTypes;
+  messageTypes = EMessageTypes;
+  contentTypes = EContentTypes;
+
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.item);
   }
 
 }

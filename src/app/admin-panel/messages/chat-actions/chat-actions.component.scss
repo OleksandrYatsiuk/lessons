@@ -1,6 +1,5 @@
 .panel {
     display: flex;
-    background-color: gray;
     opacity: 0.5;
 }
 .material-icons {
@@ -11,3 +10,7 @@
 .context {
     width: 100%;
 }
+textarea {
+    resize: none;
+}
+

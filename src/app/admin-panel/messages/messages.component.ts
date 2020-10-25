@@ -1,4 +1,4 @@
-import { Messages, CustomMessage } from './message.interface';
+import { CustomMessage } from './message.interface';
 import { Component, OnInit } from '@angular/core';
 import { MessagesService } from 'src/app/core/services/messages.service';
 import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
@@ -13,14 +13,15 @@ export class MessagesComponent implements OnInit {
   public file: any;
   public text: string;
   public chat = 375462081;
+  public lessonId = '5f8bf90fe5da930025639a72';
   messages: CustomMessage[];
-  constructor(private http2:MessagesService) { }
+  constructor(private http: MessagesService) { }
 
   ngOnInit(): void {
-    this.getList(this.chat)
+    this.getList(this.chat);
   }
-  
-  public getList(chat_id:number){
-    this.http2.getList({chat_id}).subscribe(messages=>this.messages = messages)
+
+  public getList(chat_id: number) {
+    this.http.getList({ chat_id }).subscribe(messages => this.messages = messages);
   }
 }
