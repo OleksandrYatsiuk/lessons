@@ -1,3 +1,4 @@
+import { Course } from './../../core/interfaces/courses';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
@@ -20,7 +21,6 @@ export class CoursesComponent implements OnInit {
     this.name.markAllAsTouched();
     if (this.name.valid) {
       this.http.create({ name: this.name.value }).subscribe(result => {
-        console.log(result);
         this.getList();
       });
 
@@ -30,7 +30,7 @@ export class CoursesComponent implements OnInit {
     this.http.getCourses().subscribe(courses => this.courses = courses)
   }
 
-  public delete(course):void{
+  public delete(course: Course): void {
     this.http.delete(course.id).subscribe(courses => {
     })
 

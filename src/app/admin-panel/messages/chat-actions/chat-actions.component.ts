@@ -1,5 +1,5 @@
 import { CustomMessage, EContentTypes, EMessageTypes } from './../message.interface';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
 import { pluck } from 'rxjs/operators';
 
@@ -17,11 +17,11 @@ export class ChatActionsComponent implements OnInit {
   file: File;
   @Input() chat_id: number;
   @Input() lessonId: string;
+  @Output() sended = new EventEmitter<boolean>();
 
   ngOnInit(): void {
   }
   public sendMessage(text: string, file?: File): void {
-    console.log(file);
     if (file) {
       this.http.sendPhoto({
         chat_id: this.chat_id,
@@ -47,7 +47,10 @@ export class ChatActionsComponent implements OnInit {
           link: type == EContentTypes.text ? null : res.result.photo[0].file_id
         }
       }
-    }).pipe(pluck('result')).subscribe(result => console.log(result))
+    }).pipe(pluck('result')).subscribe(result => {
+      this.message = ''
+      this.sended.emit(true);
+    })
   }
 
   public setFiles(event: Event & { srcElement: any }) {
