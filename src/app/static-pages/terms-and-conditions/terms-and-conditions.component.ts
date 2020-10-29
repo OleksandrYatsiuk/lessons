@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { EStaticPages, IStaticPages } from 'src/app/core/interfaces/static-pages';
 import { StaticPagesService } from 'src/app/core/services/static-pages.service';
 
@@ -11,15 +10,15 @@ import { StaticPagesService } from 'src/app/core/services/static-pages.service';
 export class TermsAndConditionsComponent implements OnInit {
 
   page = EStaticPages;
-  template$: Observable<IStaticPages>;
+  content: IStaticPages['content'];
   constructor(private http: StaticPagesService) { }
 
   ngOnInit(): void {
-    this.template$ = this.getTemplate();
+    this.getTemplate();
   }
-  getTemplate(): Observable<IStaticPages> {
-    return this.http.getStaticPages({ type: this.page.termsAndConditions });
+  getTemplate(): void {
+    this.http.getStaticPages({ type: this.page.termsAndConditions })
+      .subscribe(result => this.content = result[0].content);
   }
-
 
 }

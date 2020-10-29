@@ -10,15 +10,17 @@ import { IStaticPages } from 'src/app/core/interfaces/static-pages';
   styleUrls: ['./privacy-policy.component.scss']
 })
 export class PrivacyPolicyComponent implements OnInit {
-  template$: Observable<IStaticPages>;
+  content: string;
   page = EStaticPages;
   constructor(private http: StaticPagesService) { }
 
   ngOnInit(): void {
-    this.template$ = this.getTemplate();
+    this.getTemplate();
   }
-  getTemplate(): Observable<IStaticPages> {
-    return this.http.getStaticPages({ type: this.page.privacyPolicy });
+
+  getTemplate(): void {
+    this.http.getStaticPages({ type: this.page.privacyPolicy })
+      .subscribe(result => this.content = result[0].content);
   }
 
 }

@@ -2,6 +2,7 @@ import { StaticPagesService } from './../../core/services/static-pages.service';
 import { Component, OnInit } from '@angular/core';
 import { EStaticPages } from 'src/app/core/interfaces/static-pages';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
 
 @Component({
   selector: 'app-page-context',
@@ -10,6 +11,10 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 })
 export class PageContextComponent implements OnInit {
   // htmlContent: any;
+
+  config: AngularEditorConfig = {
+    sanitize: false
+  }
   staticPages = EStaticPages;
   htmlContent = {
     [this.staticPages.privacyPolicy]: '',

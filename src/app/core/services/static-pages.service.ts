@@ -8,6 +8,7 @@ import { IStaticPages } from '../interfaces/static-pages';
 @Injectable({
   providedIn: 'root'
 })
+
 export class StaticPagesService {
   private path = '/static-pages';
   constructor(private http: HttpService) { }
