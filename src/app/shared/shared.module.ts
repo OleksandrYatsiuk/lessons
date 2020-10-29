@@ -5,7 +5,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 @NgModule({
@@ -15,14 +15,16 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    AngularEditorModule
   ],
   exports: [
     HeaderComponent, FooterComponent,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
-  ]
+    RouterModule,
+    AngularEditorModule
+  ],
 })
 export class SharedModule { }

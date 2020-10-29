@@ -11,7 +11,7 @@ export class MessagesService {
 
   constructor(private http: HttpService) { }
 
-  public getList(params: object): Observable<any> {
+  public getList(params: any): Observable<any> {
     return this.http.get(this.path, { params }).pipe(pluck('result'));
   }
 }

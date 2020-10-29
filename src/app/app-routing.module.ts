@@ -6,6 +6,7 @@ import { StartBotComponent } from './start-bot/start-bot.component';
 const routes: Routes = [
   { path: '', loadChildren: () => import('./main/main.module').then(mod => mod.MainModule) },
   { path: 'admin', loadChildren: () => import('./admin-panel/admin-panel.module').then(mod => mod.AdminPanelModule) },
+  { path: 'pages', loadChildren: () => import('./static-pages/static-pages.module').then(mod => mod.StaticPagesModule) },
   { path: 'start', component: StartBotComponent },
   { path: 'payment', component: PaymentComponent },
   { path: '**', redirectTo: '/' },

@@ -1,4 +1,7 @@
+import { StaticPagesService } from './../../core/services/static-pages.service';
 import { Component, OnInit } from '@angular/core';
+import { EStaticPages } from 'src/app/core/interfaces/static-pages';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-page-context',
@@ -6,10 +9,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-context.component.scss']
 })
 export class PageContextComponent implements OnInit {
-
-  constructor() { }
+  // htmlContent: any;
+  staticPages = EStaticPages;
+  htmlContent = {
+    [this.staticPages.privacyPolicy]: '',
+    [this.staticPages.termsAndConditions]: ''
+  }
+  activeLabel: number = this.staticPages.privacyPolicy;
+  constructor(private http: StaticPagesService) { }
 
   ngOnInit(): void {
+
   }
 
+  save(): void {
+    this.http.setStaticPage({ type: this.activeLabel, content: this.htmlContent[this.activeLabel] })
+      .subscribe(result => console.log(result));
+  }
+  show(event: MatTabChangeEvent): void {
+    this.activeLabel = event.index + 1;
+  }
 }
