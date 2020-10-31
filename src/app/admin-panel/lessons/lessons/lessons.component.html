@@ -28,7 +28,7 @@
                 <button routerLink="/admin/lessons/create" mat-stroked-button color="primary">Add new lesson</button>
             </th>
             <td mat-cell *matCellDef="let element">
-                <button (click)="delete(element.id)" mat-mini-fab color="warn">
+                <button (click)="openDialog(element)" mat-mini-fab color="warn">
                     <mat-icon>delete</mat-icon>
                 </button>
                 <button routerLink="/admin/lessons/{{element.id}}" mat-mini-fab color="primary">

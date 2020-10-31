@@ -43,7 +43,13 @@ export class MessagesComponent implements OnInit {
 
   public getUsers(): Observable<SelectItems[]> {
     return this.http2.getList().pipe(map((users: User[]) => {
-      return users.map(user => ({ label: `${user.firstName} ${user.lastName}`, value: user.chat_id }))
+      return users.map(user => {
+        if (user.firstName && user.lastName) {
+          return { label: `${user.firstName} ${user.lastName}`, value: user.chat_id }
+        } else {
+          return { label: `${user.phone}`, value: user.chat_id }
+        }
+      })
     }))
   }
 
@@ -81,7 +87,7 @@ export class MessagesComponent implements OnInit {
     this.search();
 
   }
-  
+
   get chat_id() { return this.form.get('chat_id').value }
   get lessonId() { return this.form.get('lessonId').value }
 }

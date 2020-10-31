@@ -1,3 +1,4 @@
+import { DeleteComponent } from './components/dialogs/delete/delete.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './layout/header/header.component';
@@ -9,7 +10,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent, FooterComponent, DeleteComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -24,7 +25,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    AngularEditorModule
+    AngularEditorModule,
+    DeleteComponent
   ],
 })
 export class SharedModule { }

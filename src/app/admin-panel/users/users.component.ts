@@ -1,4 +1,6 @@
+import { DeleteComponent } from './../../shared/components/dialogs/delete/delete.component';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 
 export interface User {
@@ -20,7 +22,7 @@ export interface User {
 export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['view', 'fullName', 'phone', 'email', 'chat_id', 'createdAt', 'updatedAt', 'delete'];
   public users: User[];
-  constructor(private http: UserDataService) { }
+  constructor(private http: UserDataService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getData()
@@ -35,6 +37,25 @@ export class UsersComponent implements OnInit {
     }, error => {
       console.error(error);
     });
+  }
+
+  private config: MatDialogConfig = {
+    position: {
+      top: '20px'
+    },
+    autoFocus: false,
+    disableClose: true,
+    hasBackdrop: true
+  }
+
+  openDialog(user: User): void {
+    const dialogRef = this.dialog.open(DeleteComponent, { data: 'користувача', ...this.config });
+    dialogRef.beforeClosed()
+      .subscribe(result => {
+        if (result) {
+          this.remove(user);
+        }
+      })
   }
 
 }
