@@ -1,20 +1,26 @@
-<form [formGroup]="form" (ngSubmit)="createLesson()" class="create-lesson">
+<form [formGroup]="form" (ngSubmit)="save()" class="create-lesson">
     <mat-form-field appearance="outline">
         <mat-label>Назва</mat-label>
         <input matInput placeholder="Введіть назву урока" formControlName="name">
     </mat-form-field>
-    <label> Опис
-        <angular-editor [placeholder]="'Введіть опис'" formControlName="context">
-        </angular-editor>
-    </label>
+    <label for="editor"> Опис </label>
+    <angular-editor id="editor" formControlName="context" [config]="editorConfig"> </angular-editor>
 
+
+    <mat-form-field appearance="outline">
+        <mat-label>Select Course</mat-label>
+        <mat-select formControlName="courseId">
+            <mat-option *ngFor="let item of coursesList$|async" [value]="item.value">
+                {{item.label}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Файли</mat-label>
         <input matInput placeholder="Додайте файл" formControlName="file">
     </mat-form-field>
 
-    <button mat-button type="submit" primary>Add New Lesson</button>
+    <button mat-stroked-button color="primary" type="submit">Add New Lesson</button>
 
-    {{form.value|json}}
 </form>

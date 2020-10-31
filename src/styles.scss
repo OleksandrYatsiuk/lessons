@@ -21,5 +21,14 @@ body {
 th.mat-header-cell,
 td.mat-cell,
 td.mat-footer-cell {
-    padding-right: 10px!important;
+    padding-right: 10px !important;
+}
+
+.custom-video {
+    height: 350px;
+    width: 600px;
+    margin: auto;
+}
+.center{
+    text-align:center;
 }

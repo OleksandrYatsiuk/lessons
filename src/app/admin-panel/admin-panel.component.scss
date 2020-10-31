@@ -1,16 +1,21 @@
 .nav-block {
     display: flex;
-    flex-direction: column;
-    max-width: 350px;
+    flex-wrap: wrap;
+    min-width: 350px;
     color: white;
     margin: 10px;
     padding: 10px;
     border: 1px solid gray;
+
+    a {
+        margin: 10px;
+        font-size: 24px;
+        color: green;
+    }
 }
 .admin-content {
-    
 }
 .admin-page {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
 }

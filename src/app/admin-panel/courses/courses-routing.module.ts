@@ -1,3 +1,4 @@
+import { CourseCreateComponent } from './course-create/course-create.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -8,6 +9,9 @@ import { CourseOverviewResolver } from './course-overview.resolver';
 const routes: Routes = [
   {
     path: '', component: CoursesComponent,
+  },
+  {
+    path: 'create', component: CourseCreateComponent,
   },
   {
     path: ':id', component: CourseItemComponent,

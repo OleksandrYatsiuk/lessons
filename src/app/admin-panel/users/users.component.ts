@@ -18,7 +18,7 @@ export interface User {
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  displayedColumns: string[] = ['fullName', 'phone', 'email', 'chat_id', 'createdAt', 'updatedAt', 'delete'];
+  displayedColumns: string[] = ['view', 'fullName', 'phone', 'email', 'chat_id', 'createdAt', 'updatedAt', 'delete'];
   public users: User[];
   constructor(private http: UserDataService) { }
 

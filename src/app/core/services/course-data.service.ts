@@ -1,3 +1,4 @@
+import { Course } from 'src/app/core/interfaces/courses';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
@@ -12,16 +13,20 @@ export class CourseDataService {
   }
   public path = '/courses'
 
-  public getCourse(id: string): Observable<object> {
+  public getCourse(id: Course['id']): Observable<Course> {
     return this.http.get(`${this.path}/${id}`).pipe(pluck('result'));
   }
-  public getCourses(params?: object): Observable<any> {
+
+  public editCourse(id: Course['id'], data: Partial<Course>): Observable<Course> {
+    return this.http.path(`${this.path}/${id}`, data).pipe(pluck('result'));
+  }
+  public getCourses(params?: object): Observable<Course[]> {
     return this.http.get(`${this.path}`, params).pipe(pluck('result'));
   }
-  public create(body: object): Observable<object> {
+  public create(body: Partial<Course>): Observable<Course> {
     return this.http.post(`${this.path}`, body).pipe(pluck('result'));
   }
-  public delete(id: string): Observable<object> {
+  public delete(id: Course['id']): Observable<any> {
     return this.http.delete(`${this.path}/${id}`).pipe(pluck('result'));
   }
 }

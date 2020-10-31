@@ -1,6 +1,9 @@
+import { SafeHtml } from '@angular/platform-browser';
+
 export interface Course {
     readonly id: string;
     name: string;
+    description?: string
     status?: number;
     createdAt: number;
     updatedAt: number;

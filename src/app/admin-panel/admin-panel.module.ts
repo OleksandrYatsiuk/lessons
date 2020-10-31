@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CoursesComponent } from './courses/courses.component';
 import { MessageItemComponent } from './messages/message-item/message-item.component';
 import { ChatActionsComponent } from './messages/chat-actions/chat-actions.component';
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
 
 
 
@@ -21,6 +22,7 @@ import { ChatActionsComponent } from './messages/chat-actions/chat-actions.compo
     CoursesComponent,
     MessageItemComponent,
     ChatActionsComponent,
+    UserProfileComponent,
   ],
   imports: [
     CommonModule,

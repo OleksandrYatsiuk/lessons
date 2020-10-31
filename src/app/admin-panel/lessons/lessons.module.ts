@@ -5,11 +5,12 @@ import { LessonItemComponent } from './lesson-item/lesson-item.component';
 import { LessonsRoutingModule } from './lessons-routing.module';
 import { LessonsComponent } from './lessons/lessons.component';
 import { LessonsFormComponent } from './lessons-form/lessons-form.component';
+import { LessonCreateComponent } from './lesson-create/lesson-create.component';
 
 
 
 @NgModule({
-  declarations: [LessonItemComponent, LessonsComponent, LessonsFormComponent],
+  declarations: [LessonItemComponent, LessonsComponent, LessonsFormComponent, LessonCreateComponent],
   imports: [
     CommonModule,
     SharedModule,

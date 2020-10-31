@@ -11,12 +11,7 @@ import { Observable } from 'rxjs';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { Course } from 'src/app/core/interfaces/courses';
 import { MatSelectChange } from '@angular/material/select';
-
-
-interface SelectItems {
-  label: string
-  value: string | number;
-}
+import { SelectItems } from 'src/app/core/interfaces/select';
 
 @Component({
   selector: 'app-messages',

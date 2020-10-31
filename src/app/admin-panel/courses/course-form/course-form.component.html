@@ -1,0 +1,14 @@
+<form [formGroup]="form">
+
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Введіть назву курса" formControlName="name">
+    </mat-form-field>
+
+    <span>
+        Description
+        <angular-editor [config]="editorConfig" formControlName="description"></angular-editor>
+    </span>
+    <button mat-stroked-button color="primary" type="submit" (click)="save()"> Створити курс</button>
+
+</form>
