@@ -13,7 +13,7 @@ export class StaticPagesService {
   private path = '/static-pages';
   constructor(private http: HttpService) { }
 
-  getStaticPages(params?: object): Observable<IStaticPages> {
+  getStaticPages(params?: object): Observable<IStaticPages[]> {
     return this.http.get(this.path, { params }).pipe(pluck('result'));
   }
 

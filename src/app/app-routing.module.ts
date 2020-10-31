@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'pages', loadChildren: () => import('./static-pages/static-pages.module').then(mod => mod.StaticPagesModule) },
   { path: 'start', component: StartBotComponent },
   { path: 'payment', component: PaymentComponent },
-  { path: '**', redirectTo: '/' },
+  // { path: '**', redirectTo: '/' },
 ];
 
 @NgModule({

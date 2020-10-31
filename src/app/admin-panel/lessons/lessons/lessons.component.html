@@ -1,11 +1,10 @@
 <h2>Lessons list</h2>
-
 <div class="container">
     <table mat-table [dataSource]="lessons" class="mat-elevation-z8">
 
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element" [routerLink]="[element.id]">{{element.name}}</td>
+            <td mat-cell *matCellDef="let element" routerLink="/admin/lessons/{{element.id}}">{{element.name}}</td>
         </ng-container>
 
         <ng-container matColumnDef="createdAt">
@@ -37,21 +36,3 @@
 
 
 <h2>+ Add New Lesson</h2>
-<form [formGroup]="form" (ngSubmit)="createLesson()" class="create-lesson">
-    <mat-form-field appearance="outline">
-        <mat-label>Назва</mat-label>
-        <input matInput placeholder="Введіть назву урока" formControlName="name">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-        <mat-label>Опис</mat-label>
-        <textarea matInput placeholder="Введіть опис" formControlName="context"></textarea>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-        <mat-label>Файли</mat-label>
-        <input matInput placeholder="Додайте файл" formControlName="file">
-    </mat-form-field>
-
-    <button mat-button type="submit" primary>Add New Lesson</button>
-</form>

@@ -2,20 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseItemComponent } from './course-item/course-item.component';
 import { CoursesRoutingModule } from './courses-routing.module';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { LessonsComponent } from './lessons/lessons.component';
-import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { LessonsModule } from '../lessons/lessons.module';
 
 
 @NgModule({
-  declarations: [CourseItemComponent, LessonsComponent],
+  declarations: [CourseItemComponent],
   imports: [
     CommonModule,
     CoursesRoutingModule,
-    SharedModule
+    LessonsModule
   ],
 })
 export class CoursesModule { }

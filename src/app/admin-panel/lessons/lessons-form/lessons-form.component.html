@@ -1,0 +1,20 @@
+<form [formGroup]="form" (ngSubmit)="createLesson()" class="create-lesson">
+    <mat-form-field appearance="outline">
+        <mat-label>Назва</mat-label>
+        <input matInput placeholder="Введіть назву урока" formControlName="name">
+    </mat-form-field>
+    <label> Опис
+        <angular-editor [placeholder]="'Введіть опис'" formControlName="context">
+        </angular-editor>
+    </label>
+
+
+    <mat-form-field appearance="outline">
+        <mat-label>Файли</mat-label>
+        <input matInput placeholder="Додайте файл" formControlName="file">
+    </mat-form-field>
+
+    <button mat-button type="submit" primary>Add New Lesson</button>
+
+    {{form.value|json}}
+</form>

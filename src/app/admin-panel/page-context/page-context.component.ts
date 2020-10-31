@@ -10,7 +10,6 @@ import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
   styleUrls: ['./page-context.component.scss']
 })
 export class PageContextComponent implements OnInit {
-  // htmlContent: any;
 
   config: AngularEditorConfig = {
     sanitize: false
@@ -24,7 +23,15 @@ export class PageContextComponent implements OnInit {
   constructor(private http: StaticPagesService) { }
 
   ngOnInit(): void {
+    this.getPagesContent();
+  }
 
+  getPagesContent() {
+    this.http.getStaticPages().subscribe(result => {
+      result.forEach(page => {
+        this.htmlContent[page.type] = page.content
+      });
+    })
   }
 
   save(): void {

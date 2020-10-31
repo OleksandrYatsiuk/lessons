@@ -1,3 +1,4 @@
+import { Course } from 'src/app/core/interfaces/courses';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -7,8 +8,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./course-item.component.scss']
 })
 export class CourseItemComponent implements OnInit {
-public course;
-  constructor(private route:ActivatedRoute) { 
+  public course: Course;
+  constructor(private route: ActivatedRoute) {
     this.course = this.route.snapshot.data.course
   }
 

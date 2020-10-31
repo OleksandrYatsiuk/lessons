@@ -25,6 +25,6 @@ const routes: Routes = [
   exports: [
     RouterModule
   ],
-  providers:[CourseOverviewResolver]
+  providers: [CourseOverviewResolver]
 })
 export class CoursesRoutingModule { }
