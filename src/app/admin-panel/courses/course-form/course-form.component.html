@@ -9,6 +9,9 @@
         Description
         <angular-editor [config]="editorConfig" formControlName="description"></angular-editor>
     </span>
-    <button mat-stroked-button color="primary" type="submit" (click)="save()"> Створити курс</button>
+
+    <app-spin-button matType="mat-flat-button" [loading]="loading" (click)="save()">
+        <span>{{btnName}}</span>
+    </app-spin-button>
 
 </form>

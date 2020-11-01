@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs';
+import { NotificationsService } from './../../core/services/notifications.service';
+import { logging } from 'protractor';
 import { DeleteComponent } from './../../shared/components/dialogs/delete/delete.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -22,7 +25,11 @@ export interface User {
 export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['view', 'fullName', 'phone', 'email', 'chat_id', 'createdAt', 'updatedAt', 'delete'];
   public users: User[];
-  constructor(private http: UserDataService, private dialog: MatDialog) { }
+  constructor(
+    private http: UserDataService,
+    private dialog: MatDialog,
+    private _notify: NotificationsService
+  ) { }
 
   ngOnInit(): void {
     this.getData()
@@ -31,31 +38,32 @@ export class UsersComponent implements OnInit {
     this.http.getList().subscribe(users => this.users = users);
   }
 
-  public remove(user: User): void {
-    this.http.remove(user.id).subscribe(response => {
-      this.getData()
-    }, error => {
-      console.error(error);
-    });
-  }
-
   private config: MatDialogConfig = {
-    position: {
-      top: '20px'
-    },
     autoFocus: false,
     disableClose: true,
     hasBackdrop: true
   }
 
   openDialog(user: User): void {
-    const dialogRef = this.dialog.open(DeleteComponent, { data: 'користувача', ...this.config });
-    dialogRef.beforeClosed()
-      .subscribe(result => {
-        if (result) {
-          this.remove(user);
-        }
-      })
+    const dialogRef = this.dialog.open(DeleteComponent,
+      { data: { content: 'користувача', loading: false }, ...this.config });
+    const dialog = dialogRef.componentInstance;
+    dialog.omSubmit.subscribe(() => {
+      dialog.data.loading = true;
+      this._queryUserDelete(user)
+        .subscribe(() => {
+          dialog.data.loading = false;
+          this.getData();
+          dialogRef.close();
+          this._notify.openSuccess(`Користувач був вилалений успішно!`);
+        }, error => {
+          console.error(error);
+        });
+    });
+  }
+
+  public _queryUserDelete(user: User): Observable<any> {
+    return this.http.remove(user.id);
   }
 
 }

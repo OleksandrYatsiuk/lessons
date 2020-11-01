@@ -21,6 +21,8 @@
         <input matInput placeholder="Додайте файл" formControlName="file">
     </mat-form-field>
 
-    <button mat-stroked-button color="primary" type="submit">Add New Lesson</button>
+    <app-spin-button [loading]="loading" matType='mat-flat-button'>
+        <span>{{btnName}}</span>
+    </app-spin-button>
 
 </form>

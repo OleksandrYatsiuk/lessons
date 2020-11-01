@@ -1,12 +1,15 @@
+import { NotificationsService } from './../../../core/services/notifications.service';
+import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { Lesson, Course } from './../../../core/interfaces/courses';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LessonsDataService } from 'src/app/core/services/lessons-data.service';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { SelectItems } from 'src/app/core/interfaces/select';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-lessons-form',
@@ -15,14 +18,20 @@ import { SelectItems } from 'src/app/core/interfaces/select';
 })
 export class LessonsFormComponent implements OnInit {
   @Input() lesson: Lesson;
+  @Input() btnName: string = 'Зберегти'
   public form: FormGroup;
+  loading = false;
   coursesList$: Observable<SelectItems[]>
-  constructor(private fb: FormBuilder, private http: LessonsDataService, private _courseService: CourseDataService) { }
+  constructor(private fb: FormBuilder,
+    private http: LessonsDataService,
+    private _courseService: CourseDataService,
+    private _notify: NotificationsService,
+    private router: Router) { }
 
 
   editorConfig: AngularEditorConfig = {
     editable: true,
-  
+
     height: 'auto',
     minHeight: '0',
     maxHeight: 'auto',
@@ -44,8 +53,8 @@ export class LessonsFormComponent implements OnInit {
       {
         name: 'center',
         class: 'center',
-        tag:'div'
-       },
+        tag: 'div'
+      },
     ],
     uploadUrl: 'v1/image',
     uploadWithCredentials: false,
@@ -65,12 +74,21 @@ export class LessonsFormComponent implements OnInit {
   public save(): void {
     this.form.markAllAsTouched();
     if (this.form.valid) {
+      this.loading = true;
       if (this.lesson) {
         this._queryUpdate(this.lesson.id, this.form.value)
-          .subscribe(result => console.log(result));
+          .subscribe(lesson => {
+            this.loading = false;
+            this._notify.openSuccess(`Урок "${lesson.name}" був успішно оновлений!`);
+            this.router.navigate([`/admin/courses/${lesson.courseId}`])
+          });
       } else {
         this._queryCreate(this.form.value)
-          .subscribe(result => console.log(result));
+          .subscribe(lesson => {
+            this.loading = false
+            this._notify.openSuccess(`Урок "${lesson.name}" був успішно створений!`);
+            this.router.navigate([`/admin/courses/${lesson.courseId}`])
+          });
       }
     }
   }
@@ -98,10 +116,24 @@ export class LessonsFormComponent implements OnInit {
 
 
   private _queryUpdate(id: Lesson['id'], lesson: Lesson): Observable<Lesson> {
-    return this.http.update(id, lesson);
+    return this.http.update(id, lesson)
+      .pipe(
+        catchError(({ error }: HttpErrorResponse) => {
+          this.loading = false;
+          console.error(error.result);
+          return EMPTY;
+        })
+      )
   }
   private _queryCreate(lesson: Lesson): Observable<Lesson> {
-    return this.http.create(lesson);
+    return this.http.create(lesson)
+      .pipe(
+        catchError(({ error }: HttpErrorResponse) => {
+          this.loading = false;
+          console.error(error.result);
+          return EMPTY;
+        })
+      )
   }
   private _queryCourseList(): Observable<SelectItems[]> {
     return this._courseService.getCourses().pipe(

@@ -1,7 +1,8 @@
+import { Observable } from 'rxjs';
+import { NotificationsService } from './../../core/services/notifications.service';
 import { DeleteComponent } from './../../shared/components/dialogs/delete/delete.component';
 import { Course } from './../../core/interfaces/courses';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
@@ -13,35 +14,40 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 export class CoursesComponent implements OnInit {
   public courses = [];
   displayedColumns: string[] = ['name', 'createdAt', 'updatedAt', 'status', 'delete'];
-  constructor(private http: CourseDataService, private dialog: MatDialog) { }
+  constructor(private http: CourseDataService, private dialog: MatDialog,
+    private _notify: NotificationsService) { }
 
   ngOnInit(): void {
     this.getList();
   }
 
   private config: MatDialogConfig = {
-    position: {
-      top: '20px'
-    },
     autoFocus: false
   }
 
   openDialog(course: Course): void {
-    const dialogRef = this.dialog.open(DeleteComponent, { data: `курс "${course.name}"`, ...this.config });
-    dialogRef.beforeClosed()
-      .subscribe(result => {
-        if (result) {
-          this.delete(course);
-        }
-      })
+    const dialogRef = this.dialog.open(DeleteComponent, { data: { content: `курс "${course.name}`, loading: false }, ...this.config });
+    const dialog = dialogRef.componentInstance;
+    dialog.omSubmit.subscribe(() => {
+      dialog.data.loading = true;
+      this._queryDeleteCourse(course)
+        .subscribe(() => {
+          dialog.data.loading = false;
+          dialogRef.close();
+          this.getList();
+          this._notify.openSuccess(`Курс "${course.name}" був вилалений успішно!`);
+        }, error => {
+          dialog.data.loading = false;
+          console.error(error);
+        });
+    });
   }
 
   public getList(): void {
-    this.http.getCourses().subscribe(courses => this.courses = courses)
+    this.http.getCourses().subscribe(courses => this.courses = courses);
   }
 
-  public delete(course: Course): void {
-    this.http.delete(course.id).subscribe(courses => {
-    })
+  private _queryDeleteCourse(course: Course): Observable<any> {
+    return this.http.delete(course.id);
   }
 }

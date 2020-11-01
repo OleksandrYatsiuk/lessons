@@ -1,3 +1,4 @@
+import { NotificationsService } from './../../../core/services/notifications.service';
 import { Lesson } from './../../../core/interfaces/courses';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -15,7 +16,10 @@ export class LessonsComponent implements OnInit {
   @Input() courseId: string;
   displayedColumns: string[] = ['name', 'createdAt', 'updatedAt', 'status', 'delete'];
   public lessons = [];
-  constructor(private http: LessonsDataService, private dialog: MatDialog) { }
+  constructor(
+    private http: LessonsDataService,
+    private dialog: MatDialog,
+    private _notify: NotificationsService) { }
 
   ngOnInit(): void {
     this.getList();
@@ -32,23 +36,27 @@ export class LessonsComponent implements OnInit {
   }
 
   private config: MatDialogConfig = {
-    position: {
-      top: '20px'
-    },
     autoFocus: false,
     disableClose: true,
     hasBackdrop: true,
   }
 
-  openDialog(lesson: Lesson): void {
-    const dialogRef = this.dialog.open(DeleteComponent, { data: `урок "${lesson.name}"`, ...this.config });
-    dialogRef.beforeClosed()
-      .subscribe(result => {
-        if (result) {
-          this.delete(lesson);
-        }
-      })
-  }
 
+  openDialog(lesson: Lesson): void {
+    const dialogRef = this.dialog.open(DeleteComponent, { data: { content: `урок "${lesson.name}"`, loading: false }, ...this.config });
+    const dialog = dialogRef.componentInstance;
+    dialog.omSubmit.subscribe(() => {
+      dialog.data.loading = true;
+      this.http.delete(lesson.id)
+        .subscribe(response => {
+          dialog.data.loading = false;
+          this.getList();
+          this._notify.openSuccess(`Урок "${lesson.name}" був вилалений успішно!`);
+          dialogRef.close();
+        }, error => {
+          console.error(error);
+        });
+    });
+  }
 
 }

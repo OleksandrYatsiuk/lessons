@@ -11,6 +11,6 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     UsersRoutingModule
   ],
-  providers: [DeleteComponent]
+  entryComponents: [DeleteComponent]
 })
 export class UsersModule { }

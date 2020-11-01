@@ -1,9 +1,13 @@
-import { Observable } from 'rxjs';
+import { NotificationsService } from './../../../core/services/notifications.service';
+import { EMPTY, Observable } from 'rxjs';
 import { CourseDataService } from './../../../core/services/course-data.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Course } from 'src/app/core/interfaces/courses';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { catchError } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-form',
@@ -12,8 +16,12 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 })
 export class CourseFormComponent implements OnInit {
   @Input() course: Course;
+  @Input() btnName = 'Зберегти';
+  loading = false;
   form: FormGroup;
-  constructor(private http: CourseDataService, private fb: FormBuilder) { }
+  constructor(private http: CourseDataService, private fb: FormBuilder,
+    private _notify: NotificationsService,
+    private _router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -57,11 +65,20 @@ export class CourseFormComponent implements OnInit {
 
   public save(): void {
     this.form.markAllAsTouched();
+    this.loading = true;
     if (this.form.valid) {
       if (this.course) {
-        this._queryEditCourse().subscribe();
+        this._queryEditCourse().subscribe(course => {
+          this.loading = false;
+          this._notify.openSuccess(`Курс "${course.name}" був успішно оновлений!`);
+          this._router.navigate([`/admin/courses`]);
+        });
       } else {
-        this._queryCreateCourse().subscribe();
+        this._queryCreateCourse().subscribe(course => {
+          this.loading = false;
+          this._notify.openSuccess(`Курс "${course.name}" був успішно створений!`);
+          this._router.navigate([`/admin/courses`]);
+        });
       }
     }
   }
@@ -82,9 +99,23 @@ export class CourseFormComponent implements OnInit {
   }
 
   private _queryEditCourse(): Observable<Course> {
-    return this.http.editCourse(this.course.id, this.form.value);
+    return this.http.editCourse(this.course.id, this.form.value)
+      .pipe(
+        catchError(({ error }: HttpErrorResponse) => {
+          this.loading = false;
+          console.error(error.result);
+          return EMPTY;
+        })
+      )
   }
   private _queryCreateCourse(): Observable<Course> {
-    return this.http.create(this.form.value);
+    return this.http.create(this.form.value)
+      .pipe(
+        catchError(({ error }: HttpErrorResponse) => {
+          this.loading = false;
+          console.error(error.result);
+          return EMPTY;
+        })
+      )
   }
 }

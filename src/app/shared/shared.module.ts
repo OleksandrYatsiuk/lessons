@@ -1,3 +1,4 @@
+import { SpinButtonComponent } from './components/spin-button/spin-button.component';
 import { DeleteComponent } from './components/dialogs/delete/delete.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,14 +11,14 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, DeleteComponent],
+  declarations: [HeaderComponent, FooterComponent, DeleteComponent, SpinButtonComponent],
   imports: [
     CommonModule,
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
     MaterialModule,
-    AngularEditorModule
+    AngularEditorModule,
   ],
   exports: [
     HeaderComponent, FooterComponent,
@@ -26,7 +27,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     ReactiveFormsModule,
     RouterModule,
     AngularEditorModule,
-    DeleteComponent
+    DeleteComponent,
+    SpinButtonComponent
   ],
 })
 export class SharedModule { }

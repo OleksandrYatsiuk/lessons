@@ -25,7 +25,9 @@
 
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef>
-                <button routerLink="/admin/lessons/create" mat-stroked-button color="primary">Add new lesson</button>
+                <app-spin-button matType='mat-flat-button' color='primary' routerLink="/admin/lessons/create">
+                    <span>Створити урок</span>
+                </app-spin-button>
             </th>
             <td mat-cell *matCellDef="let element">
                 <button (click)="openDialog(element)" mat-mini-fab color="warn">

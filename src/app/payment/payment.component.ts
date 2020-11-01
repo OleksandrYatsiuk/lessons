@@ -1,8 +1,12 @@
+import { Payments } from './../core/interfaces/payments';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/admin-panel/users/users.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentService } from '../core/services/payment.service';
 import { UserDataService } from '../core/services/user-data.service';
+import { PaymentsResult } from '../core/interfaces/payments';
 
 @Component({
   selector: 'app-payment',
@@ -11,7 +15,8 @@ import { UserDataService } from '../core/services/user-data.service';
 })
 export class PaymentComponent implements OnInit {
   public form: FormGroup;
-  public user: any
+  public user: User;
+  loading = false;
   private maxLength = 100;
   constructor(private fb: FormBuilder,
     private payment: PaymentService,
@@ -40,20 +45,28 @@ export class PaymentComponent implements OnInit {
   }
   public pay(): void {
     if (this.form.valid) {
-      this.http.update(this.form.value).subscribe(user => {
-        console.log(user);
-        let orderId = Date.now();
-        this.payment.createPayment(Object.assign(this.form.value,
-          { amount: 1000, description: 'Order # ' + orderId, order_id: orderId })).subscribe(({ data, signature }) => {
-            const link = `https://www.liqpay.ua/api/3/checkout?data=${data}&signature=${signature}`;
-            window.open(link, '_blank');
-          })
-      }, (error) => {
+      this.loading = true;
+      this.http.update(this.form.value)
+        .subscribe(user => {
+          this.loading = false;
+          let orderId = Date.now();
+          this._queryPreparePayment({ ...this.form.value, amount: 1000, description: 'Order # ' + orderId, order_id: orderId })
+            .subscribe(result => {
+              window.open(this._generatePaymentLink(result), '_blank');
+            })
+        }, (error) => {
+          this.loading = false;
 
-      })
+        })
     }
-
 
   }
 
+  private _queryPreparePayment(data: Partial<Payments>): Observable<PaymentsResult> {
+    return this.payment.createPayment(data);
+  }
+  private _generatePaymentLink(payment: PaymentsResult): string {
+    return `https://www.liqpay.ua/api/3/checkout?data=${payment.data}&signature=${payment.signature}`;
+
+  }
 }
