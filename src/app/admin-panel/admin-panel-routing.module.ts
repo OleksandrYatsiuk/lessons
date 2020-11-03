@@ -1,5 +1,4 @@
-import { UsersRoutingModule } from './users/users-routing.module';
-import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import { MessagesResolver } from './messages/messages.resolver';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminPanelComponent } from './admin-panel.component';
@@ -12,7 +11,7 @@ const routes: Routes = [
     path: '', component: AdminPanelComponent,
     children: [
       { path: 'pages', component: PageContextComponent },
-      { path: 'messages', component: MessagesComponent },
+      { path: 'messages', component: MessagesComponent, resolve: { chat: MessagesResolver } },
       { path: 'users', loadChildren: () => import('./users/users.module').then(mod => mod.UsersModule) },
       { path: 'courses', loadChildren: () => import('./courses/courses.module').then(mod => mod.CoursesModule) },
       { path: 'lessons', loadChildren: () => import('./lessons/lessons.module').then(mod => mod.LessonsModule) },
@@ -29,6 +28,7 @@ const routes: Routes = [
   ],
   exports: [
     RouterModule
-  ]
+  ],
+  providers: [MessagesResolver]
 })
 export class AdminPanelRoutingModule { }

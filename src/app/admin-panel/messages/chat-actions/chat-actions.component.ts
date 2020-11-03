@@ -1,4 +1,4 @@
-import { CustomMessage, EContentTypes, EMessageTypes } from './../message.interface';
+import { CustomMessage, EContentTypes, EMessageTypes } from '../message.interface';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
 import { pluck } from 'rxjs/operators';

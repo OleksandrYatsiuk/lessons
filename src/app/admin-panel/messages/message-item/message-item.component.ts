@@ -1,4 +1,4 @@
-import { CustomMessage, EMessageTypes, EContentTypes } from './../message.interface';
+import { CustomMessage, EMessageTypes, EContentTypes } from '../message.interface';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({

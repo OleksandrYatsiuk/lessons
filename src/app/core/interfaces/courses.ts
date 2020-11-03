@@ -3,14 +3,15 @@ import { SafeHtml } from '@angular/platform-browser';
 export interface Course {
     readonly id: string;
     name: string;
-    description?: string
+    description?: string;
     status?: number;
     createdAt: number;
     updatedAt: number;
 }
 export interface Lesson {
-    readonly id: string,
-    name: string,
+    readonly id: string;
+    readonly _id: string;
+    name: string;
     context?: string;
     file?: File;
     courseId: string;

@@ -1,5 +1,63 @@
-{{user|json}}
 <hr>
 <p>Full Name: {{user.firstName}} {{user.lastName}}</p>
 <p>Phone: {{user.phone}}</p>
 <p>Create: {{user.createdAt|date}}</p>
+
+<hr>
+<hr>
+
+
+<mat-form-field appearance="fill">
+  <mat-label>Select Course</mat-label>
+  <mat-select [(ngModel)]="selectedCourse" name="food" (ngModelChange)="filter($event)">
+    <mat-option *ngFor="let food of coursesList$|async" [value]="food.courseId['_id']">
+      {{food.courseId['name']}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-progress-bar mode="determinate" [value]="userProgress"></mat-progress-bar>
+<mat-accordion class="example-headers-align">
+
+  <mat-expansion-panel *ngFor="let lesson of studyProgressList$|async;let i=index" [expanded]="step === i"
+    (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{lesson.lessonId['name']}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{lesson.createdAt|date}}
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Course Progress</mat-label>
+            <mat-select [(ngModel)]="lesson.progress" (ngModelChange)="updateProgress(lesson, $event)">
+              <mat-option *ngFor="let progress of progress" [value]="progress.value">
+                {{progress.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Course Status</mat-label>
+            <mat-select [(ngModel)]="lesson.status" (ngModelChange)="updateStatus(lesson, $event)">
+              <mat-option *ngFor="let status of statuses" [value]="status.value">
+                {{status.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <mat-icon *ngIf="!lesson.isAnswered" matBadge="?" [routerLink]="['/admin/messages']"
+          [queryParams]="{chat_id:user.chat_id, lessonId:lesson.lessonId['_id']}" matBadgeColor="warn">mail_outline
+        </mat-icon>
+        <mat-icon *ngIf="lesson.isAnswered" [routerLink]="['/admin/messages']"
+          [queryParams]="{chat_id:user.chat_id, lessonId:lesson.lessonId['_id']}">mail_outline
+        </mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div>Course : {{lesson.courseId['name']}}</div>
+  </mat-expansion-panel>
+
+</mat-accordion>
