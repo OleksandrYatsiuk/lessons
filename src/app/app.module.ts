@@ -14,12 +14,14 @@ import { StartBotComponent } from './start-bot/start-bot.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { PaymentStatusComponent } from './payment/payment-status/payment-status.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StartBotComponent,
-    PaymentComponent
+    PaymentComponent,
+    PaymentStatusComponent
   ],
   imports: [
     BrowserModule,

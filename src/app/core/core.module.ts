@@ -9,8 +9,7 @@ import { PaymentService } from './services/payment.service';
   imports: [
     CommonModule
   ],
-  exports: [
-  ],
+  exports: [],
   providers: [
     PaymentService
   ]

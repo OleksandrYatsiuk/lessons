@@ -8,15 +8,14 @@ export class NotificationsService {
 
   constructor(private _snackBar: MatSnackBar) { }
 
-  private defaultConf: MatSnackBarConfig = {
+  private _defaultConf: MatSnackBarConfig = {
     duration: 4000,
     horizontalPosition: 'end',
     verticalPosition: 'top',
     panelClass: 'toast'
-
-  }
+  };
 
   openSuccess(message: string, config?: MatSnackBarConfig): MatSnackBarRef<TextOnlySnackBar> {
-    return this._snackBar.open(message, "X", { ...this.defaultConf, ...config });
+    return this._snackBar.open(message, 'X', { ...this._defaultConf, ...config });
   }
 }
