@@ -12,7 +12,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [],
@@ -29,7 +30,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatSnackBarModule,
     MatExpansionModule,
     MatProgressBarModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatCheckboxModule
   ],
   exports: [
     MatFormFieldModule,
@@ -44,7 +46,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatSnackBarModule,
     MatExpansionModule,
     MatProgressBarModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatCheckboxModule
   ]
 })
 export class MaterialModule { }

@@ -2,7 +2,7 @@
     <div class="chat">
         <div class="chat-list">
             <div class='message-content' *ngFor="let message of messages">
-                <app-message-item [item]="message"></app-message-item>
+                <app-message-item [item]="message" (removed)="onRemove()"></app-message-item>
             </div>
         </div>
         <div class="chat-actions">
@@ -39,7 +39,7 @@
                 </mat-select>
             </mat-form-field>
 
-            <button mat-stroked-button color="primary" type="submit"  (click)="search()"> Search</button>
+            <button mat-stroked-button color="primary" type="submit" (click)="search()"> Search</button>
         </form>
     </div>
 </div>

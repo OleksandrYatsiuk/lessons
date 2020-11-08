@@ -17,47 +17,64 @@
 </mat-form-field>
 
 <mat-progress-bar mode="determinate" [value]="userProgress"></mat-progress-bar>
-<mat-accordion class="example-headers-align">
 
-  <mat-expansion-panel *ngFor="let lesson of studyProgressList$|async;let i=index" [expanded]="step === i"
-    (opened)="setStep(0)" hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{lesson.lessonId['name']}}
-      </mat-panel-title>
-      <mat-panel-description>
-        {{lesson.createdAt|date}}
-        <div>
-          <mat-form-field appearance="fill">
-            <mat-label>Course Progress</mat-label>
-            <mat-select [(ngModel)]="lesson.progress" (ngModelChange)="updateProgress(lesson, $event)">
-              <mat-option *ngFor="let progress of progress" [value]="progress.value">
-                {{progress.label}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+<table mat-table [dataSource]="studyProgressList$|async" class="mat-elevation-z8">
 
-        <div>
-          <mat-form-field appearance="fill">
-            <mat-label>Course Status</mat-label>
-            <mat-select [(ngModel)]="lesson.status" (ngModelChange)="updateStatus(lesson, $event)">
-              <mat-option *ngFor="let status of statuses" [value]="status.value">
-                {{status.label}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <mat-icon *ngIf="!lesson.isAnswered" matBadge="?" [routerLink]="['/admin/messages']"
-          [queryParams]="{chat_id:user.chat_id, lessonId:lesson.lessonId['_id']}" matBadgeColor="warn">mail_outline
-        </mat-icon>
-        <mat-icon *ngIf="lesson.isAnswered" [routerLink]="['/admin/messages']"
-          [queryParams]="{chat_id:user.chat_id, lessonId:lesson.lessonId['_id']}">mail_outline
-        </mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+  <ng-container matColumnDef="lesson">
+    <th mat-header-cell *matHeaderCellDef> Lesson </th>
+    <td mat-cell *matCellDef="let element"> {{element.lessonId['name']}} </td>
+  </ng-container>
 
-    <div>Course : {{lesson.courseId['name']}}</div>
-  </mat-expansion-panel>
+  <ng-container matColumnDef="createdAt">
+    <th mat-header-cell *matHeaderCellDef> Date </th>
+    <td mat-cell *matCellDef="let element"> {{element.createdAt|date}} </td>
+  </ng-container>
 
-</mat-accordion>
+  <ng-container matColumnDef="progress">
+    <th mat-header-cell *matHeaderCellDef> Progress </th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field appearance="fill">
+        <mat-label>Course Progress</mat-label>
+        <mat-select [(ngModel)]="element.progress" (ngModelChange)="updateProgress(element, $event)">
+          <mat-option *ngFor="let progress of progress" [value]="progress.value">
+            {{progress.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field appearance="fill">
+        <mat-label>Lesson Status</mat-label>
+        <mat-select [(ngModel)]="element.status" (ngModelChange)="updateStatus(element, $event)">
+          <mat-option *ngFor="let status of statuses" [value]="status.value">
+            {{status.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="isAnswered">
+    <th mat-header-cell *matHeaderCellDef> Answered </th>
+    <td mat-cell *matCellDef="let lesson">
+      <mat-icon *ngIf="!lesson.isAnswered" matBadge="?" [routerLink]="['/admin/messages']"
+        [queryParams]="{chat_id:user.chat_id, lessonId:lesson.lessonId['_id']}" matBadgeColor="warn">mail_outline
+      </mat-icon>
+      <mat-icon *ngIf="lesson.isAnswered" [routerLink]="['/admin/messages']"
+        [queryParams]="{chat_id:user.chat_id, lessonId:lesson.lessonId['_id']}">mail_outline
+      </mat-icon>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="course">
+    <th mat-header-cell *matHeaderCellDef> Course </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.courseId['name']}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

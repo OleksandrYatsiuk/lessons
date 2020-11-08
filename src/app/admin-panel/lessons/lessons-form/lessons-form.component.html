@@ -21,6 +21,10 @@
         <input matInput placeholder="Додайте файл" formControlName="file">
     </mat-form-field>
 
+    <section class="example-section">
+        <mat-checkbox formControlName="free" color="primary" class="example-margin">Free</mat-checkbox>
+    </section>
+
     <app-spin-button [loading]="loading" matType='mat-flat-button'>
         <span>{{btnName}}</span>
     </app-spin-button>

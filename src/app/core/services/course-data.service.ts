@@ -11,7 +11,7 @@ export class CourseDataService {
 
   constructor(private http: HttpService) {
   }
-  public path = '/courses'
+  public path = '/courses';
 
   public getCourse(id: Course['id']): Observable<Course> {
     return this.http.get(`${this.path}/${id}`).pipe(pluck('result'));

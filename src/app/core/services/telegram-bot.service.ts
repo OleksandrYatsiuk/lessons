@@ -20,10 +20,10 @@ export class TelegramBotService {
 
   constructor(private http: HttpClient) { }
 
-  public sendMessage(chat_id: number, text: string) {
+  public sendMessage(chat_id: number, text = ''): Observable<any> {
     return this.http.post(this.url + ERequest.sendMessage, {
       chat_id, text
-    })
+    });
   }
 
   public sendPhoto(body?: any): Observable<any> {
@@ -47,12 +47,12 @@ export class TelegramBotService {
       .filter(([param, value]) => value !== null)
       .forEach(([param, value]) => {
         if (Array.isArray(value)) {
-          this.setArrayKeys(formData, param, value)
-        } else if (typeof value == "object") {
+          this.setArrayKeys(formData, param, value);
+        } else if (typeof value === 'object') {
           if (value instanceof File) {
             formData.append(param, value);
           } else {
-            this.setObjectKeys(formData, param, value)
+            this.setObjectKeys(formData, param, value);
           }
         } else {
           formData.append(param, value);
@@ -64,11 +64,10 @@ export class TelegramBotService {
   private setArrayKeys(formData: FormData, param: string, array: string[]): void {
     array.forEach((el, index) => {
       formData.append(`${param}[${index}]`, el);
-    })
+    });
   }
 
   private setObjectKeys(formData: FormData, param: string, object: object): void {
-
     for (const key in object) {
       formData.append(`${param}[${key}]`, object[key]);
     }

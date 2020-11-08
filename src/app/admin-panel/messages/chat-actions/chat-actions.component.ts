@@ -26,7 +26,7 @@ export class ChatActionsComponent implements OnInit {
       this.http.sendPhoto({
         chat_id: this.chat_id,
         photo: this.file,
-        caption: this.message
+        caption: this.message || ''
       }).subscribe(res => this.save(res, EContentTypes.photo));
     } else {
       this.http.sendMessage(this.chat_id, text).subscribe(res => this.save(res, EContentTypes.text, text))
@@ -35,6 +35,7 @@ export class ChatActionsComponent implements OnInit {
 
 
   private save(res: any, type: EContentTypes, text?: string) {
+    console.log(res);
     this.http.saveMessage({
       chat_id: this.chat_id,
       lessonId: this.lessonId,
@@ -42,21 +43,22 @@ export class ChatActionsComponent implements OnInit {
       message: {
         id: res.result.message_id,
         content: {
-          type: type,
+          type,
           text: text || res.result.caption,
-          link: type == EContentTypes.text ? null : res.result.photo[0].file_id
+          link: type === EContentTypes.text ? null : res.result.photo[0].file_id,
+          fileId: null
         }
       }
     }).pipe(pluck('result')).subscribe(result => {
-      this.message = ''
+      this.message = '';
       this.sended.emit(true);
-    })
+    });
   }
 
   public setFiles(event: Event & { srcElement: any }) {
-    let files = event.srcElement.files
+    const files = event.srcElement.files;
     if (!files) {
-      return
+      return;
     }
     this.file = files[0];
   }

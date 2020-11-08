@@ -1,3 +1,4 @@
+import { StudyProgressService } from './../../core/services/study-progress.service';
 import { ActivatedRoute } from '@angular/router';
 import { LessonsDataService } from 'src/app/core/services/lessons-data.service';
 import { CustomMessage } from './message.interface';
@@ -12,6 +13,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { SelectItems } from 'src/app/core/interfaces/select';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 import { User } from '../users/users.component';
+import { IStudyProgress } from 'src/app/core/interfaces/study-progress';
 
 @Component({
   selector: 'app-messages',
@@ -41,7 +43,7 @@ export class MessagesComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     if (this.route.snapshot.queryParams.chat_id) {
-      this.form.setValue(this.route.snapshot.queryParams)
+      this.form.setValue(this.route.snapshot.queryParams);
     }
     this.usersList$ = this.getUsers();
     this.coursesList$ = this.getCourses();
@@ -93,6 +95,10 @@ export class MessagesComponent implements OnInit {
   fetchSendingMessage(): void {
     this.search();
   }
+  onRemove(): void {
+    this.search();
+  }
+
 
   get chat_id() { return this.form.get('chat_id').value; }
   get lessonId() { return this.form.get('lessonId').value }

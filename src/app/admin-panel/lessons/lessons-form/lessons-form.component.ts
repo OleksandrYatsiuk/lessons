@@ -18,11 +18,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class LessonsFormComponent implements OnInit {
   @Input() lesson: Lesson;
-  @Input() btnName: string = 'Зберегти'
+  @Input() btnName = 'Зберегти'
   public form: FormGroup;
   loading = false;
-  coursesList$: Observable<SelectItems[]>
-  constructor(private fb: FormBuilder,
+  coursesList$: Observable<SelectItems[]>;
+  constructor(
+    private fb: FormBuilder,
     private http: LessonsDataService,
     private _courseService: CourseDataService,
     private _notify: NotificationsService,
@@ -60,13 +61,14 @@ export class LessonsFormComponent implements OnInit {
     uploadWithCredentials: false,
     sanitize: true,
     toolbarPosition: 'top',
-  }
+  };
+
   ngOnInit(): void {
     this.coursesList$ = this._queryCourseList();
     this.initForm();
 
     if (this.lesson) {
-      this.setValuesToForm()
+      this.setValuesToForm();
     }
 
   }
@@ -80,14 +82,14 @@ export class LessonsFormComponent implements OnInit {
           .subscribe(lesson => {
             this.loading = false;
             this._notify.openSuccess(`Урок "${lesson.name}" був успішно оновлений!`);
-            this.router.navigate([`/admin/courses/${lesson.courseId}`])
+            this.router.navigate([`/admin/courses/${lesson.courseId}`]);
           });
       } else {
         this._queryCreate(this.form.value)
           .subscribe(lesson => {
-            this.loading = false
+            this.loading = false;
             this._notify.openSuccess(`Урок "${lesson.name}" був успішно створений!`);
-            this.router.navigate([`/admin/courses/${lesson.courseId}`])
+            this.router.navigate([`/admin/courses/${lesson.courseId}`]);
           });
       }
     }
@@ -100,18 +102,13 @@ export class LessonsFormComponent implements OnInit {
       context: ['', []],
       file: ['', []],
       status: [0, [Validators.required]],
-      courseId: [null, [Validators.required]]
-    })
+      courseId: [null, [Validators.required]],
+      free: [false, [Validators.required]]
+    });
   }
 
-  setValuesToForm() {
-    this.form.setValue({
-      name: this.lesson.name,
-      context: this.lesson.context,
-      file: this.lesson.file,
-      status: this.lesson.status,
-      courseId: this.lesson.courseId
-    })
+  setValuesToForm(): void {
+    this.form.patchValue(this.lesson);
   }
 
 
@@ -123,8 +120,9 @@ export class LessonsFormComponent implements OnInit {
           console.error(error.result);
           return EMPTY;
         })
-      )
+      );
   }
+
   private _queryCreate(lesson: Lesson): Observable<Lesson> {
     return this.http.create(lesson)
       .pipe(
@@ -133,16 +131,14 @@ export class LessonsFormComponent implements OnInit {
           console.error(error.result);
           return EMPTY;
         })
-      )
+      );
   }
   private _queryCourseList(): Observable<SelectItems[]> {
     return this._courseService.getCourses().pipe(
       map((courses: Course[]) =>
         courses.map(course => ({ label: course.name, value: course.id }))
       )
-    )
-
-
+    );
   }
 
   get context() {

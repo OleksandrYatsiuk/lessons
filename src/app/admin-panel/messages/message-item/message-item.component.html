@@ -1,25 +1,30 @@
 <ng-container [ngSwitch]="item.message.content.type">
-    <ng-container *ngSwitchCase="contentTypes.text">
-        <div class="msg-container">
+    <div class="msg-container" [class.msg-container-bot]="item.type==messageTypes.bot">
+        <ng-container *ngSwitchCase="contentTypes.text">
             <div class="msg-text">{{item.message.content.text}}</div>
             <div class="msg-date">{{item.createdAt|date}}</div>
-        </div>
-    </ng-container>
-    <ng-container *ngSwitchCase="contentTypes.file">
-        <div class="msg-container">
+        </ng-container>
+        <ng-container *ngSwitchCase="contentTypes.file">
             <div class="msg-content">
-                <a class="msg-text" [href]="item.message.content.link">download file</a>
+                <div class="msg-text"> Download File
+                    <a [href]="item.message.content.link">
+                        <mat-icon>save_alt</mat-icon>
+                    </a>
+                </div>
                 <div class="msg-text">{{item.message.content.text}}</div>
             </div>
             <div class="msg-date">{{item.createdAt|date}}</div>
-        </div>
-    </ng-container>
-    <ng-container *ngSwitchCase="contentTypes.photo">
-        <div class="msg-container">
+        </ng-container>
+        <ng-container *ngSwitchCase="contentTypes.photo">
             <div class="msg-content">
-                <img class="msg-text" [src]="item.message.content.link" [alt]="item.message.content.link">
-                <div class="msg-text">{{item.message.content.text}}</div>
+                <div *ngIf="expiredFile">
+                    <mat-icon>refresh</mat-icon>
+                </div>
+                <img class="msg-text" [src]="item.message.content.link" [alt]="item.message.content.link"
+                    (error)="updateUrl(item)">
+                <div class="msg-text">{{item.message.content?.text}}</div>
             </div>
             <div class="msg-date">{{item.createdAt|date}}</div>
-        </div>
-    </ng-container>
+        </ng-container>
+        <mat-icon (click)="openDialog(item)">close</mat-icon>
+    </div>

@@ -3,9 +3,13 @@
         display: flex;
         width: 100%;
         justify-content: space-between;
-        border: 2px solid #312f2f;
-        background-color: gray;
-        border-radius: 10px;
+        background-color: #3d96f394;
+        border-radius: 5px;
+
+        &-bot {
+            border: 1px solid black;
+            background-color: #0f509694;
+        }
     }
     &-content {
         display: block;
@@ -17,6 +21,7 @@
     &-text {
         padding: 10px;
         max-width: 80%;
+        min-width: 355px;
         word-break: break-word;
     }
     &-date {
