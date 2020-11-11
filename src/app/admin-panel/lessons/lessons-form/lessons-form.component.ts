@@ -2,7 +2,7 @@ import { NotificationsService } from './../../../core/services/notifications.ser
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
 import { EMPTY, Observable } from 'rxjs';
-import { Lesson, Course } from './../../../core/interfaces/courses';
+import { Lesson, Course, ECourseStatus } from './../../../core/interfaces/courses';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LessonsDataService } from 'src/app/core/services/lessons-data.service';
@@ -29,7 +29,11 @@ export class LessonsFormComponent implements OnInit {
     private _notify: NotificationsService,
     private router: Router) { }
 
+    lessonStatuses: SelectItems[] = [
+      { value: ECourseStatus.PUBLISHED, label: 'Published' },
+      { value: ECourseStatus.DRAFT, label: 'Draft' }];
 
+      
   editorConfig: AngularEditorConfig = {
     editable: true,
 

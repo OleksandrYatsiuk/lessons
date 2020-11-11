@@ -1,10 +1,11 @@
 import { Observable } from 'rxjs';
 import { NotificationsService } from './../../core/services/notifications.service';
 import { DeleteComponent } from './../../shared/components/dialogs/delete/delete.component';
-import { Course } from './../../core/interfaces/courses';
+import { Course, ECourseStatus } from './../../core/interfaces/courses';
 import { Component, OnInit } from '@angular/core';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { SelectItems } from 'src/app/core/interfaces/select';
 
 @Component({
   selector: 'app-courses',
@@ -14,15 +15,20 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 export class CoursesComponent implements OnInit {
   public courses = [];
   displayedColumns: string[] = ['name', 'createdAt', 'updatedAt', 'status', 'delete'];
-  constructor(private http: CourseDataService, private dialog: MatDialog,
-    private _notify: NotificationsService) { }
+  private config: MatDialogConfig = {
+    autoFocus: false
+  };
+  courseStatuses: SelectItems[] = [
+    { value: ECourseStatus.PUBLISHED, label: 'Published' },
+    { value: ECourseStatus.DRAFT, label: 'Draft' }];
+  constructor(
+    private http: CourseDataService,
+    private dialog: MatDialog,
+    private _notify: NotificationsService
+  ) { }
 
   ngOnInit(): void {
     this.getList();
-  }
-
-  private config: MatDialogConfig = {
-    autoFocus: false
   }
 
   openDialog(course: Course): void {

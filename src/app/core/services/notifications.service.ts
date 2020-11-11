@@ -12,10 +12,17 @@ export class NotificationsService {
     duration: 4000,
     horizontalPosition: 'end',
     verticalPosition: 'top',
-    panelClass: 'toast'
+    panelClass: 'toast--success'
   };
 
   openSuccess(message: string, config?: MatSnackBarConfig): MatSnackBarRef<TextOnlySnackBar> {
     return this._snackBar.open(message, 'X', { ...this._defaultConf, ...config });
+  }
+
+  openError(message: string, config?: MatSnackBarConfig): MatSnackBarRef<TextOnlySnackBar> {
+    return this._snackBar.open(message, 'X', {
+      ...this._defaultConf,
+      panelClass: 'toast--error', duration: 6000, ...config
+    });
   }
 }

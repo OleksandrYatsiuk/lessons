@@ -18,10 +18,10 @@
         <ng-container *ngSwitchCase="contentTypes.photo">
             <div class="msg-content">
                 <div *ngIf="expiredFile">
-                    <mat-icon>refresh</mat-icon>
+                    <mat-icon (click)="refreshFileLink(item)">refresh</mat-icon>
                 </div>
                 <img class="msg-text" [src]="item.message.content.link" [alt]="item.message.content.link"
-                    (error)="updateUrl(item)">
+                    (error)="updateUrl()">
                 <div class="msg-text">{{item.message.content?.text}}</div>
             </div>
             <div class="msg-date">{{item.createdAt|date}}</div>

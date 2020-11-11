@@ -1,10 +1,11 @@
 import { NotificationsService } from './../../../core/services/notifications.service';
-import { Lesson } from './../../../core/interfaces/courses';
+import { ECourseStatus, Lesson } from './../../../core/interfaces/courses';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Course } from 'src/app/core/interfaces/courses';
 import { LessonsDataService } from 'src/app/core/services/lessons-data.service';
 import { DeleteComponent } from 'src/app/shared/components/dialogs/delete/delete.component';
+import { SelectItems } from 'src/app/core/interfaces/select';
 
 @Component({
   selector: 'app-lessons',
@@ -16,6 +17,17 @@ export class LessonsComponent implements OnInit {
   @Input() courseId: string;
   displayedColumns: string[] = ['name', 'createdAt', 'updatedAt', 'status', 'delete'];
   public lessons = [];
+
+  lessonStatuses: SelectItems[] = [
+    { value: ECourseStatus.PUBLISHED, label: 'Published' },
+    { value: ECourseStatus.DRAFT, label: 'Draft' }];
+
+  private config: MatDialogConfig = {
+    autoFocus: false,
+    disableClose: true,
+    hasBackdrop: true,
+  };
+
   constructor(
     private http: LessonsDataService,
     private dialog: MatDialog,
@@ -25,22 +37,16 @@ export class LessonsComponent implements OnInit {
     this.getList();
   }
 
+
   public getList(): void {
-    this.http.getLessons({ params: { courseId: this.courseId } }).subscribe(lessons => this.lessons = lessons)
+    this.http.getLessons({ params: { courseId: this.courseId } }).subscribe(lessons => this.lessons = lessons);
   }
-  public delete(lesson: Lesson) {
+  public delete(lesson: Lesson): void {
     this.http.delete(lesson.id).subscribe(result => {
       this.getList();
-      console.log(result)
+      console.log(result);
     });
   }
-
-  private config: MatDialogConfig = {
-    autoFocus: false,
-    disableClose: true,
-    hasBackdrop: true,
-  }
-
 
   openDialog(lesson: Lesson): void {
     const dialogRef = this.dialog.open(DeleteComponent, { data: { content: `урок "${lesson.name}"`, loading: false }, ...this.config });

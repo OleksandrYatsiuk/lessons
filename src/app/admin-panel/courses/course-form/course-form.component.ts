@@ -3,11 +3,12 @@ import { EMPTY, Observable } from 'rxjs';
 import { CourseDataService } from './../../../core/services/course-data.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Course } from 'src/app/core/interfaces/courses';
+import { Course, ECourseStatus } from 'src/app/core/interfaces/courses';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { SelectItems } from 'src/app/core/interfaces/select';
 
 @Component({
   selector: 'app-course-form',
@@ -19,17 +20,9 @@ export class CourseFormComponent implements OnInit {
   @Input() btnName = 'Зберегти';
   loading = false;
   form: FormGroup;
-  constructor(private http: CourseDataService, private fb: FormBuilder,
-    private _notify: NotificationsService,
-    private _router: Router) { }
-
-  ngOnInit(): void {
-    this.initForm();
-
-    if (this.course) {
-      this.setFormValues();
-    }
-  }
+  courseStatuses: SelectItems[] = [
+    { value: ECourseStatus.PUBLISHED, label: 'Published' },
+    { value: ECourseStatus.DRAFT, label: 'Draft' }];
   editorConfig: AngularEditorConfig = {
     editable: true,
 
@@ -61,7 +54,21 @@ export class CourseFormComponent implements OnInit {
     uploadWithCredentials: false,
     sanitize: true,
     toolbarPosition: 'top',
+  };
+  constructor(
+    private http: CourseDataService,
+    private fb: FormBuilder,
+    private _notify: NotificationsService,
+    private _router: Router) { }
+
+  ngOnInit(): void {
+    this.initForm();
+
+    if (this.course) {
+      this.setFormValues();
+    }
   }
+
 
   public save(): void {
     this.form.markAllAsTouched();
@@ -95,7 +102,7 @@ export class CourseFormComponent implements OnInit {
       name: this.course.name,
       status: this.course.status,
       description: this.course.description
-    })
+    });
   }
 
   private _queryEditCourse(): Observable<Course> {
@@ -106,7 +113,7 @@ export class CourseFormComponent implements OnInit {
           console.error(error.result);
           return EMPTY;
         })
-      )
+      );
   }
   private _queryCreateCourse(): Observable<Course> {
     return this.http.create(this.form.value)
@@ -116,6 +123,6 @@ export class CourseFormComponent implements OnInit {
           console.error(error.result);
           return EMPTY;
         })
-      )
+      );
   }
 }

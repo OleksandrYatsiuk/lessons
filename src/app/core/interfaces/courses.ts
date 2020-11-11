@@ -19,3 +19,8 @@ export interface Lesson {
     createdAt: number;
     updatedAt: number;
 }
+
+export enum ECourseStatus {
+    DRAFT = 1,
+    PUBLISHED = 2
+}

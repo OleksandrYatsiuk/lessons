@@ -3,7 +3,7 @@ import { EMPTY, Observable } from 'rxjs';
 import { MessagesService } from 'src/app/core/services/messages.service';
 import { CustomMessage, EMessageTypes, EContentTypes } from '../message.interface';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { DeleteComponent } from 'src/app/shared/components/dialogs/delete/delete.component';
 import { catchError } from 'rxjs/operators';
@@ -53,16 +53,29 @@ export class MessageItemComponent implements OnInit {
     });
   }
 
-  updateUrl(message: CustomMessage) {
-    this._http.refreshTelegramFileLink(message)
-      .subscribe(result => {
-        console.log(result);
-      });
+  updateUrl(): void {
     this.expiredFile = true;
+  }
+
+  refreshFileLink(message: CustomMessage): void {
+    this._queryRefreshFileLink(message)
+      .subscribe(result => this.removed.emit());
   }
 
   private _queryDeleteMessage(id: CustomMessage['id']): Observable<any> {
     return this._http.removeMessage(id);
+  }
+
+  private _queryRefreshFileLink(msg: CustomMessage): Observable<CustomMessage> {
+    return this._http.refreshTelegramFileLink(msg)
+      .pipe(
+        catchError(({ error }: HttpErrorResponse) => {
+          const result = error;
+          console.log(result);
+          this._notify.openError(error.result);
+          return EMPTY;
+        })
+      );
   }
 
 }

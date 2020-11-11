@@ -8,10 +8,17 @@ import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ExtractPipe } from './pipes/extract.pipe';
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, DeleteComponent, SpinButtonComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    DeleteComponent,
+    SpinButtonComponent,
+    ExtractPipe
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -28,7 +35,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     RouterModule,
     AngularEditorModule,
     DeleteComponent,
-    SpinButtonComponent
+    SpinButtonComponent,
+    ExtractPipe
   ],
 })
 export class SharedModule { }

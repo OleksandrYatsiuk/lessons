@@ -8,6 +8,16 @@
 
 
     <mat-form-field appearance="outline">
+        <mat-label>Select Lesson Status</mat-label>
+        <mat-select formControlName="status">
+            <mat-option *ngFor="let item of lessonStatuses" [value]="item.value">
+                {{item.label}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline">
         <mat-label>Select Course</mat-label>
         <mat-select formControlName="courseId">
             <mat-option *ngFor="let item of coursesList$|async" [value]="item.value">

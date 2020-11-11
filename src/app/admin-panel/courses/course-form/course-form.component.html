@@ -5,6 +5,15 @@
         <input matInput placeholder="Введіть назву курса" formControlName="name">
     </mat-form-field>
 
+    <mat-form-field appearance="outline">
+        <mat-label>Select Course Status</mat-label>
+        <mat-select formControlName="status">
+            <mat-option *ngFor="let item of courseStatuses" [value]="item.value">
+                {{item.label}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
     <span>
         Description
         <angular-editor [config]="editorConfig" formControlName="description"></angular-editor>
