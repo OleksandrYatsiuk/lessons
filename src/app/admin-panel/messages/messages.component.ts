@@ -5,7 +5,7 @@ import { CustomMessage } from './message.interface';
 import { Component, OnInit } from '@angular/core';
 import { MessagesService } from 'src/app/core/services/messages.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { map } from 'rxjs/operators';
+import { finalize, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { Course, Lesson } from 'src/app/core/interfaces/courses';
@@ -14,6 +14,7 @@ import { SelectItems } from 'src/app/core/interfaces/select';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 import { User } from '../users/users.component';
 import { IStudyProgress } from 'src/app/core/interfaces/study-progress';
+import { PreloaderService } from 'src/app/core/services/preloader.service';
 
 @Component({
   selector: 'app-messages',
@@ -36,6 +37,7 @@ export class MessagesComponent implements OnInit {
     private fb: FormBuilder,
     private http2: UserDataService,
     private courseService: CourseDataService,
+    private loadService: PreloaderService,
     private lessonService: LessonsDataService) {
     this.messages = this.route.snapshot.data.chat;
   }
@@ -77,11 +79,11 @@ export class MessagesComponent implements OnInit {
 
   public search(): void {
     if (this.form.valid) {
-      this.http.getList(this.form.value).subscribe(messages => this.messages = messages);
+      this._queryMessagesList().subscribe(messages => this.messages = messages);
     }
   }
 
-  initForm() {
+  private initForm() {
     this.form = this.fb.group({
       chat_id: ['', Validators.required],
       lessonId: ['', Validators.required],
@@ -100,6 +102,10 @@ export class MessagesComponent implements OnInit {
   }
 
 
+  private _queryMessagesList(): Observable<CustomMessage[]> {
+    this.loadService.start();
+    return this.http.getList(this.form.value).pipe(finalize(() => this.loadService.stop()));
+  }
   get chat_id() { return this.form.get('chat_id').value; }
   get lessonId() { return this.form.get('lessonId').value }
 }

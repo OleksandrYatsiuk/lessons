@@ -1,5 +1,5 @@
 <div class="container">
-    <table mat-table [dataSource]="courses" class="mat-elevation-z8">
+    <table mat-table [dataSource]="courses$|async" class="mat-elevation-z8">
 
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Name </th>

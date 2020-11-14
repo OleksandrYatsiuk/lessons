@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ExtractPipe } from './pipes/extract.pipe';
+import { PreloaderComponent } from './components/preloader/preloader.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ExtractPipe } from './pipes/extract.pipe';
     FooterComponent,
     DeleteComponent,
     SpinButtonComponent,
-    ExtractPipe
+    ExtractPipe,
+    PreloaderComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,8 @@ import { ExtractPipe } from './pipes/extract.pipe';
     AngularEditorModule,
     DeleteComponent,
     SpinButtonComponent,
-    ExtractPipe
+    ExtractPipe,
+    PreloaderComponent
   ],
 })
 export class SharedModule { }

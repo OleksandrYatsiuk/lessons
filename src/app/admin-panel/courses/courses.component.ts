@@ -6,14 +6,17 @@ import { Component, OnInit } from '@angular/core';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SelectItems } from 'src/app/core/interfaces/select';
+import { PreloaderService } from 'src/app/core/services/preloader.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.scss']
+  styleUrls: ['./courses.component.scss'],
+
 })
 export class CoursesComponent implements OnInit {
-  public courses = [];
+  public courses$: Observable<Course[]>;
   displayedColumns: string[] = ['name', 'createdAt', 'updatedAt', 'status', 'delete'];
   private config: MatDialogConfig = {
     autoFocus: false
@@ -24,7 +27,8 @@ export class CoursesComponent implements OnInit {
   constructor(
     private http: CourseDataService,
     private dialog: MatDialog,
-    private _notify: NotificationsService
+    private notify: NotificationsService,
+    private loadService: PreloaderService,
   ) { }
 
   ngOnInit(): void {
@@ -40,8 +44,9 @@ export class CoursesComponent implements OnInit {
         .subscribe(() => {
           dialog.data.loading = false;
           dialogRef.close();
+
           this.getList();
-          this._notify.openSuccess(`Курс "${course.name}" був вилалений успішно!`);
+          this.notify.openSuccess(`Курс "${course.name}" був вилалений успішно!`);
         }, error => {
           dialog.data.loading = false;
           console.error(error);
@@ -50,10 +55,14 @@ export class CoursesComponent implements OnInit {
   }
 
   public getList(): void {
-    this.http.getCourses().subscribe(courses => this.courses = courses);
+    this.courses$ = this._queryCoursesList()
   }
 
   private _queryDeleteCourse(course: Course): Observable<any> {
     return this.http.delete(course.id);
+  }
+  private _queryCoursesList(): Observable<Course[]> {
+    this.loadService.start();
+    return this.http.getCourses().pipe(tap(() => this.loadService.stop()));
   }
 }
