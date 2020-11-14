@@ -1,6 +1,8 @@
 <div class="panel">
-    <span class="material-icons" (click)="fileInput.click()"> attach_file </span>
-    <textarea type="text" class="context" [(ngModel)]="message" placeholder="Start entering message..."></textarea>
+    <mat-icon (click)="fileInput.click()">attach_file</mat-icon>
+    <mat-form-field appearance="outline" class="form-control">
+        <textarea matInput placeholder="Start entering message..." [(ngModel)]="message"></textarea>
+    </mat-form-field>
     <input hidden type="file" #fileInput (change)="setFiles($event)"><br>
     <mat-icon (click)="sendMessage(message, file)">send</mat-icon>
 </div>

@@ -1,27 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-}
+@import "./styles/elements/tables.scss";
+@import "./styles/elements/inputs.scss";
+@import "./styles/elements/buttons.scss";
+@import "./styles/elements/alerts.scss";
+@import "./styles//elements/icons.scss";
+@import "./styles//elements/spinners.scss";
 
-.footer {
-    background-color: grey;
-    height: 70px;
-}
-.header {
-    // background-color: grey;
-    height: 70px;
-    display: flex;
-}
+
 .container {
     display: flex;
     justify-content: center;
-}
-th.mat-header-cell,
-td.mat-cell,
-td.mat-footer-cell {
-    padding-right: 10px !important;
+    flex-wrap: wrap;
 }
 
 .custom-video {
@@ -31,36 +21,4 @@ td.mat-footer-cell {
 }
 .center {
     text-align: center;
-}
-.mat-spinner circle {
-    stroke: white;
-}
-.mat-button-wrapper {
-    display: flex;
-}
-.toast {
-    color: black;
-    &--success {
-        background-color: rgba(141, 207, 41, 0.795);
-    }
-    &--error {
-        background-color: rgba(236, 114, 114, 0.877);
-    }
-}
-.mat-accordion .mat-expansion-panel {
-    padding-top: 10px;
-}
-.mat-expansion-panel-header {
-    height: auto;
-}
-table {
-    width: 100%;
-}
-
-mat-icon {
-    cursor: pointer;
-}
-
-.mat-simple-snackbar-action {
-    color: #ffffff;
 }

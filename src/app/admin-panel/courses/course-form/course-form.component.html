@@ -1,5 +1,4 @@
 <form [formGroup]="form">
-
     <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
         <input matInput placeholder="Введіть назву курса" formControlName="name">
@@ -8,9 +7,7 @@
     <mat-form-field appearance="outline">
         <mat-label>Select Course Status</mat-label>
         <mat-select formControlName="status">
-            <mat-option *ngFor="let item of courseStatuses" [value]="item.value">
-                {{item.label}}
-            </mat-option>
+            <mat-option *ngFor="let item of courseStatuses" [value]="item.value"> {{item.label}}</mat-option>
         </mat-select>
     </mat-form-field>
 
@@ -18,7 +15,7 @@
         Description
         <angular-editor [config]="editorConfig" formControlName="description"></angular-editor>
     </span>
-
+    <mat-divider></mat-divider>
     <app-spin-button matType="mat-flat-button" [loading]="loading" (click)="save()">
         <span>{{btnName}}</span>
     </app-spin-button>

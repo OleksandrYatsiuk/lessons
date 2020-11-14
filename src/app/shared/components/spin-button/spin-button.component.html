@@ -1,31 +1,31 @@
 <div class="spinner-btn">
     <ng-container [ngSwitch]="matType">
         <ng-container *ngSwitchCase="types['mat-raised-button']">
-            <button mat-raised-button [color]="color" (click)="clickChange.emit($event)">
+            <button mat-raised-button [color]="color" (click)="clickChange.emit($event)" [disabled]="loading">
                 <mat-spinner *ngIf="loading" diameter="24" strokeWidth="4"></mat-spinner>
                 <ng-content></ng-content>
             </button>
         </ng-container>
         <ng-container *ngSwitchCase="types['mat-stroked-button']">
-            <button mat-stroked-button [color]="color" (click)="clickChange.emit($event)">
+            <button mat-stroked-button [color]="color" (click)="clickChange.emit($event)" [disabled]="loading">
                 <mat-spinner *ngIf="loading" diameter="24" strokeWidth="4"></mat-spinner>
                 <ng-content></ng-content>
             </button>
         </ng-container>
         <ng-container *ngSwitchCase="types['mat-mini-fab']">
-            <button mat-mini-fab [color]="color" (click)="clickChange.emit($event)">
+            <button mat-mini-fab [color]="color" (click)="clickChange.emit($event)" [disabled]="loading">
                 <mat-spinner *ngIf="loading" diameter="24" strokeWidth="4"></mat-spinner>
                 <ng-content></ng-content>
             </button>
         </ng-container>
         <ng-container *ngSwitchCase="types['mat-button']">
-            <button mat-button [color]="color" (click)="clickChange.emit($event)">
+            <button mat-button [color]="color" (click)="clickChange.emit($event)" [disabled]="loading">
                 <mat-spinner *ngIf="loading" diameter="24" strokeWidth="4"></mat-spinner>
                 <ng-content></ng-content>
             </button>
         </ng-container>
         <ng-container *ngSwitchCase="types['mat-flat-button']">
-            <button mat-flat-button [color]="color" (click)="clickChange.emit($event)">
+            <button mat-flat-button [color]="color" (click)="clickChange.emit($event)" [disabled]="loading">
                 <mat-spinner *ngIf="loading" diameter="24" strokeWidth="4"></mat-spinner>
                 <ng-content></ng-content>
             </button>

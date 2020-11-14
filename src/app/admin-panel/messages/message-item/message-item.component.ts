@@ -24,9 +24,9 @@ export class MessageItemComponent implements OnInit {
 
 
   constructor(
-    private _http: MessagesService,
+    private http: MessagesService,
     private dialog: MatDialog,
-    private _notify: NotificationsService) { }
+    private notify: NotificationsService) { }
 
   ngOnInit(): void {
   }
@@ -43,9 +43,9 @@ export class MessageItemComponent implements OnInit {
           this.removed.emit();
           dialogRef.close();
           if (response?.code) {
-            this._notify.openSuccess(response.result);
+            this.notify.openSuccess(response.result);
           } else {
-            this._notify.openSuccess(`Повідомлення видалено успішно!`);
+            this.notify.openSuccess(`Повідомлення видалено успішно!`);
           }
         }, (error) => {
           dialog.data.loading = false;
@@ -63,16 +63,14 @@ export class MessageItemComponent implements OnInit {
   }
 
   private _queryDeleteMessage(id: CustomMessage['id']): Observable<any> {
-    return this._http.removeMessage(id);
+    return this.http.removeMessage(id);
   }
 
   private _queryRefreshFileLink(msg: CustomMessage): Observable<CustomMessage> {
-    return this._http.refreshTelegramFileLink(msg)
+    return this.http.refreshTelegramFileLink(msg)
       .pipe(
         catchError(({ error }: HttpErrorResponse) => {
-          const result = error;
-          console.log(result);
-          this._notify.openError(error.result);
+          this.notify.openError(error.result);
           return EMPTY;
         })
       );

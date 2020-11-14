@@ -1,0 +1,29 @@
+@import "../helpers/variables.scss";
+.mat-spinner circle {
+    stroke: $c-white;
+}
+.mat-button-wrapper {
+    display: flex;
+}
+.mat-flat-button.mat-primary,
+.mat-raised-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
+    background-color: $c-blue;
+    &:hover {
+        background-color: $c-blue-hover;
+    }
+    &:active {
+        background-color: $c-black;
+        color: $c-white;
+    }
+    &.mat-button-disabled {
+        background-color: rgba(0, 0, 0, 0.12);
+        &:hover,
+        &:active {
+            background-color: rgba(0, 0, 0, 0.12);
+            color: rgba(0,0,0,.26);
+            cursor: not-allowed;
+        }
+    }
+}

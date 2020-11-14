@@ -19,7 +19,7 @@ import { PreloaderComponent } from './components/preloader/preloader.component';
     DeleteComponent,
     SpinButtonComponent,
     ExtractPipe,
-    PreloaderComponent
+    PreloaderComponent,
   ],
   imports: [
     CommonModule,
@@ -39,7 +39,7 @@ import { PreloaderComponent } from './components/preloader/preloader.component';
     DeleteComponent,
     SpinButtonComponent,
     ExtractPipe,
-    PreloaderComponent
+    PreloaderComponent,
   ],
 })
 export class SharedModule { }

@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
 import { pluck } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-chat-actions',
   templateUrl: './chat-actions.component.html',
@@ -21,6 +20,8 @@ export class ChatActionsComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+
   public sendMessage(text: string, file?: File): void {
     if (file) {
       this.http.sendPhoto({
@@ -29,13 +30,13 @@ export class ChatActionsComponent implements OnInit {
         caption: this.message || ''
       }).subscribe(res => this.save(res, EContentTypes.photo));
     } else {
-      this.http.sendMessage(this.chat_id, text).subscribe(res => this.save(res, EContentTypes.text, text))
+      this.http.sendMessage(this.chat_id, text).subscribe(res => this.save(res, EContentTypes.text, text));
     }
   }
 
 
-  private save(res: any, type: EContentTypes, text?: string) {
-    console.log(res);
+  private save(res: any, type: EContentTypes, text?: string): void {
+
     this.http.saveMessage({
       chat_id: this.chat_id,
       lessonId: this.lessonId,
@@ -51,11 +52,12 @@ export class ChatActionsComponent implements OnInit {
       }
     }).pipe(pluck('result')).subscribe(result => {
       this.message = '';
+      this.file = null;
       this.sended.emit(true);
     });
   }
 
-  public setFiles(event: Event & { srcElement: any }) {
+  public setFiles(event: Event & { srcElement: HTMLInputElement }): void {
     const files = event.srcElement.files;
     if (!files) {
       return;

@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
-export type MatBtnTypes = 'mat-button' | 'mat-raised-button' | 'mat-stroked-button' | 'mat-flat-button' | 'mat-icon-button' | 'mat-fab' | 'mat-mini-fab'
+export type MatBtnTypes = 'mat-button' | 'mat-raised-button' | 'mat-stroked-button' | 'mat-flat-button' | 'mat-icon-button' | 'mat-fab' | 'mat-mini-fab';
 export enum EMatBtn {
   'mat-button' = 'mat-button',
   'mat-raised-button' = 'mat-raised-button',
@@ -20,8 +20,8 @@ export class SpinButtonComponent {
   @Input() loading = false;
   @Input() color: ThemePalette = 'primary';
   @Input() spinColor: ThemePalette = 'primary';
-  @Input() matType: EMatBtn = EMatBtn["mat-flat-button"];
-  public types = EMatBtn
+  @Input() matType: EMatBtn = EMatBtn['mat-flat-button'];
+  public types = EMatBtn;
   constructor() { }
 
 }

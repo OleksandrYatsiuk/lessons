@@ -39,7 +39,9 @@
                 </mat-select>
             </mat-form-field>
 
-            <button mat-stroked-button color="primary" type="submit" (click)="search()"> Search</button>
+            <app-spin-button [loading]="loading" matType='mat-flat-button' (click)="search()">
+                <span> Search</span>
+            </app-spin-button>
         </form>
     </div>
 </div>

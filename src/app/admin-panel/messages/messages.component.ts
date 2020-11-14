@@ -31,6 +31,7 @@ export class MessagesComponent implements OnInit {
   lessonsList$: Observable<SelectItems[]>;
   form: FormGroup;
   messages: CustomMessage[];
+  loading = false;
   constructor(
     private http: MessagesService,
     private route: ActivatedRoute,
@@ -43,6 +44,7 @@ export class MessagesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.initForm();
     if (this.route.snapshot.queryParams.chat_id) {
       this.form.setValue(this.route.snapshot.queryParams);
@@ -79,7 +81,11 @@ export class MessagesComponent implements OnInit {
 
   public search(): void {
     if (this.form.valid) {
-      this._queryMessagesList().subscribe(messages => this.messages = messages);
+      this.loading = true;
+      this._queryMessagesList().subscribe(messages => {
+        this.loading = false;
+        this.messages = messages;
+      });
     }
   }
 
@@ -103,9 +109,8 @@ export class MessagesComponent implements OnInit {
 
 
   private _queryMessagesList(): Observable<CustomMessage[]> {
-    this.loadService.start();
-    return this.http.getList(this.form.value).pipe(finalize(() => this.loadService.stop()));
+    return this.http.getList(this.form.value);
   }
   get chat_id() { return this.form.get('chat_id').value; }
-  get lessonId() { return this.form.get('lessonId').value }
+  get lessonId() { return this.form.get('lessonId').value; }
 }
