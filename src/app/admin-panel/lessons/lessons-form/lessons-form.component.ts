@@ -18,7 +18,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class LessonsFormComponent implements OnInit {
   @Input() lesson: Lesson;
-  @Input() btnName = 'Зберегти'
+  @Input() btnName = 'Зберегти';
   public form: FormGroup;
   loading = false;
   coursesList$: Observable<SelectItems[]>;
@@ -29,11 +29,10 @@ export class LessonsFormComponent implements OnInit {
     private _notify: NotificationsService,
     private router: Router) { }
 
-    lessonStatuses: SelectItems[] = [
-      { value: ECourseStatus.PUBLISHED, label: 'Published' },
-      { value: ECourseStatus.DRAFT, label: 'Draft' }];
+  lessonStatuses: SelectItems[] = [
+    { value: ECourseStatus.PUBLISHED, label: 'Published' },
+    { value: ECourseStatus.DRAFT, label: 'Draft' }];
 
-      
   editorConfig: AngularEditorConfig = {
     editable: true,
 

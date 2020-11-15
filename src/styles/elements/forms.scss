@@ -1,0 +1,11 @@
+.form {
+    min-width: 350px;
+    .row {
+        width: 100%;
+        &__col-2 {
+            min-width: 300px;
+            padding: 0 10px;
+            width: 40%;
+        }
+    }
+}

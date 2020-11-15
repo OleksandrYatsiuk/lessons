@@ -73,7 +73,7 @@ export class MessagesComponent implements OnInit {
   }
 
   public getLessons(courseId: Course['id']): Observable<SelectItems[]> {
-    return this.lessonService.getLessons({ params: { courseId } }).pipe(
+    return this.lessonService.getLessons({ courseId }).pipe(
       map((lessons: Lesson[]) => {
         return lessons.map(lesson => ({ label: lesson.name, value: lesson.id }));
       }));

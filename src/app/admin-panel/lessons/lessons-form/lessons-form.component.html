@@ -1,42 +1,53 @@
-<form [formGroup]="form" (ngSubmit)="save()" class="create-lesson">
-    <mat-form-field appearance="outline">
-        <mat-label>Назва</mat-label>
-        <input matInput placeholder="Введіть назву урока" formControlName="name">
-    </mat-form-field>
-    <label for="editor"> Опис </label>
-    <angular-editor id="editor" formControlName="context" [config]="editorConfig"> </angular-editor>
+<form [formGroup]="form" (ngSubmit)="save()" class="form">
+    <div class="row">
+        <mat-form-field appearance="outline" class="row__col-2">
+            <mat-label>Назва</mat-label>
+            <input matInput placeholder="Введіть назву урока" formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="row__col-2">
+            <mat-label>Select Lesson Status</mat-label>
+            <mat-select formControlName="status">
+                <mat-option *ngFor="let item of lessonStatuses" [value]="item.value">
+                    {{item.label}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="outline" class="row__col-2">
+            <mat-label>Select Course</mat-label>
+            <mat-select formControlName="courseId">
+                <mat-option *ngFor="let item of coursesList$|async" [value]="item.value">
+                    {{item.label}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="row__col-2">
+            <mat-label>Файли</mat-label>
+            <input matInput placeholder="Додайте файл" formControlName="file">
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+
+        <section class="example-section" class="row__col-2">
+            <mat-slide-toggle formControlName="free" color="primary" class="example-margin">Free Lesson
+            </mat-slide-toggle>
+        </section>
+    </div>
+    <div class="row">
+        <label for="editor"> Опис </label>
+        <angular-editor id="editor" formControlName="context" [config]="editorConfig"> </angular-editor>
+    </div>
 
 
-    <mat-form-field appearance="outline">
-        <mat-label>Select Lesson Status</mat-label>
-        <mat-select formControlName="status">
-            <mat-option *ngFor="let item of lessonStatuses" [value]="item.value">
-                {{item.label}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
 
 
-    <mat-form-field appearance="outline">
-        <mat-label>Select Course</mat-label>
-        <mat-select formControlName="courseId">
-            <mat-option *ngFor="let item of coursesList$|async" [value]="item.value">
-                {{item.label}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-        <mat-label>Файли</mat-label>
-        <input matInput placeholder="Додайте файл" formControlName="file">
-    </mat-form-field>
-
-    <section class="example-section">
-        <mat-checkbox formControlName="free" color="primary" class="example-margin">Free</mat-checkbox>
-    </section>
     <mat-divider></mat-divider>
     <app-spin-button [loading]="loading" matType='mat-flat-button'>
         <span>{{btnName}}</span>
     </app-spin-button>
-
 </form>

@@ -1,23 +1,26 @@
-<form [formGroup]="form">
-    <mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Введіть назву курса" formControlName="name">
-    </mat-form-field>
+<form [formGroup]="form" class="form">
+    <div class="row">
+        <mat-form-field appearance="outline" class="row__col-2">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Введіть назву курса" formControlName="name">
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-        <mat-label>Select Course Status</mat-label>
-        <mat-select formControlName="status">
-            <mat-option *ngFor="let item of courseStatuses" [value]="item.value"> {{item.label}}</mat-option>
-        </mat-select>
-    </mat-form-field>
+        <mat-form-field appearance="outline" class="row__col-2">
+            <mat-label>Select Course Status</mat-label>
+            <mat-select formControlName="status">
+                <mat-option *ngFor="let item of courseStatuses" [value]="item.value"> {{item.label}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="row">
+        <span>
+            Description
+            <angular-editor [config]="editorConfig" formControlName="description"></angular-editor>
+        </span>
+    </div>
 
-    <span>
-        Description
-        <angular-editor [config]="editorConfig" formControlName="description"></angular-editor>
-    </span>
     <mat-divider></mat-divider>
     <app-spin-button matType="mat-flat-button" [loading]="loading" (click)="save()">
         <span>{{btnName}}</span>
     </app-spin-button>
-
 </form>

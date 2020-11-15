@@ -1,10 +1,12 @@
 <div class="admin-page">
-    <div class="nav-block">
-        <a routerLink="pages">Pages</a>
-        <a routerLink="users">Users</a>
-        <a routerLink="messages">Messages</a>
-        <a routerLink="courses">Courses</a>
-    </div>
+
+    <nav class="nav-block">
+        <span routerLink="users" routerLinkActive="active">Користувачі</span>
+        <span routerLink="messages" routerLinkActive="active">Чати</span>
+        <span routerLink="courses" routerLinkActive="active">Курси</span>
+        <span routerLink="lessons" routerLinkActive="active">Заняття</span>
+        <span routerLink="pages" routerLinkActive="active">Статичні сторінки</span>
+    </nav>
     <div class="admin-content">
         <router-outlet></router-outlet>
     </div>

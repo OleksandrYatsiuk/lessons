@@ -16,6 +16,7 @@ export interface Lesson {
     file?: File;
     courseId: string;
     status?: number;
+    free: boolean;
     createdAt: number;
     updatedAt: number;
 }

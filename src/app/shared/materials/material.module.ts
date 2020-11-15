@@ -15,6 +15,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [],
@@ -33,7 +34,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatProgressBarModule,
     MatBadgeModule,
     MatCheckboxModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSlideToggleModule
   ],
   exports: [
     MatFormFieldModule,
@@ -50,7 +52,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatProgressBarModule,
     MatBadgeModule,
     MatCheckboxModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSlideToggleModule
   ]
 })
 export class MaterialModule { }

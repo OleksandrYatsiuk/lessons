@@ -4,11 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LessonItemComponent } from './lesson-item/lesson-item.component';
+import { LessonsComponent } from './lessons/lessons.component';
 
 const routes: Routes = [
+  { path: '', component: LessonsComponent },
   { path: 'create', component: LessonCreateComponent },
   { path: ':id', component: LessonItemComponent, resolve: { lesson: LessonOverviewResolver } },
-]
+];
 
 @NgModule({
   declarations: [],
