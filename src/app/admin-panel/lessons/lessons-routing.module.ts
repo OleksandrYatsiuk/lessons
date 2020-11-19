@@ -5,11 +5,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LessonItemComponent } from './lesson-item/lesson-item.component';
 import { LessonsComponent } from './lessons/lessons.component';
+import { DirtyFormGuard } from 'src/app/shared/guards/dirty-form.guard';
 
 const routes: Routes = [
   { path: '', component: LessonsComponent },
-  { path: 'create', component: LessonCreateComponent },
-  { path: ':id', component: LessonItemComponent, resolve: { lesson: LessonOverviewResolver } },
+  {
+    path: 'create', component: LessonCreateComponent,
+    canDeactivate: [DirtyFormGuard]
+  },
+  {
+    path: ':id', component: LessonItemComponent,
+    resolve: { lesson: LessonOverviewResolver },
+    canDeactivate: [DirtyFormGuard]
+  },
 ];
 
 @NgModule({
@@ -19,6 +27,6 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   exports: [RouterModule],
-  providers: [LessonOverviewResolver]
+  providers: [LessonOverviewResolver, DirtyFormGuard]
 })
 export class LessonsRoutingModule { }

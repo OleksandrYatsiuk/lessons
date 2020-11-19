@@ -1,5 +1,5 @@
 <h1>{{lesson.name}}</h1>
-<app-lessons-form [lesson]="lesson"></app-lessons-form>
+<app-lessons-form [lesson]="lesson" (dirty)="isDirty($event)"></app-lessons-form>
 
 <mat-divider></mat-divider>
 

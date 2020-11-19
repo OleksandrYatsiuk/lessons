@@ -1,54 +1,58 @@
-<h2>Lessons list</h2>
 <div class="container">
-    <table mat-table [dataSource]="lessons$|async" class="mat-elevation-z8">
+    <div class="example-container mat-elevation-z8">
+        <div class="example-table-container">
+            <table mat-table [dataSource]="lessons$|async">
 
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Назва </th>
-            <td mat-cell *matCellDef="let element" routerLink="/admin/lessons/{{element.id}}">{{element.name}}</td>
-        </ng-container>
+                <ng-container matColumnDef="name" sticky>
+                    <th mat-header-cell *matHeaderCellDef> Назва </th>
+                    <td mat-cell *matCellDef="let element" routerLink="/admin/lessons/{{element.id}}">{{element.name}}
+                    </td>
+                </ng-container>
 
-        <ng-container matColumnDef="createdAt">
-            <th mat-header-cell *matHeaderCellDef> Створено </th>
-            <td mat-cell *matCellDef="let element"> {{element.createdAt|date}} </td>
-        </ng-container>
+                <ng-container matColumnDef="createdAt">
+                    <th mat-header-cell *matHeaderCellDef> Створено </th>
+                    <td mat-cell *matCellDef="let element"> {{element.createdAt|date}} </td>
+                </ng-container>
 
-        <ng-container matColumnDef="updatedAt">
-            <th mat-header-cell *matHeaderCellDef> Оновлено</th>
-            <td mat-cell *matCellDef="let element"> {{element.updatedAt|date}} </td>
-        </ng-container>
+                <ng-container matColumnDef="updatedAt">
+                    <th mat-header-cell *matHeaderCellDef> Оновлено</th>
+                    <td mat-cell *matCellDef="let element"> {{element.updatedAt|date}} </td>
+                </ng-container>
 
 
-        <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef> Статус </th>
-            <td mat-cell *matCellDef="let element"> {{element.status|extract:lessonStatuses}} </td>
-        </ng-container>
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Статус </th>
+                    <td mat-cell *matCellDef="let element"> {{element.status|extract:lessonStatuses}} </td>
+                </ng-container>
 
-        <ng-container matColumnDef="free">
-            <th mat-header-cell *matHeaderCellDef> Ціна </th>
-            <td mat-cell *matCellDef="let element">
-                <mat-slide-toggle color="primary" [ngModel]="element.free"
-                    (ngModelChange)="updatePrice($event, element.id)">
-                    Безкоштовно</mat-slide-toggle>
-            </td>
-        </ng-container>
+                <ng-container matColumnDef="free">
+                    <th mat-header-cell *matHeaderCellDef> Ціна </th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-slide-toggle color="primary" [ngModel]="element.free"
+                            (ngModelChange)="updatePrice($event, element.id)">
+                            Безкоштовно</mat-slide-toggle>
+                    </td>
+                </ng-container>
 
-        <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef>
-                <app-spin-button matType='mat-flat-button' color='primary' routerLink="/admin/lessons/create">
-                    <span>Створити заняття</span>
-                </app-spin-button>
-            </th>
-            <td mat-cell *matCellDef="let element">
-                <button (click)="openDialog(element)" mat-mini-fab color="warn">
-                    <mat-icon>delete</mat-icon>
-                </button>
-                <button routerLink="/admin/lessons/{{element.id}}" mat-mini-fab color="primary">
-                    <mat-icon>edit</mat-icon>
-                </button>
-            </td>
-        </ng-container>
+                <ng-container matColumnDef="delete">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <app-spin-button matType='mat-flat-button' color='primary' routerLink="/admin/lessons/create">
+                            <span>Створити заняття</span>
+                        </app-spin-button>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button (click)="openDialog(element)" mat-mini-fab color="warn">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <button routerLink="/admin/lessons/{{element.id}}" mat-mini-fab color="primary">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
 </div>

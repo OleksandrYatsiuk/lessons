@@ -21,6 +21,7 @@ export class SpinButtonComponent {
   @Input() color: ThemePalette = 'primary';
   @Input() spinColor: ThemePalette = 'primary';
   @Input() matType: EMatBtn = EMatBtn['mat-flat-button'];
+  @Input() disabled = false;
   public types = EMatBtn;
   constructor() { }
 

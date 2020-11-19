@@ -1,30 +1,41 @@
 <ng-container [ngSwitch]="item.message.content.type">
-    <div class="msg-container" [class.msg-container-bot]="item.type==messageTypes.bot">
-        <ng-container *ngSwitchCase="contentTypes.text">
-            <div class="msg-text">{{item.message.content.text}}</div>
-            <div class="msg-date">{{item.createdAt|date}}</div>
-        </ng-container>
-        <ng-container *ngSwitchCase="contentTypes.file">
-            <div class="msg-content">
-                <div class="msg-text"> Download File
-                    <a [href]="item.message.content.link">
-                        <mat-icon>save_alt</mat-icon>
-                    </a>
-                </div>
-                <div class="msg-text">{{item.message.content.text}}</div>
-            </div>
-            <div class="msg-date">{{item.createdAt|date}}</div>
-        </ng-container>
-        <ng-container *ngSwitchCase="contentTypes.photo">
-            <div class="msg-content">
-                <div *ngIf="expiredFile">
-                    <mat-icon (click)="refreshFileLink(item)">refresh</mat-icon>
-                </div>
-                <img class="msg-text" [src]="item.message.content.link" [alt]="item.message.content.link"
-                    (error)="updateUrl()">
-                <div class="msg-text">{{item.message.content?.text}}</div>
-            </div>
-            <div class="msg-date">{{item.createdAt|date}}</div>
-        </ng-container>
-        <mat-icon (click)="openDialog(item)">close</mat-icon>
-    </div>
+  <div
+    class="msg-container"
+    [class.msg-container-bot]="item.type == messageTypes.bot"
+  >
+    <ng-container *ngSwitchCase="contentTypes.text">
+      <div class="msg-text">
+        {{ item.message.content.text }}
+        <div class="msg-date">{{ item.createdAt | date }}</div>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="contentTypes.file">
+      <div class="msg-content">
+        <div class="msg-text">
+          Download File
+          <a [href]="item.message.content.link">
+            <mat-icon>save_alt</mat-icon>
+          </a>
+        </div>
+        <div class="msg-text">{{ item.message.content.text }}</div>
+      </div>
+      <div class="msg-date">{{ item.createdAt | date }}</div>
+    </ng-container>
+    <ng-container *ngSwitchCase="contentTypes.photo">
+      <div class="msg-content">
+        <div *ngIf="expiredFile">
+          <mat-icon (click)="refreshFileLink(item)">refresh</mat-icon>
+        </div>
+        <img
+          class="msg-text"
+          [src]="item.message.content.link"
+          [alt]="item.message.content.link"
+          (error)="updateUrl()"
+        />
+        <div class="msg-text">{{ item.message.content?.text }}</div>
+      </div>
+      <div class="msg-date">{{ item.createdAt | date }}</div>
+    </ng-container>
+    <mat-icon (click)="openDialog(item)">close</mat-icon>
+  </div></ng-container
+>

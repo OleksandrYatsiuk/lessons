@@ -5,17 +5,21 @@ import { RouterModule, Routes } from '@angular/router';
 import { CoursesComponent } from './courses.component';
 import { CourseItemComponent } from './course-item/course-item.component';
 import { CourseOverviewResolver } from './course-overview.resolver';
+import { DirtyFormGuard } from 'src/app/shared/guards/dirty-form.guard';
 
 const routes: Routes = [
   {
     path: '', component: CoursesComponent,
+    canDeactivate: [DirtyFormGuard]
   },
   {
     path: 'create', component: CourseCreateComponent,
+    canDeactivate: [DirtyFormGuard]
   },
   {
     path: ':id', component: CourseItemComponent,
-    resolve: { course: CourseOverviewResolver }
+    resolve: { course: CourseOverviewResolver },
+    canDeactivate: [DirtyFormGuard]
   },
 ];
 
@@ -29,6 +33,6 @@ const routes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [CourseOverviewResolver]
+  providers: [CourseOverviewResolver, DirtyFormGuard]
 })
 export class CoursesRoutingModule { }

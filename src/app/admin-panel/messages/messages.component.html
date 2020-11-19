@@ -1,47 +1,67 @@
 <div class="chat-container">
-    <div class="chat">
-        <div class="chat-list">
-            <div class='message-content' *ngFor="let message of messages">
-                <app-message-item [item]="message" (removed)="onRemove()"></app-message-item>
-            </div>
+  <div class="chat">
+    <div class="chat-list">
+      <div>
+        <div class="message-content" *ngFor="let message of messages">
+          <app-message-item
+            [item]="message"
+            (removed)="onRemove()"
+          ></app-message-item>
         </div>
         <div class="chat-actions">
-            <app-chat-actions [chat_id]="chat_id" [lessonId]="lessonId" (sended)="fetchSendingMessage()">
-            </app-chat-actions>
+          <app-chat-actions
+            [chat_id]="chat_id"
+            [lessonId]="lessonId"
+            (sended)="fetchSendingMessage()"
+          >
+          </app-chat-actions>
         </div>
+      </div>
+      <form [formGroup]="form" class="search">
+        <mat-form-field appearance="outline">
+          <mat-label>Select User</mat-label>
+          <mat-select formControlName="chat_id">
+            <mat-option
+              *ngFor="let item of usersList$ | async"
+              [value]="item.value"
+            >
+              {{ item.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Select Course</mat-label>
+          <mat-select (selectionChange)="setCourse($event)">
+            <mat-option
+              *ngFor="let item of coursesList$ | async"
+              [value]="item.value"
+            >
+              {{ item.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Select Lesson</mat-label>
+          <mat-select formControlName="lessonId" [disabled]="!isCourseSelected">
+            <mat-option
+              *ngFor="let item of lessonsList$ | async"
+              [value]="item.value"
+            >
+              {{ item.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <app-spin-button
+          [loading]="loading"
+          matType="mat-flat-button"
+          (click)="search()"
+        >
+          <span> Search</span>
+        </app-spin-button>
+      </form>
     </div>
-    <div>
-        <form [formGroup]="form" class="search">
-            <mat-form-field appearance="outline">
-                <mat-label>Select User</mat-label>
-                <mat-select formControlName="chat_id">
-                    <mat-option *ngFor="let item of usersList$|async" [value]="item.value">
-                        {{item.label}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-                <mat-label>Select Course</mat-label>
-                <mat-select (selectionChange)="setCourse($event)">
-                    <mat-option *ngFor="let item of coursesList$|async" [value]="item.value">
-                        {{item.label}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-                <mat-label>Select Lesson</mat-label>
-                <mat-select formControlName="lessonId" [disabled]="!isCourseSelected">
-                    <mat-option *ngFor="let item of lessonsList$|async" [value]="item.value">
-                        {{item.label}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <app-spin-button [loading]="loading" matType='mat-flat-button' (click)="search()">
-                <span> Search</span>
-            </app-spin-button>
-        </form>
-    </div>
+  </div>
 </div>

@@ -1,8 +1,13 @@
-table {
-    width: 100%;
-}
-
 mat-divider.mat-divider {
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+.example-container.mat-elevation-z8 {
+    overflow-x: auto;
+    width: 100%;
+}
+
+table {
+    width: 100%;
 }

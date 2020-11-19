@@ -1,7 +1,7 @@
 import { NotificationsService } from './../../../core/services/notifications.service';
 import { EMPTY, Observable } from 'rxjs';
 import { CourseDataService } from './../../../core/services/course-data.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Course, ECourseStatus } from 'src/app/core/interfaces/courses';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
@@ -18,11 +18,12 @@ import { SelectItems } from 'src/app/core/interfaces/select';
 export class CourseFormComponent implements OnInit {
   @Input() course: Course;
   @Input() btnName = 'Зберегти';
+  @Output() dirty = new EventEmitter<boolean>();
   loading = false;
   form: FormGroup;
   courseStatuses: SelectItems[] = [
-    { value: ECourseStatus.PUBLISHED, label: 'Published' },
-    { value: ECourseStatus.DRAFT, label: 'Draft' }];
+    { value: ECourseStatus.PUBLISHED, label: 'Опубліковано' },
+    { value: ECourseStatus.DRAFT, label: 'Чорновик' }];
   editorConfig: AngularEditorConfig = {
     editable: true,
 
@@ -63,15 +64,16 @@ export class CourseFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.form.valueChanges.subscribe(() => this.dirty.emit(this.form.dirty));
 
     if (this.course) {
       this.setFormValues();
     }
   }
 
-
   public save(): void {
     this.form.markAllAsTouched();
+    this.dirty.emit(false);
     this.loading = true;
     if (this.form.valid) {
       if (this.course) {
@@ -94,7 +96,7 @@ export class CourseFormComponent implements OnInit {
       name: ['', []],
       status: [0, []],
       description: ['', []]
-    })
+    });
   }
 
   private setFormValues(): void {

@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ExtractPipe } from './pipes/extract.pipe';
 import { PreloaderComponent } from './components/preloader/preloader.component';
+import { ConfirmComponent } from './components/dialogs/confirm/confirm.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { PreloaderComponent } from './components/preloader/preloader.component';
     SpinButtonComponent,
     ExtractPipe,
     PreloaderComponent,
+    ConfirmComponent,
   ],
   imports: [
     CommonModule,

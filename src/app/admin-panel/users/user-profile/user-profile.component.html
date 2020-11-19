@@ -4,11 +4,10 @@
 <p>Create: {{user?.createdAt|date}}</p>
 
 <hr>
-<hr>
 
 
 <mat-form-field appearance="outline">
-  <mat-label>Select Course</mat-label>
+  <mat-label>Фільтр по курсу</mat-label>
   <mat-select [(ngModel)]="selectedCourse" name="food" (ngModelChange)="filter($event)">
     <mat-option *ngFor="let food of coursesList$|async" [value]="food.courseId['_id']">
       {{food.courseId['name']}}
@@ -21,46 +20,12 @@
 <table mat-table [dataSource]="studyProgressList$|async" class="mat-elevation-z8">
 
   <ng-container matColumnDef="lesson">
-    <th mat-header-cell *matHeaderCellDef> Lesson </th>
+    <th mat-header-cell *matHeaderCellDef> Заняття </th>
     <td mat-cell *matCellDef="let element"> {{element.lessonId['name']}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="createdAt">
-    <th mat-header-cell *matHeaderCellDef> Date </th>
-    <td mat-cell *matCellDef="let element"> {{element?.createdAt|date}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="progress">
-    <th mat-header-cell *matHeaderCellDef> Progress </th>
-    <td mat-cell *matCellDef="let element">
-      <mat-form-field appearance="outline">
-        <mat-label>Course Progress</mat-label>
-        <mat-select [(ngModel)]="element.progress" (ngModelChange)="updateProgress(element, $event)">
-          <mat-option *ngFor="let progress of progress" [value]="progress.value">
-            {{progress.label}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef> Status </th>
-    <td mat-cell *matCellDef="let element">
-
-      <mat-form-field appearance="outline">
-        <mat-label>Lesson Status</mat-label>
-        <mat-select [(ngModel)]="element.status" (ngModelChange)="updateStatus(element, $event)">
-          <mat-option *ngFor="let status of statuses" [value]="status.value">
-            {{status.label}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </td>
-  </ng-container>
-
   <ng-container matColumnDef="isAnswered">
-    <th mat-header-cell *matHeaderCellDef> Answered </th>
+    <th mat-header-cell *matHeaderCellDef> Переписка </th>
     <td mat-cell *matCellDef="let lesson">
       <mat-icon *ngIf="!lesson.isAnswered" matBadge="?" [routerLink]="['/admin/messages']"
         [queryParams]="{chat_id:user.chat_id, lessonId:lesson.lessonId['_id']}" matBadgeColor="warn">mail_outline
@@ -71,8 +36,42 @@
     </td>
   </ng-container>
 
+  <ng-container matColumnDef="progress">
+    <th mat-header-cell *matHeaderCellDef> Прогрес </th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field appearance="outline">
+        <mat-label>Прогрес курсу</mat-label>
+        <mat-select [(ngModel)]="element.progress" (ngModelChange)="updateProgress(element, $event)">
+          <mat-option *ngFor="let progress of progress" [value]="progress.value">
+            {{progress.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Статус </th>
+    <td mat-cell *matCellDef="let element">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Статус курсу</mat-label>
+        <mat-select [(ngModel)]="element.status" (ngModelChange)="updateStatus(element, $event)">
+          <mat-option *ngFor="let status of statuses" [value]="status.value">
+            {{status.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="createdAt">
+    <th mat-header-cell *matHeaderCellDef> Створено </th>
+    <td mat-cell *matCellDef="let element"> {{element?.createdAt|date}} </td>
+  </ng-container>
+
   <ng-container matColumnDef="course">
-    <th mat-header-cell *matHeaderCellDef> Course </th>
+    <th mat-header-cell *matHeaderCellDef> Назва курсу </th>
     <td mat-cell *matCellDef="let lesson"> {{lesson.courseId['name']}} </td>
   </ng-container>
 

@@ -5,6 +5,7 @@ import { DeleteComponent } from './../../shared/components/dialogs/delete/delete
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UserDataService } from 'src/app/core/services/user-data.service';
+import { PreloaderService } from 'src/app/core/services/preloader.service';
 
 export interface User {
   id: string;
@@ -28,20 +29,25 @@ export class UsersComponent implements OnInit {
   constructor(
     private http: UserDataService,
     private dialog: MatDialog,
-    private _notify: NotificationsService
+    private _notify: NotificationsService,
+    private loadService: PreloaderService
   ) { }
-
-  ngOnInit(): void {
-    this.getData()
-  }
-  public getData(): void {
-    this.http.getList().subscribe(users => this.users = users);
-  }
 
   private config: MatDialogConfig = {
     autoFocus: false,
     disableClose: true,
     hasBackdrop: true
+  };
+
+  ngOnInit(): void {
+    this.getData();
+  }
+  public getData(): void {
+    this.loadService.start();
+    this.http.getList().subscribe(users => {
+      this.users = users;
+      this.loadService.stop();
+    });
   }
 
   openDialog(user: User): void {

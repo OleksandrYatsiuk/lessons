@@ -28,7 +28,7 @@ export class CoursesComponent implements OnInit {
     private http: CourseDataService,
     private dialog: MatDialog,
     private notify: NotificationsService,
-    private loadService: PreloaderService,
+    private loadService: PreloaderService
   ) { }
 
   ngOnInit(): void {

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
 import { EMPTY, Observable } from 'rxjs';
 import { Lesson, Course, ECourseStatus } from './../../../core/interfaces/courses';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LessonsDataService } from 'src/app/core/services/lessons-data.service';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
@@ -19,9 +19,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LessonsFormComponent implements OnInit {
   @Input() lesson: Lesson;
   @Input() btnName = 'Зберегти';
+  @Output() dirty = new EventEmitter<boolean>();
   public form: FormGroup;
   loading = false;
   coursesList$: Observable<SelectItems[]>;
+
   constructor(
     private fb: FormBuilder,
     private http: LessonsDataService,
@@ -69,11 +71,10 @@ export class LessonsFormComponent implements OnInit {
   ngOnInit(): void {
     this.coursesList$ = this._queryCourseList();
     this.initForm();
-
     if (this.lesson) {
       this.setValuesToForm();
     }
-
+    this.form.valueChanges.subscribe(() => this.dirty.emit(this.form.dirty));
   }
 
   public save(): void {
