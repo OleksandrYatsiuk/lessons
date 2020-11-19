@@ -1,0 +1,31 @@
+<div class="container">
+  <mat-icon routerLink="../../">keyboard_arrow_left</mat-icon>
+  <mat-form-field appearance="outline">
+    <mat-label>Прогрес курсу</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let progress of progress" [value]="progress.value">
+        {{ progress.label }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="chat-container">
+  <div class="chat">
+    <div class="chat-list">
+      <div class="message-content" *ngFor="let message of messages$ | async">
+        <app-message-item
+          [item]="message"
+          (removed)="showMessages()"
+        ></app-message-item>
+      </div>
+    </div>
+    <div class="chat-actions">
+      <app-chat-actions
+        [chatId]="user.chat_id"
+        [lessonId]="lessonId"
+        (sended)="showMessages()"
+      >
+      </app-chat-actions>
+    </div>
+  </div>
+</div>

@@ -1,11 +1,10 @@
-import { StudyProgressService } from './../../core/services/study-progress.service';
 import { ActivatedRoute } from '@angular/router';
 import { LessonsDataService } from 'src/app/core/services/lessons-data.service';
 import { CustomMessage } from './message.interface';
 import { Component, OnInit } from '@angular/core';
 import { MessagesService } from 'src/app/core/services/messages.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { finalize, map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { Course, Lesson } from 'src/app/core/interfaces/courses';
@@ -13,7 +12,6 @@ import { MatSelectChange } from '@angular/material/select';
 import { SelectItems } from 'src/app/core/interfaces/select';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 import { User } from '../users/users.component';
-import { IStudyProgress } from 'src/app/core/interfaces/study-progress';
 import { PreloaderService } from 'src/app/core/services/preloader.service';
 
 @Component({
@@ -38,7 +36,6 @@ export class MessagesComponent implements OnInit {
     private fb: FormBuilder,
     private http2: UserDataService,
     private courseService: CourseDataService,
-    private loadService: PreloaderService,
     private lessonService: LessonsDataService) {
     this.messages = this.route.snapshot.data.chat;
   }
@@ -89,7 +86,7 @@ export class MessagesComponent implements OnInit {
     }
   }
 
-  private initForm() {
+  private initForm(): void {
     this.form = this.fb.group({
       chat_id: ['', Validators.required],
       lessonId: ['', Validators.required],

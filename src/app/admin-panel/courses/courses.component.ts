@@ -22,8 +22,8 @@ export class CoursesComponent implements OnInit {
     autoFocus: false
   };
   courseStatuses: SelectItems[] = [
-    { value: ECourseStatus.PUBLISHED, label: 'Published' },
-    { value: ECourseStatus.DRAFT, label: 'Draft' }];
+    { value: ECourseStatus.PUBLISHED, label: 'Опубліковано' },
+    { value: ECourseStatus.DRAFT, label: 'Чорновик' }];
   constructor(
     private http: CourseDataService,
     private dialog: MatDialog,
@@ -55,7 +55,7 @@ export class CoursesComponent implements OnInit {
   }
 
   public getList(): void {
-    this.courses$ = this._queryCoursesList()
+    this.courses$ = this._queryCoursesList();
   }
 
   private _queryDeleteCourse(course: Course): Observable<any> {

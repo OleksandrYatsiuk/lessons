@@ -8,7 +8,7 @@ export interface IStudyProgress {
     progress: EStudyProgress;
     lessonId: string;
     courseId: Course | string;
-    status: EStudyStatus;
+    status: boolean;
     createdAt: number;
     updatedAt: number;
 }
@@ -17,8 +17,4 @@ export enum EStudyProgress {
     STARTED = 1,
     IN_PROGRESS = 2,
     COMPLETED = 3
-}
-export enum EStudyStatus {
-    ENABLED = 0,
-    DISABLED = 1,
 }

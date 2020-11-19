@@ -1,12 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY, Observable } from 'rxjs';
 import { MessagesService } from 'src/app/core/services/messages.service';
-import { CustomMessage, EMessageTypes, EContentTypes } from '../message.interface';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { DeleteComponent } from 'src/app/shared/components/dialogs/delete/delete.component';
 import { catchError } from 'rxjs/operators';
+import { CustomMessage, EMessageTypes, EContentTypes } from 'src/app/admin-panel/messages/message.interface';
 
 @Component({
   selector: 'app-message-item',

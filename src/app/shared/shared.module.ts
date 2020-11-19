@@ -11,11 +11,15 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ExtractPipe } from './pipes/extract.pipe';
 import { PreloaderComponent } from './components/preloader/preloader.component';
 import { ConfirmComponent } from './components/dialogs/confirm/confirm.component';
+import { ChatActionsComponent } from './components/chat-actions/chat-actions.component';
+import { MessageItemComponent } from './components/message-item/message-item.component';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
+    ChatActionsComponent,
+    MessageItemComponent,
     FooterComponent,
     DeleteComponent,
     SpinButtonComponent,
@@ -42,6 +46,8 @@ import { ConfirmComponent } from './components/dialogs/confirm/confirm.component
     SpinButtonComponent,
     ExtractPipe,
     PreloaderComponent,
+    ChatActionsComponent,
+    MessageItemComponent,
   ],
 })
 export class SharedModule { }

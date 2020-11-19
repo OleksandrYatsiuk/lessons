@@ -7,8 +7,6 @@ import { AdminPanelRoutingModule } from './admin-panel-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { CoursesComponent } from './courses/courses.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
-import { ChatActionsComponent } from './messages/chat-actions/chat-actions.component';
-import { MessageItemComponent } from './messages/message-item/message-item.component';
 import { MessagesComponent } from './messages/messages.component';
 
 
@@ -20,14 +18,14 @@ import { MessagesComponent } from './messages/messages.component';
     PageContextComponent,
     AdminPanelComponent,
     CoursesComponent,
-    MessageItemComponent,
-    ChatActionsComponent,
     UserProfileComponent,
   ],
   imports: [
     CommonModule,
     AdminPanelRoutingModule,
     SharedModule
+  ],
+  exports: [
   ]
 })
 export class AdminPanelModule { }
