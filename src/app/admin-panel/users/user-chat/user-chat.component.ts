@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { EStudyProgress } from 'src/app/core/interfaces/study-progress';
 import { MessagesService } from 'src/app/core/services/messages.service';
+import { StudyProgressService } from 'src/app/core/services/study-progress.service';
 import { CustomMessage } from '../../messages/message.interface';
 import { User } from '../users.component';
 
@@ -13,7 +14,6 @@ import { User } from '../users.component';
 })
 export class UserChatComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private http: MessagesService) { }
   user: User;
   lessonId: string;
   messages$: Observable<CustomMessage[]>;
@@ -32,14 +32,21 @@ export class UserChatComponent implements OnInit {
     }
   ];
 
+  constructor(private route: ActivatedRoute, private http: MessagesService, private progressService: StudyProgressService) { }
   ngOnInit(): void {
     this.user = this.route.parent.snapshot.data.user;
     this.lessonId = this.route.snapshot.params.id;
     this.showMessages();
   }
 
+  updateProgress(progress: EStudyProgress): void {
+    this.progressService.queryUpdateProgress({ lessonId: this.lessonId, chat_id: this.user.chat_id }, { progress })
+      .subscribe(res => {
+        console.log(res);
+      });
+  }
 
-   showMessages(): void {
+  showMessages(): void {
     this.messages$ = this._queryMessageList();
   }
 

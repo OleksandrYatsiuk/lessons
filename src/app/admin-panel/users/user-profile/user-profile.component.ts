@@ -4,6 +4,7 @@ import { User } from './../users.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Course, Lesson } from 'src/app/core/interfaces/courses';
+import { UserDataService } from 'src/app/core/services/user-data.service';
 
 
 
@@ -23,13 +24,18 @@ export class UserProfileComponent implements OnInit {
   coursesList$: Observable<Course[]>;
   constructor(
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private userService: UserDataService) {
     this.user = this.route.snapshot.data.user;
   }
 
 
   ngOnInit(): void {
 
+  }
+  updateStatus(haveMessages: boolean): void {
+    this.userService.update({ ...this.user, ...{ haveMessages } })
+      .subscribe(res => console.log(res));
   }
 
   openChat(lesson: Lesson): void {

@@ -2,7 +2,7 @@
   <mat-icon routerLink="../../">keyboard_arrow_left</mat-icon>
   <mat-form-field appearance="outline">
     <mat-label>Прогрес курсу</mat-label>
-    <mat-select>
+    <mat-select (valueChange)="updateProgress($event)">
       <mat-option *ngFor="let progress of progress" [value]="progress.value">
         {{ progress.label }}
       </mat-option>

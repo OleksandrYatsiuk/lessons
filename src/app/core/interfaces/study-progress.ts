@@ -3,7 +3,7 @@ import { Course } from './courses';
 export interface IStudyProgress {
     readonly _id: string;
     userId: string;
-    chat_id: string;
+    chat_id: number;
     isAnswered: boolean;
     progress: EStudyProgress;
     lessonId: string;

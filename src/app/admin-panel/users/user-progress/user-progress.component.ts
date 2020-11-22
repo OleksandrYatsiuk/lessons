@@ -84,7 +84,7 @@ export class UserProgressComponent implements OnInit {
       }));
   }
   private _queryUpdate(progressId: IStudyProgress['_id'], data: Partial<IStudyProgress>): Observable<IStudyProgress> {
-    return this.studyService.queryUpdateProgress(progressId, data);
+    return this.studyService.queryUpdateProgress({ _id: progressId }, data);
   }
   private _calculateUserProgress(lessons: IStudyProgress[]): void {
     const max = lessons.length;

@@ -14,6 +14,7 @@ export interface User {
   lastName: string;
   email: string;
   chat_id: number | null;
+  haveMessages: boolean;
   createdAt: number;
   updatedAt: number;
 }
