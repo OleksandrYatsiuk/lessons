@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs';
 import { NotificationsService } from './../../core/services/notifications.service';
-import { logging } from 'protractor';
 import { DeleteComponent } from './../../shared/components/dialogs/delete/delete.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
