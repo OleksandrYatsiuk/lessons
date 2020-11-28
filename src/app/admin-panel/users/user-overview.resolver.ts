@@ -9,6 +9,6 @@ export class UserOverviewResolver implements Resolve<any> {
     constructor(private http: UserDataService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> {
-        return this.http.getItem({ id: route.params.id });
+        return this.http.getItem({ _id: route.params.id });
     }
 }
