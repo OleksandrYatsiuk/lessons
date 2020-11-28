@@ -27,6 +27,7 @@ export class MessagesComponent implements OnInit {
   usersList$: Observable<SelectItems[]>;
   coursesList$: Observable<SelectItems[]>;
   lessonsList$: Observable<SelectItems[]>;
+  user: User;
   form: FormGroup;
   messages: CustomMessage[];
   loading = false;
@@ -40,6 +41,8 @@ export class MessagesComponent implements OnInit {
     this.messages = this.route.snapshot.data.chat;
   }
 
+
+
   ngOnInit(): void {
 
     this.initForm();
@@ -51,13 +54,17 @@ export class MessagesComponent implements OnInit {
     this.getUsers();
   }
 
+  onChange({ value }: { value: string }): void {
+    this.http2.getItem({ _id: value }).subscribe(user => this.user = user);
+  }
+
   public getUsers(): Observable<SelectItems[]> {
     return this.http2.getList().pipe(map((users: User[]) => {
       return users.map(user => {
         if (user.firstName && user.lastName) {
-          return { label: `${user.firstName} ${user.lastName}`, value: user.chat_id };
+          return { label: `${user.firstName} ${user.lastName}`, value: user.id };
         } else {
-          return { label: `${user.phone}`, value: user.chat_id };
+          return { label: `${user.phone}`, value: user.id };
         }
       });
     }));
@@ -88,7 +95,7 @@ export class MessagesComponent implements OnInit {
 
   private initForm(): void {
     this.form = this.fb.group({
-      chat_id: ['', Validators.required],
+      userId: ['', Validators.required],
       lessonId: ['', Validators.required],
     });
   }
@@ -104,10 +111,9 @@ export class MessagesComponent implements OnInit {
     this.search();
   }
 
-
   private _queryMessagesList(): Observable<CustomMessage[]> {
     return this.http.getList(this.form.value);
   }
-  get chat_id() { return this.form.get('chat_id').value; }
-  get lessonId() { return this.form.get('lessonId').value; }
+  get userId(): string { return this.form.get('userId').value; }
+  get lessonId(): string { return this.form.get('lessonId').value; }
 }

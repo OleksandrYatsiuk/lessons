@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
 import { pluck } from 'rxjs/operators';
 import { CustomMessage, EContentTypes, EMessageTypes } from 'src/app/admin-panel/messages/message.interface';
+import { User } from 'src/app/admin-panel/users/users.component';
 
 @Component({
   selector: 'app-chat-actions',
@@ -14,7 +15,7 @@ export class ChatActionsComponent implements OnInit {
   msg: CustomMessage;
   message: string;
   file: File;
-  @Input() chatId: number;
+  @Input() user: User;
   @Input() lessonId: string;
   @Output() sended = new EventEmitter<boolean>();
 
@@ -25,12 +26,12 @@ export class ChatActionsComponent implements OnInit {
   public sendMessage(text: string, file?: File): void {
     if (file) {
       this.http.sendPhoto({
-        chat_id: this.chatId,
+        userId: this.user.id,
         photo: this.file,
         caption: this.message || ''
       }).subscribe(res => this.save(res, EContentTypes.photo));
     } else {
-      this.http.sendMessage(this.chatId, text).subscribe(res => this.save(res, EContentTypes.text, text));
+      this.http.sendMessage(this.user.chat_id, text).subscribe(res => this.save(res, EContentTypes.text, text));
     }
   }
 
@@ -38,7 +39,7 @@ export class ChatActionsComponent implements OnInit {
   private save(res: any, type: EContentTypes, text?: string): void {
 
     this.http.saveMessage({
-      chat_id: this.chatId,
+      userId: this.user.id,
       lessonId: this.lessonId,
       type: EMessageTypes.bot,
       message: {
@@ -58,6 +59,7 @@ export class ChatActionsComponent implements OnInit {
   }
 
   public setFiles(event: Event & { srcElement: HTMLInputElement }): void {
+    // tslint:disable-next-line: deprecation
     const files = event.srcElement.files;
     if (!files) {
       return;

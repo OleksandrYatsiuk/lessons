@@ -27,7 +27,6 @@ export class UserProfileComponent implements OnInit {
     private router: Router,
     private userService: UserDataService) {
     this.user = this.route.snapshot.data.user;
-    console.log(this.user);
   }
 
 
@@ -36,7 +35,7 @@ export class UserProfileComponent implements OnInit {
   }
   updateStatus(haveMessages: boolean): void {
     this.userService.update({ ...this.user, ...{ haveMessages } })
-      .subscribe(res => console.log(res));
+      .subscribe(res => { });
   }
 
   openChat(lesson: Lesson): void {

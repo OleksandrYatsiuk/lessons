@@ -40,10 +40,8 @@ export class UserChatComponent implements OnInit {
   }
 
   updateProgress(progress: EStudyProgress): void {
-    this.progressService.queryUpdateProgress({ lessonId: this.lessonId, chat_id: this.user.chat_id }, { progress })
-      .subscribe(res => {
-        console.log(res);
-      });
+    this.progressService.queryUpdateProgress({ lessonId: this.lessonId, userId: this.user.id }, { progress })
+      .subscribe(res => { });
   }
 
   showMessages(): void {
@@ -51,7 +49,7 @@ export class UserChatComponent implements OnInit {
   }
 
   private _queryMessageList(): Observable<CustomMessage[]> {
-    return this.http.getList({ chat_id: this.user.chat_id, lessonId: this.lessonId });
+    return this.http.getList({ userId: this.user.id, lessonId: this.lessonId });
   }
 
 }

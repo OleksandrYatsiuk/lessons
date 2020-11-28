@@ -21,7 +21,7 @@
     </div>
     <div class="chat-actions">
       <app-chat-actions
-        [chatId]="user.chat_id"
+        [user]="user"
         [lessonId]="lessonId"
         (sended)="showMessages()"
       >

@@ -8,7 +8,7 @@ import { UserDataService } from '../core/services/user-data.service';
   styleUrls: ['./start-bot.component.scss']
 })
 export class StartBotComponent implements OnInit {
-  public phone = new FormControl('+380', Validators.required)
+  public phone = new FormControl('+380', Validators.required);
   constructor(private http: UserDataService) { }
 
   public ngOnInit(): void {
@@ -18,13 +18,8 @@ export class StartBotComponent implements OnInit {
     this.phone.markAllAsTouched();
     if (this.phone.valid) {
       this.http.register({ phone: this.phone.value }).subscribe(user => {
-        console.log(user);
-        window.open(`https://t.me/practical_lagacy_courses_bot?start=${user.phone}`, '_blank');
-      }, (error) => {
-        console.log(error);
-      })
-
+        window.open(`https://t.me/practical_lagacy_courses_bot?start=${user.phone}`);
+      });
     }
-    console.log(this.phone.value);
   }
 }

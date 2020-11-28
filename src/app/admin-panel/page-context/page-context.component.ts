@@ -13,12 +13,12 @@ export class PageContextComponent implements OnInit {
 
   config: AngularEditorConfig = {
     sanitize: false
-  }
+  };
   staticPages = EStaticPages;
   htmlContent = {
     [this.staticPages.privacyPolicy]: '',
     [this.staticPages.termsAndConditions]: ''
-  }
+  };
   activeLabel: number = this.staticPages.privacyPolicy;
   constructor(private http: StaticPagesService) { }
 
@@ -26,17 +26,17 @@ export class PageContextComponent implements OnInit {
     this.getPagesContent();
   }
 
-  getPagesContent() {
+  getPagesContent(): void {
     this.http.getStaticPages().subscribe(result => {
       result.forEach(page => {
-        this.htmlContent[page.type] = page.content
+        this.htmlContent[page.type] = page.content;
       });
-    })
+    });
   }
 
   save(): void {
     this.http.setStaticPage({ type: this.activeLabel, content: this.htmlContent[this.activeLabel] })
-      .subscribe(result => console.log(result));
+      .subscribe(result => { });
   }
   show(event: MatTabChangeEvent): void {
     this.activeLabel = event.index + 1;

@@ -10,7 +10,7 @@
         </div>
         <div class="chat-actions">
           <app-chat-actions
-            [chatId]="chat_id"
+            [user]="user"
             [lessonId]="lessonId"
             (sended)="fetchSendingMessage()"
           >
@@ -20,7 +20,10 @@
       <form [formGroup]="form" class="search">
         <mat-form-field appearance="outline">
           <mat-label>Select User</mat-label>
-          <mat-select formControlName="chat_id">
+          <mat-select
+            formControlName="userId"
+            (selectionChange)="onChange($event)"
+          >
             <mat-option
               *ngFor="let item of usersList$ | async"
               [value]="item.value"

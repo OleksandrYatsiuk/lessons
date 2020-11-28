@@ -1,6 +1,7 @@
 export interface CustomMessage {
     readonly id?: string;
-    chat_id: number;
+    userId: string;
+    chat_id?: number;
     lessonId: string;
     type: EMessageTypes;
     message: Message;
