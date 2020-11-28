@@ -27,6 +27,7 @@ export class UserProfileComponent implements OnInit {
     private router: Router,
     private userService: UserDataService) {
     this.user = this.route.snapshot.data.user;
+    console.log(this.user);
   }
 
 

@@ -1,14 +1,13 @@
 <hr />
-<p>Full Name: {{ user.firstName }} {{ user.lastName }}</p>
+<p>Full Name: {{ user?.firstName }} {{ user?.lastName }}</p>
 <p>Phone: {{ user.phone }}</p>
-<p>Create: {{ user?.createdAt | date }}</p>
+<p>Create: {{ user.createdAt | date }}</p>
 <mat-slide-toggle
-[(ngModel)]="user.haveMessages"
-(ngModelChange)="updateStatus($event)"
-color="primary"
-class="example-margin"
->Користувач має повідомлення без відповідей 
+  [(ngModel)]="user.haveMessages"
+  (ngModelChange)="updateStatus($event)"
+  color="primary"
+  class="example-margin"
+  >Користувач має повідомлення без відповідей
 </mat-slide-toggle>
 <hr />
 <router-outlet></router-outlet>
-
