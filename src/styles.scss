@@ -10,16 +10,21 @@
 @import "./styles/elements/chats.scss";
 
 .container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .custom-video {
-    height: 350px;
-    width: 600px;
-    margin: auto;
+  height: 350px;
+  width: 600px;
+  margin: auto;
 }
 .center {
-    text-align: center;
+  text-align: center;
+}
+.angular-editor-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }

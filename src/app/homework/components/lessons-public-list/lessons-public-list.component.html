@@ -1,0 +1,18 @@
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Курс </mat-panel-title>
+    <mat-panel-description>
+      Тут будуть курси
+    </mat-panel-description>
+    <mat-panel-description>
+        <mat-icon >navigate_next</mat-icon>
+      </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div *ngFor="let lesson of lessons$ | async">
+    <div>
+      <span routerLink="{{ lesson.id }}">{{ lesson.name }}</span>
+      <mat-icon routerLink="{{ lesson.id }}">navigate_next</mat-icon>
+    </div>
+  </div>
+</mat-expansion-panel>

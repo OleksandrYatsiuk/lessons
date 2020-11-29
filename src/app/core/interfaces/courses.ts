@@ -13,7 +13,9 @@ export interface Lesson {
     readonly _id: string;
     name: string;
     context?: string;
-    file?: File;
+    file?: string;
+    presentation: string;
+    video: string;
     courseId: string;
     status?: number;
     free: boolean;

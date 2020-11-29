@@ -14,9 +14,18 @@
     <mat-label>Код</mat-label>
     <input matInput placeholder="Введіть код" formControlName="code" />
   </mat-form-field>
-
-  <app-spin-button matType="mat-flat-button" (click)="onGeneratingCode()">
-    <span *ngIf="!isCodePresent"> Отримати код</span>
-    <span *ngIf="isCodePresent"> Перевірити код</span>
-  </app-spin-button>
+  <mat-dialog-actions align="center">
+    <button
+      mat-button
+      mat-dialog-close
+      routerLink="/homework/lessons"
+      (click)="dialogRef.close()"
+    >
+      Назад
+    </button>
+    <app-spin-button matType="mat-flat-button" (click)="onGeneratingCode()">
+      <span *ngIf="!isCodePresent"> Отримати код</span>
+      <span *ngIf="isCodePresent"> Перевірити код</span>
+    </app-spin-button>
+  </mat-dialog-actions>
 </div>

@@ -4,18 +4,30 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeworkComponent } from './components/homework/homework.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { SharedModule } from '../shared/shared.module';
+import { LessonOverviewResolver } from '../admin-panel/lessons/lesson-overview.resolver';
+import { LessonsPublicListComponent } from './components/lessons-public-list/lessons-public-list.component';
 
 const routes: Routes = [{
-  path: ':id', component: HomeworkComponent
+  path: 'lessons', component: LessonsPublicListComponent
+},
+{
+  path: 'lessons/:id', component: HomeworkComponent,
+  resolve: { lesson: LessonOverviewResolver }
 }];
 
 @NgModule({
-  declarations: [HomeworkComponent, ConfirmModalComponent],
+  declarations: [
+    HomeworkComponent,
+    ConfirmModalComponent,
+    LessonsPublicListComponent
+  ]
+  ,
   imports: [
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [LessonOverviewResolver]
 })
 export class HomeworkModule { }

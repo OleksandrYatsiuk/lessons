@@ -32,8 +32,8 @@ export class LessonsFormComponent implements OnInit {
     private router: Router) { }
 
   lessonStatuses: SelectItems[] = [
-    { value: ECourseStatus.PUBLISHED, label: 'Published' },
-    { value: ECourseStatus.DRAFT, label: 'Draft' }];
+    { value: ECourseStatus.PUBLISHED, label: 'Опубліковано' },
+    { value: ECourseStatus.DRAFT, label: 'Чорновик' }];
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -43,7 +43,7 @@ export class LessonsFormComponent implements OnInit {
     maxHeight: 'auto',
     width: 'auto',
     minWidth: '0',
-    placeholder: 'Enter text here...',
+    placeholder: 'Ввести опис...',
     fonts: [
       { class: 'arial', name: 'Arial' },
       { class: 'times-new-roman', name: 'Times New Roman' },
@@ -52,18 +52,11 @@ export class LessonsFormComponent implements OnInit {
     ],
     customClasses: [
       {
-        name: 'video',
-        class: 'custom-video',
-        tag: 'div'
-      },
-      {
         name: 'center',
         class: 'center',
         tag: 'div'
       },
     ],
-    uploadUrl: 'v1/image',
-    uploadWithCredentials: false,
     sanitize: true,
     toolbarPosition: 'top',
   };
@@ -104,6 +97,8 @@ export class LessonsFormComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       context: ['', []],
+      video: ['', []],
+      presentation: ['', []],
       file: ['', []],
       status: [0, [Validators.required]],
       courseId: [null, [Validators.required]],

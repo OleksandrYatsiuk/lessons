@@ -1,53 +1,82 @@
 <form [formGroup]="form" (ngSubmit)="save()" class="form">
-    <div class="row">
-        <mat-form-field appearance="outline" class="row__col-2">
-            <mat-label>Назва</mat-label>
-            <input matInput placeholder="Введіть назву урока" formControlName="name">
-        </mat-form-field>
+  <div class="row">
+    <mat-form-field appearance="outline" class="row__col-2">
+      <mat-label>Назва</mat-label>
+      <input matInput placeholder="Ввести назву урока" formControlName="name" />
+    </mat-form-field>
 
-        <mat-form-field appearance="outline" class="row__col-2">
-            <mat-label>Select Lesson Status</mat-label>
-            <mat-select formControlName="status">
-                <mat-option *ngFor="let item of lessonStatuses" [value]="item.value">
-                    {{item.label}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
+    <mat-form-field appearance="outline" class="row__col-2">
+      <mat-label>Вибрати статус заняття</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let item of lessonStatuses" [value]="item.value">
+          {{ item.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
-    <div class="row">
-        <mat-form-field appearance="outline" class="row__col-2">
-            <mat-label>Select Course</mat-label>
-            <mat-select formControlName="courseId">
-                <mat-option *ngFor="let item of coursesList$|async" [value]="item.value">
-                    {{item.label}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+  <div class="row">
+    <mat-form-field appearance="outline" class="row__col-2">
+      <mat-label>Привязати курс</mat-label>
+      <mat-select formControlName="courseId">
+        <mat-option
+          *ngFor="let item of coursesList$ | async"
+          [value]="item.value"
+        >
+          {{ item.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-        <mat-form-field appearance="outline" class="row__col-2">
-            <mat-label>Файли</mat-label>
-            <input matInput placeholder="Додайте файл" formControlName="file">
-        </mat-form-field>
-    </div>
+    <mat-form-field appearance="outline" class="row__col-2">
+      <mat-label>Файл</mat-label>
+      <input
+        matInput
+        placeholder="Додати посилання на файл"
+        formControlName="file"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="row__col-2">
+      <mat-label>Відео</mat-label>
+      <input
+        matInput
+        placeholder="Додати посилання на відео"
+        formControlName="video"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="row__col-2">
+      <mat-label>Презентація</mat-label>
+      <input
+        matInput
+        placeholder="Додайти посилання  на презентацію"
+        formControlName="presentation"
+      />
+    </mat-form-field>
+  </div>
 
-    <div class="row">
+  <div class="row">
+    <section class="example-section" class="row__col-2">
+      <mat-slide-toggle
+        formControlName="free"
+        color="primary"
+        class="example-margin"
+      >
+        Безкоштовний
+      </mat-slide-toggle>
+    </section>
+  </div>
+  <div class="row">
+    <label for="editor"> Опис </label>
+    <angular-editor
+      id="editor"
+      formControlName="context"
+      [config]="editorConfig"
+    >
+    </angular-editor>
+  </div>
 
-        <section class="example-section" class="row__col-2">
-            <mat-slide-toggle formControlName="free" color="primary" class="example-margin">Free Lesson
-            </mat-slide-toggle>
-        </section>
-    </div>
-    <div class="row">
-        <label for="editor"> Опис </label>
-        <angular-editor id="editor" formControlName="context" [config]="editorConfig"> </angular-editor>
-    </div>
-
-
-
-
-    <mat-divider></mat-divider>
-    <app-spin-button [loading]="loading" matType='mat-flat-button'>
-        <span>{{btnName}}</span>
-    </app-spin-button>
+  <mat-divider></mat-divider>
+  <app-spin-button [loading]="loading" matType="mat-flat-button">
+    <span>{{ btnName }}</span>
+  </app-spin-button>
 </form>

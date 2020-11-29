@@ -22,27 +22,31 @@ export class ConfirmModalComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       phone: [null, [Validators.required]],
-      code: [null, [Validators.required]]
+      code: [null]
     });
   }
   public onGeneratingCode(): void {
-    const { phone, code } = this.form.value;
-    if (code) {
-      this._queryCodeCheck(this.form.value)
-        .subscribe(result => {
-          this.dialogRef.close();
-          localStorage.setItem('credentials', JSON.stringify({ phone, code }));
-        }, (e) => {
-          this.isCodePresent = false;
-          this.form.get('code').setValue(null);
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
+      const { phone, code } = this.form.value;
+      if (code) {
+        this._queryCodeCheck(this.form.value)
+          .subscribe(result => {
+            this.dialogRef.close();
+            localStorage.setItem('credentials', JSON.stringify({ phone, code }));
+          }, (e) => {
+            this.isCodePresent = false;
+            this.form.get('code').setValue(null);
 
+          });
+      } else {
+        this._queryGenerateCode(phone).subscribe(user => {
+          this.isCodePresent = true;
+          this.form.get('code').setValue(user.code);
         });
-    } else {
-      this._queryGenerateCode(phone).subscribe(user => {
-        this.isCodePresent = true;
-        this.form.get('code').setValue(user.code);
-      });
+      }
     }
+
 
   }
 
