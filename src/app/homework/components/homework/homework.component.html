@@ -1,0 +1,61 @@
+<div *ngIf="!contentAllowed; else content"> 
+    <h1 align="center">Урок 1</h1>
+</div>
+
+<ng-template #content>
+  <div class="lesson-preview-page">
+    <h1 align="center">Урок 1</h1>
+    <div class="lesson-docs-item">
+      <iframe
+        src="https://www.youtube.com/embed/BXbhVDX4uj4"
+        width="100%"
+        height="400"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <div class="lesson-docs-item">
+      <iframe
+        src="https://docs.google.com/presentation/d/e/2PACX-1vSSE9PyHf9kAFfFNxMaTY6V1rFkI6m3wThBHW682QDntsFH7J3XQjjsh6g1vY-Vog/embed?start=false&loop=false&delayms=60000"
+        frameborder="0"
+        width="100%"
+        height="500"
+        allowfullscreen="true"
+        mozallowfullscreen="true"
+        webkitallowfullscreen="true"
+      ></iframe>
+    </div>
+    <div class="lesson-docs-item">
+      <iframe
+        allowfullscreen="true"
+        mozallowfullscreen="true"
+        webkitallowfullscreen="true"
+        frameborder="0"
+        width="100%"
+        height="500"
+        src="https://drive.google.com/file/d/1h-PTguSmBbOMDW4kUOY_9LoGAvjH64rE/preview"
+      ></iframe>
+    </div>
+
+    <hr />
+    <div class="lesson-description">
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
+        delectus nulla magnam illo eveniet velit et reiciendis porro, repellat
+        odio doloremque impedit nemo amet facilis cupiditate molestiae
+        veritatis? Excepturi, iste. Lorem ipsum dolor, sit amet consectetur
+        adipisicing elit. Laborum accusantium sed quia fuga earum ullam
+        similique repellendus? Delectus, dolores fuga esse quod, quo
+        perspiciatis a illo reprehenderit quaerat nam error? Lorem ipsum dolor
+        sit amet consectetur adipisicing elit. Alias atque vel, dignissimos
+        illum suscipit veniam omnis? Ipsum provident quisquam alias saepe, autem
+        voluptatem molestias qui consectetur, assumenda odio illum suscipit!
+      </p>
+      <section>
+          <hr> 
+          <h3>Домашня робота</h3>
+      </section>
+    </div>
+  </div>
+</ng-template>

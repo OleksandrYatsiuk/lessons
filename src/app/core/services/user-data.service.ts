@@ -21,6 +21,12 @@ export class UserDataService {
   public update(user: Partial<User>): Observable<User> {
     return this.http.patch(`${this.apiUrl}${this.path}/current`, user).pipe(pluck('result'));
   }
+  public generateCode(phone: User['phone']): Observable<User> {
+    return this.http.post(`${this.apiUrl}${this.path}/code`, { phone }).pipe(pluck('result'));
+  }
+  public checkCode(data: { code: number, phone: string }): Observable<boolean> {
+    return this.http.post(`${this.apiUrl}${this.path}/code-check`, data).pipe(pluck('result'));
+  }
   public remove(id: User['id']): Observable<string> {
     return this.http.delete(`${this.apiUrl}${this.path}/${id}`).pipe(pluck('result'));
   }

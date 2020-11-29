@@ -13,6 +13,7 @@ export interface User {
   lastName: string;
   email: string;
   chat_id: number | null;
+  code: number;
   haveMessages: boolean;
   createdAt: number;
   updatedAt: number;
