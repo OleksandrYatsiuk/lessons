@@ -11,8 +11,7 @@ const routes: Routes = [{
   path: 'lessons', component: LessonsPublicListComponent
 },
 {
-  path: 'lessons/:id', component: HomeworkComponent,
-  resolve: { lesson: LessonOverviewResolver }
+  path: 'lessons/:id', component: HomeworkComponent
 }];
 
 @NgModule({

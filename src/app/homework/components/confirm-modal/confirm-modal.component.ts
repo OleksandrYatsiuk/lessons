@@ -14,7 +14,7 @@ export class ConfirmModalComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: { text: string, user: User },
     private fb: FormBuilder, private http: UserDataService
   ) { }
   public form: FormGroup;
@@ -24,6 +24,9 @@ export class ConfirmModalComponent implements OnInit {
       phone: [null, [Validators.required]],
       code: [null]
     });
+    if (this.data.user) {
+      this.form.get('phone').setValue(this.data.user.phone);
+    }
   }
   public onGeneratingCode(): void {
     this.form.markAllAsTouched();

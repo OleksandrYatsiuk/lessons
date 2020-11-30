@@ -1,9 +1,9 @@
-<h1 align="center">{{ lesson.name }}</h1>
+<h1 align="center">{{ lesson?.name }}</h1>
 <div *ngIf="!contentAllowed; else content"></div>
 
 <ng-template #content>
   <div class="lesson-preview-page">
-    <div class="lesson-docs-item" *ngIf="lesson.video">
+    <div class="lesson-docs-item" *ngIf="lesson?.video">
       <iframe
         [src]="sanitizeLink(lesson.video)"
         width="100%"
@@ -13,7 +13,7 @@
         allowfullscreen
       ></iframe>
     </div>
-    <div class="lesson-docs-item" *ngIf="lesson.presentation">
+    <div class="lesson-docs-item" *ngIf="lesson?.presentation">
       <iframe
         [src]="sanitizeLink(lesson.presentation)"
         frameborder="0"
@@ -24,7 +24,7 @@
         webkitallowfullscreen="true"
       ></iframe>
     </div>
-    <div class="lesson-docs-item" *ngIf="lesson.file">
+    <div class="lesson-docs-item" *ngIf="lesson?.file">
       <iframe
         allowfullscreen="true"
         mozallowfullscreen="true"
