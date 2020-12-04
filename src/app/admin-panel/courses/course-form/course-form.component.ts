@@ -95,7 +95,8 @@ export class CourseFormComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', []],
       status: [0, []],
-      description: ['', []]
+      description: ['', []],
+      price: ['', []]
     });
   }
 
@@ -103,7 +104,8 @@ export class CourseFormComponent implements OnInit {
     this.form.setValue({
       name: this.course.name,
       status: this.course.status,
-      description: this.course.description
+      description: this.course.description,
+      price: this.course.price
     });
   }
 

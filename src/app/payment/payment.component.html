@@ -1,31 +1,81 @@
 <div class="container">
-    <div class="payment-form">
-        <h3>Оплатити курс <strong> "Practical Legal Courses" </strong></h3>
-        <form [formGroup]="form" (ngSubmit)="pay()">
-            <mat-form-field appearance="outline">
-                <mat-label>Ім'я</mat-label>
-                <input matInput placeholder="Введіть ім'я" formControlName="firstName">
-            </mat-form-field>
+  <div class="payment-form">
+    <h3>Оплатити курс <strong> "Practical Legal Courses" </strong></h3>
+    <form [formGroup]="form" (ngSubmit)="pay()">
+      <mat-form-field appearance="outline">
+        <mat-label>Ім'я</mat-label>
+        <input
+          matInput
+          placeholder="Введіть ім'я"
+          formControlName="firstName"
+        />
+      </mat-form-field>
+      <app-error-validation
+        [control]="form.controls.firstName"
+        [field]="'Ім\'я'"
+      ></app-error-validation>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Прізвище</mat-label>
-                <input matInput placeholder="Введіть прізвище" formControlName="lastName">
-            </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Прізвище</mat-label>
+        <input
+          matInput
+          placeholder="Введіть прізвище"
+          formControlName="lastName"
+        />
+      </mat-form-field>
+      <app-error-validation
+        [control]="form.controls.lastName"
+        [field]="'Прізвище'"
+      ></app-error-validation>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input matInput placeholder="Введіть email" formControlName="email">
-            </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Пошта</mat-label>
+        <input
+          matInput
+          placeholder="Введіть електронну пошту"
+          formControlName="email"
+        />
+      </mat-form-field>
+      <app-error-validation
+        [control]="form.controls.email"
+        [field]="'Пошта'"
+      ></app-error-validation>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Телефон *</mat-label>
-                <input matInput placeholder="Введіть номер телефона" formControlName="phone">
-            </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Телефон</mat-label>
+        <input
+          matInput
+          placeholder="Введіть номер телефона"
+          formControlName="phone"
+        />
+      </mat-form-field>
+      <app-error-validation
+        [control]="form.controls.phone"
+        [field]="'Телефон'"
+      ></app-error-validation>
 
-            <app-spin-button matType="mat-flat-button" [loading]="loading">
-                <span> Оплатити 1000 грн</span>
-            </app-spin-button>
+      <mat-form-field appearance="outline" class="row__col-2">
+        <mat-label>Вибрати курс</mat-label>
+        <mat-select
+          formControlName="course_id"
+          (valueChange)="onChange($event)"
+        >
+          <mat-option
+            *ngFor="let item of courseList$ | async"
+            [value]="item.value"
+          >
+            {{ item.label }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <app-error-validation
+        [control]="form.controls.course_id"
+        [field]="'Вибрати курс'"
+      ></app-error-validation>
 
-        </form>
-    </div>
+      <app-spin-button matType="mat-flat-button" [loading]="loading">
+        <span> Оплатити {{ price }} грн</span>
+      </app-spin-button>
+    </form>
+  </div>
 </div>

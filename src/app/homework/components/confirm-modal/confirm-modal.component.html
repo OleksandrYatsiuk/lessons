@@ -2,18 +2,26 @@
 
 <div [formGroup]="form">
   <mat-form-field appearance="outline">
-    <mat-label>Номер телефону</mat-label>
+    <mat-label>Телефон</mat-label>
     <input
       matInput
       placeholder="Введіть номер телефону"
       formControlName="phone"
     />
   </mat-form-field>
+  <app-error-validation
+    [control]="form.controls.phone"
+    [field]="'Телефон'"
+  ></app-error-validation>
 
   <mat-form-field appearance="outline" *ngIf="isCodePresent">
     <mat-label>Код</mat-label>
     <input matInput placeholder="Введіть код" formControlName="code" />
   </mat-form-field>
+  <app-error-validation
+    [control]="form.controls.code"
+    [field]="'Код'"
+  ></app-error-validation>
   <mat-dialog-actions align="center">
     <button
       mat-button

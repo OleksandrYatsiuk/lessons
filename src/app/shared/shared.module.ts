@@ -13,6 +13,7 @@ import { PreloaderComponent } from './components/preloader/preloader.component';
 import { ConfirmComponent } from './components/dialogs/confirm/confirm.component';
 import { ChatActionsComponent } from './components/chat-actions/chat-actions.component';
 import { MessageItemComponent } from './components/message-item/message-item.component';
+import { ErrorValidationComponent } from './components/error-validation/error-validation.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { MessageItemComponent } from './components/message-item/message-item.com
     ExtractPipe,
     PreloaderComponent,
     ConfirmComponent,
+    ErrorValidationComponent,
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,8 @@ import { MessageItemComponent } from './components/message-item/message-item.com
     AngularEditorModule,
   ],
   exports: [
-    HeaderComponent, FooterComponent,
+    HeaderComponent,
+    FooterComponent,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
@@ -48,6 +51,7 @@ import { MessageItemComponent } from './components/message-item/message-item.com
     PreloaderComponent,
     ChatActionsComponent,
     MessageItemComponent,
+    ErrorValidationComponent
   ],
 })
 export class SharedModule { }

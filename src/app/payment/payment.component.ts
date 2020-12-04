@@ -4,11 +4,13 @@ import { EMPTY, Observable } from 'rxjs';
 import { User } from 'src/app/admin-panel/users/users.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from '../core/services/payment.service';
 import { UserDataService } from '../core/services/user-data.service';
-import { PaymentsResult } from '../core/interfaces/payments';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { CourseDataService } from '../core/services/course-data.service';
+import { Course } from '../core/interfaces/courses';
+import { SelectItems } from '../core/interfaces/select';
 
 @Component({
   selector: 'app-payment',
@@ -21,13 +23,18 @@ export class PaymentComponent implements OnInit {
     private fb: FormBuilder,
     private payment: PaymentService,
     private http: UserDataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private courseService: CourseDataService
   ) { }
   form: FormGroup;
+  price = 0;
+  courseList$: Observable<SelectItems[]>;
+  coursesList: Course[];
   user: User;
   loading = false;
 
   ngOnInit(): void {
+    this.courseList$ = this._queryCourseList();
     this.initForm();
     this.route
       .queryParams
@@ -43,10 +50,16 @@ export class PaymentComponent implements OnInit {
       firstName: [''],
       lastName: [''],
       email: [''],
-      phone: ['']
+      course_id: [null, Validators.required],
+      phone: ['', [Validators.required]]
     });
   }
+  onChange(id: string): void {
+    const course = this.coursesList.find(el => el.id === id);
+    this.price = course.price;
+  }
   public pay(): void {
+    this.form.markAllAsTouched();
     if (this.form.valid) {
       this.loading = true;
       this.loading = false;
@@ -69,5 +82,16 @@ export class PaymentComponent implements OnInit {
         this.loading = false;
         return EMPTY;
       }));
+  }
+  private _queryCourseList(): Observable<SelectItems[]> {
+    return this.courseService.getCourses().pipe(
+
+      map(courses => {
+        this.coursesList = courses;
+        const data = courses.map(({ name, id }) => ({ label: name, value: id }));
+        data.unshift({ label: 'Вибрати курс', value: null });
+        return data;
+      })
+    );
   }
 }

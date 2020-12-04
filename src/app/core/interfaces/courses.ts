@@ -7,6 +7,7 @@ export interface Course {
     status?: number;
     createdAt: number;
     updatedAt: number;
+    price: number;
 }
 export interface Lesson {
     readonly id: string;

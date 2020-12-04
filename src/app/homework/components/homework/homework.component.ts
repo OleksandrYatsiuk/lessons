@@ -7,6 +7,7 @@ import { mergeMap } from 'rxjs/operators';
 import { User } from 'src/app/admin-panel/users/users.component';
 import { Lesson } from 'src/app/core/interfaces/courses';
 import { LessonsDataService } from 'src/app/core/services/lessons-data.service';
+import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
@@ -23,7 +24,8 @@ export class HomeworkComponent implements OnInit {
     private route: ActivatedRoute,
     private lessonService: LessonsDataService,
     private userService: UserDataService,
-    private sanitizer: DomSanitizer) { }
+    private sanitizer: DomSanitizer,
+    private storageService: LocalStorageService) { }
 
   lesson: Lesson;
   user: User;
@@ -40,34 +42,31 @@ export class HomeworkComponent implements OnInit {
     this.lessonId = this.route.snapshot.params.id;
     this.chatId = this.route.snapshot.queryParams.chat_id;
     this._checkFromLocalStorage();
-
-    // this.lesson = this.route.snapshot.data.lesson;
-
   }
 
   private _checkFromLocalStorage(): void {
-    const data = JSON.parse(localStorage.getItem('credentials'));
+
+    const data = this.storageService.getFromLocalStorage('credentials');
     if (data) {
       this._queryCodeCheck(data)
         .pipe(
           mergeMap(() => this._queryLessonDetails(this.lessonId)))
         .subscribe((lesson) => {
-          console.log(lesson);
           this.lesson = lesson;
         }, (e) => {
-          localStorage.removeItem('credentials');
-          if (this.chatId) {
-            this._queryGetUser(this.chatId).subscribe(user => this.openDialog(user));
-          } else {
-            this.openDialog();
-          }
+          this.storageService.removeKeyFromStorage('credentials');
+          this.openModal();
         });
     } else {
-      if (this.chatId) {
-        this._queryGetUser(this.chatId).subscribe(user => this.openDialog(user));
-      } else {
-        this.openDialog();
-      }
+      this.openModal();
+    }
+  }
+
+  private openModal(): void {
+    if (this.chatId) {
+      this._queryGetUser(this.chatId).subscribe(user => this.openDialog(user));
+    } else {
+      this.openDialog();
     }
   }
 

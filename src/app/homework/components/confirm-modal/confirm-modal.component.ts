@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/admin-panel/users/users.component';
+import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class ConfirmModalComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ConfirmModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { text: string, user: User },
-    private fb: FormBuilder, private http: UserDataService
+    private fb: FormBuilder, private http: UserDataService,
+    private storageService: LocalStorageService
   ) { }
   public form: FormGroup;
   isCodePresent = false;

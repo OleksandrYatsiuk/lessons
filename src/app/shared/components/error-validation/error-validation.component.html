@@ -1,0 +1,60 @@
+<div *ngFor="let validation of list">
+  <div
+    class="error"
+    *ngIf="
+      control.hasError(validation.type) &&
+      control.invalid &&
+      (control.dirty || control.touched)
+    "
+  >
+    <ng-container [ngSwitch]="validation.type">
+      <ng-container *ngSwitchCase="'required'"
+        >Поле "{{ field }}" повинно бути заповненим.</ng-container
+      >
+      <ng-container *ngSwitchCase="'password'"
+        >"{{ field }}" должен включать латинские заглавные буквы и цифры
+      </ng-container>
+      <ng-container *ngSwitchCase="'mismatch'"
+        >"{{ field }}" должно быть одинаково с "{{ secondField }}".
+      </ng-container>
+      <ng-container *ngSwitchCase="'minlength'">
+        "{{ field }}" должно иметь не меньше
+        {{
+          control.errors.minlength.requiredLength
+            | i18nPlural: { "=1": "1 символ", other: "# символов" }
+        }}.
+      </ng-container>
+      <ng-container *ngSwitchCase="'maxlength'">
+        "{{ field }}" должно иметь не больше
+        {{
+          control.errors.maxlength.requiredLength
+            | i18nPlural: { "=1": "1 символ", other: "# символов" }
+        }}.
+      </ng-container>
+      <ng-container *ngSwitchCase="'email'"
+        >"{{ field }}" не валидный аддрес</ng-container
+      >
+      <ng-container *ngSwitchCase="'min'"
+        >"{{ field }}" должен быть не меньше чем {{ control.errors.min.min }}
+      </ng-container>
+      <ng-container *ngSwitchCase="'max'"
+        >"{{ field }}"должен быть не больше чем {{ control.errors.max.max }}
+      </ng-container>
+      <ng-container *ngSwitchCase="'phoneNumber'"
+        >"{{ field }}" имеет не валидный номер телефона.</ng-container
+      >
+      <ng-container *ngSwitchCase="'scheduleTime'"
+        >Время начала работы должно быть больше время окончания.
+      </ng-container>
+      <ng-container *ngSwitchCase="'scheduleDay'">
+        Дни работы выбранны не верно.
+      </ng-container>
+      <ng-container *ngSwitchCase="'confirmPasswordError'">
+        "{{ field }}" не совпадает с полем "{{ secondField }}".
+      </ng-container>
+      <ng-container *ngSwitchCase="'backendErr'">{{
+        control.errors.backendErr
+      }}</ng-container>
+    </ng-container>
+  </div>
+</div>

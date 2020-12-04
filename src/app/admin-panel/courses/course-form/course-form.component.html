@@ -1,20 +1,26 @@
 <form [formGroup]="form" class="form">
     <div class="row">
         <mat-form-field appearance="outline" class="row__col-2">
-            <mat-label>Name</mat-label>
+            <mat-label>Назва</mat-label>
             <input matInput placeholder="Введіть назву курса" formControlName="name">
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="row__col-2">
-            <mat-label>Select Course Status</mat-label>
+            <mat-label>Виберіть статус публікації</mat-label>
             <mat-select formControlName="status">
                 <mat-option *ngFor="let item of courseStatuses" [value]="item.value"> {{item.label}}</mat-option>
             </mat-select>
         </mat-form-field>
     </div>
     <div class="row">
+        <mat-form-field appearance="outline" class="row__col-2">
+            <mat-label>Ціна</mat-label>
+            <input matInput placeholder="Введіть ціну курса" formControlName="price">
+        </mat-form-field>
+    </div>
+    <div class="row">
         <span>
-            Description
+            Опис
             <angular-editor [config]="editorConfig" formControlName="description"></angular-editor>
         </span>
     </div>
