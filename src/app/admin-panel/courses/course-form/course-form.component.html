@@ -1,31 +1,61 @@
 <form [formGroup]="form" class="form">
-    <div class="row">
-        <mat-form-field appearance="outline" class="row__col-2">
-            <mat-label>Назва</mat-label>
-            <input matInput placeholder="Введіть назву курса" formControlName="name">
-        </mat-form-field>
+  <div class="row">
+    <mat-form-field appearance="outline" class="row__col-2">
+      <mat-label>Назва</mat-label>
+      <input
+        matInput
+        placeholder="Введіть назву курса"
+        formControlName="name"
+      />
+    </mat-form-field>
+    <app-error-validation
+      [control]="form.controls.name"
+      [field]="'Назва'"
+    ></app-error-validation>
 
-        <mat-form-field appearance="outline" class="row__col-2">
-            <mat-label>Виберіть статус публікації</mat-label>
-            <mat-select formControlName="status">
-                <mat-option *ngFor="let item of courseStatuses" [value]="item.value"> {{item.label}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-    <div class="row">
-        <mat-form-field appearance="outline" class="row__col-2">
-            <mat-label>Ціна</mat-label>
-            <input matInput placeholder="Введіть ціну курса" formControlName="price">
-        </mat-form-field>
-    </div>
-    <div class="row">
-        <span>
-            Опис
-            <angular-editor [config]="editorConfig" formControlName="description"></angular-editor>
-        </span>
-    </div>
-    <mat-divider></mat-divider>
-    <app-spin-button matType="mat-flat-button" [loading]="loading" (click)="save()">
-        <span>{{btnName}}</span>
-    </app-spin-button>
+    <mat-form-field appearance="outline" class="row__col-2">
+      <mat-label>Виберіть статус публікації</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let item of courseStatuses" [value]="item.value">
+          {{ item.label }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <app-error-validation
+      [control]="form.controls.status"
+      [field]="'Статус'"
+    ></app-error-validation>
+  </div>
+  <div class="row">
+    <mat-form-field appearance="outline" class="row__col-2">
+      <mat-label>Ціна</mat-label>
+      <input
+        matInput
+        placeholder="Введіть ціну курса"
+        formControlName="price"
+        type="number"
+      />
+    </mat-form-field>
+    <app-error-validation
+      [control]="form.controls.price"
+      [field]="'Ціна'"
+    ></app-error-validation>
+  </div>
+  <div class="row">
+    <span>
+      Опис
+      <angular-editor
+        [config]="editorConfig"
+        formControlName="description"
+      ></angular-editor>
+    </span>
+  </div>
+  <mat-divider></mat-divider>
+  <app-spin-button
+    matType="mat-flat-button"
+    [loading]="loading"
+    (click)="save()"
+  >
+    <span>{{ btnName }}</span>
+  </app-spin-button>
 </form>

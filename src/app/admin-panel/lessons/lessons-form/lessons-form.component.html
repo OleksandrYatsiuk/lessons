@@ -3,7 +3,10 @@
     <mat-form-field appearance="outline" class="row__col-2">
       <mat-label>Назва</mat-label>
       <input matInput placeholder="Ввести назву урока" formControlName="name" />
-    </mat-form-field>
+    </mat-form-field> <app-error-validation
+    [control]="form.controls.name"
+    [field]="'Назва'"
+  ></app-error-validation>
 
     <mat-form-field appearance="outline" class="row__col-2">
       <mat-label>Вибрати статус заняття</mat-label>
@@ -13,6 +16,10 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <app-error-validation
+    [control]="form.controls.status"
+    [field]="'Статус'"
+  ></app-error-validation>
   </div>
 
   <div class="row">
@@ -27,6 +34,10 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <app-error-validation
+    [control]="form.controls.courseId"
+    [field]="'Курс'"
+  ></app-error-validation>
 
     <mat-form-field appearance="outline" class="row__col-2">
       <mat-label>Файл</mat-label>
@@ -36,6 +47,10 @@
         formControlName="file"
       />
     </mat-form-field>
+    <app-error-validation
+    [control]="form.controls.file"
+    [field]="'Файл'"
+  ></app-error-validation>
     <mat-form-field appearance="outline" class="row__col-2">
       <mat-label>Відео</mat-label>
       <input
@@ -44,6 +59,10 @@
         formControlName="video"
       />
     </mat-form-field>
+    <app-error-validation
+    [control]="form.controls.video"
+    [field]="'Відео'"
+  ></app-error-validation>
     <mat-form-field appearance="outline" class="row__col-2">
       <mat-label>Презентація</mat-label>
       <input
@@ -52,6 +71,10 @@
         formControlName="presentation"
       />
     </mat-form-field>
+    <app-error-validation
+    [control]="form.controls.presentation"
+    [field]="'Презентація'"
+  ></app-error-validation>
   </div>
 
   <div class="row">
@@ -73,6 +96,10 @@
       [config]="editorConfig"
     >
     </angular-editor>
+    <app-error-validation
+    [control]="form.controls.context"
+    [field]="'Опис'"
+  ></app-error-validation>
   </div>
 
   <mat-divider></mat-divider>

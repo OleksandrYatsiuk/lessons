@@ -33,4 +33,7 @@ export class UserDataService {
   public getItem(user: any): Observable<User> {
     return this.http.get(`${this.apiUrl}${this.path}/user`, { params: user }).pipe(pluck('result'));
   }
+  public login(body: any): Observable<{ token: string }> {
+    return this.http.post(`${this.apiUrl}${this.path}/login`, body).pipe(pluck('result'));
+  }
 }

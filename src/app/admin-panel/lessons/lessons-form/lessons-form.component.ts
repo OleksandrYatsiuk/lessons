@@ -4,12 +4,13 @@ import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
 import { EMPTY, Observable } from 'rxjs';
 import { Lesson, Course, ECourseStatus } from './../../../core/interfaces/courses';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { LessonsDataService } from 'src/app/core/services/lessons-data.service';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { catchError, map } from 'rxjs/operators';
 import { SelectItems } from 'src/app/core/interfaces/select';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorHandlerService } from 'src/app/core/services/error-handler.service';
 
 @Component({
   selector: 'app-lessons-form',
@@ -20,15 +21,16 @@ export class LessonsFormComponent implements OnInit {
   @Input() lesson: Lesson;
   @Input() btnName = 'Зберегти';
   @Output() dirty = new EventEmitter<boolean>();
-  public form: FormGroup;
+  form: FormGroup;
   loading = false;
   coursesList$: Observable<SelectItems[]>;
 
   constructor(
     private fb: FormBuilder,
     private http: LessonsDataService,
-    private _courseService: CourseDataService,
-    private _notify: NotificationsService,
+    private courseService: CourseDataService,
+    private errorHandler: ErrorHandlerService,
+    private notify: NotificationsService,
     private router: Router) { }
 
   lessonStatuses: SelectItems[] = [
@@ -78,14 +80,14 @@ export class LessonsFormComponent implements OnInit {
         this._queryUpdate(this.lesson.id, this.form.value)
           .subscribe(lesson => {
             this.loading = false;
-            this._notify.openSuccess(`Урок "${lesson.name}" був успішно оновлений!`);
+            this.notify.openSuccess(`Урок "${lesson.name}" був успішно оновлений!`);
             this.router.navigate([`/admin/courses/${lesson.courseId}`]);
           });
       } else {
         this._queryCreate(this.form.value)
           .subscribe(lesson => {
             this.loading = false;
-            this._notify.openSuccess(`Урок "${lesson.name}" був успішно створений!`);
+            this.notify.openSuccess(`Урок "${lesson.name}" був успішно створений!`);
             this.router.navigate([`/admin/courses/${lesson.courseId}`]);
           });
       }
@@ -100,7 +102,7 @@ export class LessonsFormComponent implements OnInit {
       video: ['', []],
       presentation: ['', []],
       file: ['', []],
-      status: [0, [Validators.required]],
+      status: [1, [Validators.required]],
       courseId: [null, [Validators.required]],
       free: [false, [Validators.required]]
     });
@@ -116,7 +118,7 @@ export class LessonsFormComponent implements OnInit {
       .pipe(
         catchError(({ error }: HttpErrorResponse) => {
           this.loading = false;
-          console.error(error.result);
+          this.errorHandler.validation(error, this.form);
           return EMPTY;
         })
       );
@@ -127,20 +129,20 @@ export class LessonsFormComponent implements OnInit {
       .pipe(
         catchError(({ error }: HttpErrorResponse) => {
           this.loading = false;
-          console.error(error.result);
+          this.errorHandler.validation(error, this.form);
           return EMPTY;
         })
       );
   }
   private _queryCourseList(): Observable<SelectItems[]> {
-    return this._courseService.getCourses().pipe(
+    return this.courseService.getCourses().pipe(
       map((courses: Course[]) =>
         courses.map(course => ({ label: course.name, value: course.id }))
       )
     );
   }
 
-  get context() {
+  get context(): AbstractControl {
     return this.form.get('context');
   }
 }

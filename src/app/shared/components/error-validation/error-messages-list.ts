@@ -6,7 +6,7 @@ export const ERROR_LIST = [
     { type: 'email' },
     { type: 'min' },
     { type: 'max' },
-    { type: 'phoneNumber' },
+    { type: 'phone' },
     { type: 'password' },
     { type: 'backendErr' },
 ];

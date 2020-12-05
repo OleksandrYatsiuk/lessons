@@ -11,6 +11,7 @@ import { catchError, map } from 'rxjs/operators';
 import { CourseDataService } from '../core/services/course-data.service';
 import { Course } from '../core/interfaces/courses';
 import { SelectItems } from '../core/interfaces/select';
+import { phoneValidator } from '../core/validators/phone.validator';
 
 @Component({
   selector: 'app-payment',
@@ -51,7 +52,7 @@ export class PaymentComponent implements OnInit {
       lastName: [''],
       email: [''],
       course_id: [null, Validators.required],
-      phone: ['', [Validators.required]]
+      phone: ['', [Validators.required, phoneValidator()]]
     });
   }
   onChange(id: string): void {
@@ -64,8 +65,10 @@ export class PaymentComponent implements OnInit {
       this.loading = true;
       this.loading = false;
       const orderId = Date.now();
+      const { phone } = this.form.value;
+      this.form.value.phone = phone.slice(phone.length - 10);
       this._queryPreparePayment({
-        ...this.form.value, amount: 1, description: 'Order # ' + orderId,
+        ...this.form.value, phone, amount: this.price, description: 'Order # ' + orderId,
         order_id: orderId,
         result_url: `${environment.apiUrl}/payments/${orderId}`
       })

@@ -1,5 +1,5 @@
 <div class="admin-page">
-  <nav class="nav-block">
+  <nav class="nav-block" *ngIf="isPanelAllowed">
     <!-- <img src="../../assets/logo.png" routerLink="" routerLinkActive="active"> -->
     <span routerLink="users" routerLinkActive="active">Користувачі</span>
     <span routerLink="messages" routerLinkActive="active">Чати</span>

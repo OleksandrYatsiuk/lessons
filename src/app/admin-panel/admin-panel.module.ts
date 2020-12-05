@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CoursesComponent } from './courses/courses.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { MessagesComponent } from './messages/messages.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -19,6 +20,7 @@ import { MessagesComponent } from './messages/messages.component';
     AdminPanelComponent,
     CoursesComponent,
     UserProfileComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,

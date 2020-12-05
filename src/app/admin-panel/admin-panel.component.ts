@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { LocalStorageService } from '../core/services/local-storage.service';
+import { LoginComponent } from './login/login.component';
 
 @Component({
   selector: 'app-admin-panel',
@@ -6,10 +10,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-panel.component.scss']
 })
 export class AdminPanelComponent implements OnInit {
-
-  constructor() { }
+  private key = 'plc_token';
+  isPanelAllowed = true;
+  constructor(
+    private storage: LocalStorageService,
+    private dialog: MatDialog,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+
   }
 
 }

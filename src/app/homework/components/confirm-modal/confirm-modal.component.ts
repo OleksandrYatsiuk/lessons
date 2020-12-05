@@ -16,8 +16,7 @@ export class ConfirmModalComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ConfirmModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { text: string, user: User },
-    private fb: FormBuilder, private http: UserDataService,
-    private storageService: LocalStorageService
+    private fb: FormBuilder, private http: UserDataService
   ) { }
   public form: FormGroup;
   isCodePresent = false;
