@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { Course } from 'src/app/core/interfaces/courses';
 import { IStudyProgress, EStudyProgress } from 'src/app/core/interfaces/study-progress';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { StudyProgressService } from 'src/app/core/services/study-progress.service';
+import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
+import { ConfirmComponent } from 'src/app/shared/components/dialogs/confirm/confirm.component';
 
 @Component({
   selector: 'app-user-progress',
@@ -39,7 +42,9 @@ export class UserProgressComponent implements OnInit {
     private route: ActivatedRoute,
     private studyService: StudyProgressService,
     private courseService: CourseDataService,
-    private notify: NotificationsService
+    private notify: NotificationsService,
+    private dialog: MatDialog,
+    private botService: TelegramBotService
   ) { }
 
   ngOnInit(): void {
@@ -49,12 +54,32 @@ export class UserProgressComponent implements OnInit {
   }
 
   filter(courseId?: Course['id']): void {
+    this.selectedCourse = courseId;
     if (courseId) {
       this.studyProgressList$ = this._queryProgress({ params: { courseId } });
     } else {
       this.studyProgressList$ = this._queryProgress();
-
     }
+  }
+
+  uploadCertificate(changes: Event & { target: HTMLInputElement }): void {
+    console.log(changes.target.files[0]);
+    const dialog = this.dialog.open(ConfirmComponent,
+      {
+        data: `Ви завантажуєте сертифікат для користувача, що закінчив курс "${this.selectedCourse}".\n Підтвердіть свою дію.`,
+        disableClose: true
+      });
+    dialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.botService.sendDocument({
+          chat_id: 375462081,
+          document: changes.target.files[0],
+          caption: 'Вітання'
+        }).subscribe(result => console.log(result));
+      } else {
+        changes.target.value = '';
+      }
+    });
   }
 
   updateStatus(progress: IStudyProgress, status: boolean): void {

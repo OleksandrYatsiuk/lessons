@@ -1,0 +1,14 @@
+<h1>Завантажити сертифікат для користувача</h1>
+<label
+  >Завантажити сертифікат
+  <input type="file" [formControl]="control" (change)="onFileChange($event)" />
+</label>
+<app-error-validation
+  [control]="control"
+  [field]="'Сертифікат'"
+></app-error-validation>
+
+<mat-dialog-actions align="center">
+  <button mat-button mat-dialog-close>Закрити</button>
+  <button mat-button (click)="upload()">Почати завантаження</button>
+</mat-dialog-actions>

@@ -5,9 +5,9 @@
       placeholder="Start entering message..."
       [(ngModel)]="message"
     ></textarea>
-  
   </mat-form-field>
   <mat-icon (click)="sendMessage(message, file)">send</mat-icon>
-  <mat-icon (click)="fileInput.click()">attach_file</mat-icon>
+  <mat-icon *ngIf="!file" (click)="fileInput.click()">attach_file</mat-icon>
+  <mat-icon *ngIf="file" matBadge="1" matBadgeSize="large" (click)="fileInput.click()">attach_file</mat-icon>
   <input hidden type="file" #fileInput (change)="setFiles($event)" /><br />
 </div>

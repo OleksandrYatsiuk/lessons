@@ -10,12 +10,7 @@ import { LoginComponent } from './login/login.component';
   styleUrls: ['./admin-panel.component.scss']
 })
 export class AdminPanelComponent implements OnInit {
-  private key = 'plc_token';
-  isPanelAllowed = true;
   constructor(
-    private storage: LocalStorageService,
-    private dialog: MatDialog,
-    private router: Router
   ) { }
 
   ngOnInit(): void {

@@ -1,0 +1,80 @@
+<div class="form" [formGroup]="form">
+  <div class="row">
+    <mat-form-field appearance="outline" class="row__col-2">
+      <mat-label>Виберіть користувача</mat-label>
+      <mat-select formControlName="userId">
+        <mat-option
+          *ngFor="let item of usersOptions$ | async"
+          [value]="item.value"
+        >
+          {{ item.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="row__col-2">
+      <mat-label>Виберіть курс</mat-label>
+      <mat-select formControlName="courseId">
+        <mat-option
+          *ngFor="let item of courseOptions$ | async"
+          [value]="item.value"
+        >
+          {{ item.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="row__col-2">
+    <app-spin-button (click)="addCertificate()">
+      <span>Додати сертифікат</span>
+    </app-spin-button>
+  </div>
+  <div class="row__col-2">
+    <app-spin-button (click)="showCertificatesList(form.value)">
+      <span>Шукати</span>
+    </app-spin-button>
+  </div>
+</div>
+
+<div class="container">
+  <table
+    mat-table
+    [dataSource]="certificates$ | async"
+    class="mat-elevation-z8"
+  >
+    <ng-container matColumnDef="userId">
+      <th mat-header-cell *matHeaderCellDef>Користувач</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.firstName }} {{ element.userId }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="courseId">
+      <th mat-header-cell *matHeaderCellDef>Курс</th>
+      <td mat-cell *matCellDef="let element">{{ element.courseId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="certificate">
+      <th mat-header-cell *matHeaderCellDef>Сертифікат</th>
+      <td mat-cell *matCellDef="let element">
+        <button (click)="open(element?.fileLink)">Скачати сертитфікат</button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>Створено</th>
+      <td mat-cell *matCellDef="let element">{{ element.createdAt }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button (click)="openDialog(element)" mat-mini-fab color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td></ng-container
+    >
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+</div>

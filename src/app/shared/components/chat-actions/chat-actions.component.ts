@@ -22,22 +22,31 @@ export class ChatActionsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   public sendMessage(text: string, file?: File): void {
     if (file) {
-      this.http.sendPhoto({
-        userId: this.user.id,
-        photo: this.file,
-        caption: this.message || ''
-      }).subscribe(res => this.save(res, EContentTypes.photo));
+      if (!file.type.includes('image')) {
+        this.http.sendDocument({
+          chat_id: this.user.chat_id,
+          document: this.file,
+          caption: this.message || ''
+        })
+          .subscribe(res => this._save(res, EContentTypes.file));
+      } else {
+        this.http.sendPhoto({
+          chat_id: this.user.chat_id,
+          photo: this.file,
+          caption: this.message || ''
+        })
+          .subscribe(res => this._save(res, EContentTypes.photo));
+      }
     } else {
-      this.http.sendMessage(this.user.chat_id, text).subscribe(res => this.save(res, EContentTypes.text, text));
+      this.http.sendMessage(this.user.chat_id, text)
+        .subscribe(res => this._save(res, EContentTypes.text, text));
     }
   }
 
-
-  private save(res: any, type: EContentTypes, text?: string): void {
-
+  private _save(res: any, type: EContentTypes, text?: string): void {
+    const fileId = this._getFileLink(res, type);
     this.http.saveMessage({
       userId: this.user.id,
       lessonId: this.lessonId,
@@ -47,23 +56,34 @@ export class ChatActionsComponent implements OnInit {
         content: {
           type,
           text: text || res.result.caption,
-          link: type === EContentTypes.text ? null : res.result.photo[0].file_id,
-          fileId: null
+          link: fileId,
+          fileId
         }
       }
-    }).pipe(pluck('result')).subscribe(result => {
-      this.message = '';
-      this.file = null;
-      this.sended.emit(true);
-    });
+    })
+      .subscribe(result => {
+        this.message = '';
+        this.file = null;
+        this.sended.emit(true);
+      });
   }
 
-  public setFiles(event: Event & { srcElement: HTMLInputElement }): void {
-    // tslint:disable-next-line: deprecation
-    const files = event.srcElement.files;
+  public setFiles(event: Event & { target: HTMLInputElement }): void {
+    const files = event.target.files;
     if (!files) {
       return;
     }
     this.file = files[0];
+  }
+
+  private _getFileLink(res: any, type: EContentTypes): string {
+    switch (type) {
+      case EContentTypes.photo:
+        return res.result.photo[0].file_id;
+      case EContentTypes.file:
+        return res.result.document.file_id;
+      case EContentTypes.text:
+        return null;
+    }
   }
 }

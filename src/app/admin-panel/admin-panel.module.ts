@@ -9,6 +9,8 @@ import { CoursesComponent } from './courses/courses.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { MessagesComponent } from './messages/messages.component';
 import { LoginComponent } from './login/login.component';
+import { CertificatesComponent } from './certificates/certificates.component';
+import { UploadItemComponent } from './certificates/upload-item/upload-item.component';
 
 
 
@@ -21,6 +23,8 @@ import { LoginComponent } from './login/login.component';
     CoursesComponent,
     UserProfileComponent,
     LoginComponent,
+    CertificatesComponent,
+    UploadItemComponent,
   ],
   imports: [
     CommonModule,
