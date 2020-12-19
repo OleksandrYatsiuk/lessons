@@ -6,9 +6,9 @@ import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef, TextOnlySnackBar } from
 })
 export class NotificationsService {
 
-  constructor(private _snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar) { }
 
-  private _defaultConf: MatSnackBarConfig = {
+  private defaultConf: MatSnackBarConfig = {
     duration: 4000,
     horizontalPosition: 'end',
     verticalPosition: 'top',
@@ -16,12 +16,12 @@ export class NotificationsService {
   };
 
   openSuccess(message: string, config?: MatSnackBarConfig): MatSnackBarRef<TextOnlySnackBar> {
-    return this._snackBar.open(message, 'X', { ...this._defaultConf, ...config });
+    return this.snackBar.open(message, 'X', { ...this.defaultConf, ...config });
   }
 
   openError(message: string, config?: MatSnackBarConfig): MatSnackBarRef<TextOnlySnackBar> {
-    return this._snackBar.open(message, 'X', {
-      ...this._defaultConf,
+    return this.snackBar.open(message, 'X', {
+      ...this.defaultConf,
       panelClass: 'toast--error', duration: 6000, ...config
     });
   }
