@@ -8,10 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev:ssr": "ng run universal:serve-ssr",
-    "serve:ssr": "node dist/universal/server/main.js",
-    "build:ssr": "ng build --prod && ng run universal:server:production",
-    "prerender": "ng run universal:prerender"
+    "dev:ssr": "ng run lessons:serve-ssr",
+    "serve:ssr": "node dist/lessons/server/main.js",
+    "build:ssr": "ng build --prod && ng run lessons:server:production",
+    "prerender": "ng run lessons:prerender"
   },
   "private": true,
   "dependencies": {
