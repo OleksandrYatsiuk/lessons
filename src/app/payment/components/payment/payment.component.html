@@ -57,7 +57,7 @@
       <mat-form-field appearance="outline" class="row__col-2">
         <mat-label>Вибрати курс</mat-label>
         <mat-select
-          formControlName="course_id"
+          formControlName="courseId"
           (valueChange)="onChange($event)"
         >
           <mat-option
@@ -69,7 +69,7 @@
         </mat-select>
       </mat-form-field>
       <app-error-validation
-        [control]="form.controls.course_id"
+        [control]="form.controls.courseId"
         [field]="'Вибрати курс'"
       ></app-error-validation>
 

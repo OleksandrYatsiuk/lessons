@@ -1,0 +1,19 @@
+<div class="container">
+  <ng-container [ngSwitch]="payment?.status">
+    <ng-container *ngSwitchCase="'success'">
+      <article class="message-success">
+        <p>Замовлення "# {{ payment?.id }}" успішно оплачено.</p>
+        <p>
+          Вам відкрито доступ до курсу
+          <strong> "{{ payment.course.name }}"</strong>
+        </p>
+      </article>
+    </ng-container>
+    <ng-container *ngSwitchCase="'error'">
+      <article class="message-error">
+        <p>{{ payment?.err_description }}</p>
+        <p><strong> Доступ до курсу не відкритий!</strong></p>
+      </article>
+    </ng-container>
+  </ng-container>
+</div>

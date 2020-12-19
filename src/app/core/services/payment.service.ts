@@ -22,4 +22,8 @@ export class PaymentService {
     return this.http.post(`${this.apiUrl}/payments/${id}/status`, {})
       .pipe(pluck('result'));
   }
+  public paymentDetails(id: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/payments/${id}`, {})
+      .pipe(pluck('result'));
+  }
 }

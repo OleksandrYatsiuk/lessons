@@ -1,17 +1,17 @@
-import { environment } from './../../environments/environment.prod';
-import { Payments } from './../core/interfaces/payments';
-import { EMPTY, Observable } from 'rxjs';
-import { User } from 'src/app/admin-panel/users/users.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { PaymentService } from '../core/services/payment.service';
-import { UserDataService } from '../core/services/user-data.service';
+import { Observable, EMPTY } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { CourseDataService } from '../core/services/course-data.service';
-import { Course } from '../core/interfaces/courses';
-import { SelectItems } from '../core/interfaces/select';
-import { phoneValidator } from '../core/validators/phone.validator';
+import { User } from 'src/app/admin-panel/users/users.component';
+import { Course } from 'src/app/core/interfaces/courses';
+import { Payments } from 'src/app/core/interfaces/payments';
+import { SelectItems } from 'src/app/core/interfaces/select';
+import { CourseDataService } from 'src/app/core/services/course-data.service';
+import { PaymentService } from 'src/app/core/services/payment.service';
+import { UserDataService } from 'src/app/core/services/user-data.service';
+import { phoneValidator } from 'src/app/core/validators/phone.validator';
+
 
 @Component({
   selector: 'app-payment',
@@ -51,7 +51,7 @@ export class PaymentComponent implements OnInit {
       firstName: [''],
       lastName: [''],
       email: [''],
-      course_id: [null, Validators.required],
+      courseId: [null, Validators.required],
       phone: ['', [Validators.required, phoneValidator()]]
     });
   }
@@ -62,15 +62,10 @@ export class PaymentComponent implements OnInit {
   public pay(): void {
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      this.loading = true;
-      this.loading = false;
-      const orderId = Date.now();
       const { phone } = this.form.value;
       this.form.value.phone = phone.slice(phone.length - 10);
       this._queryPreparePayment({
-        ...this.form.value, phone, amount: this.price, description: 'Order # ' + orderId,
-        order_id: orderId,
-        result_url: `${environment.apiUrl}/payments/${orderId}`
+        ...this.form.value, phone, amount: this.price
       })
         .subscribe(link => {
           window.open(link, '_blank');

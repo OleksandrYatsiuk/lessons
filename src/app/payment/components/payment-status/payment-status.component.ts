@@ -20,5 +20,7 @@ export class PaymentStatusComponent implements OnInit {
   private _queryCheckPaymentStatus(id: number): Observable<any> {
     return this.http.checkPaymentStatus(id);
   }
-
+  private _queryPaymentDetails(id: number): Observable<any> {
+    return this.http.paymentDetails(id);
+  }
 }

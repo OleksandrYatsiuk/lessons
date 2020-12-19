@@ -52,10 +52,10 @@ export class ChatActionsComponent implements OnInit {
       lessonId: this.lessonId,
       type: EMessageTypes.bot,
       message: {
-        id: res.result.message_id,
+        id: res.message_id,
         content: {
           type,
-          text: text || res.result.caption,
+          text: text || res.caption,
           link: fileId,
           fileId
         }
@@ -79,9 +79,9 @@ export class ChatActionsComponent implements OnInit {
   private _getFileLink(res: any, type: EContentTypes): string {
     switch (type) {
       case EContentTypes.photo:
-        return res.result.photo[0].file_id;
+        return res.photo[0].file_id;
       case EContentTypes.file:
-        return res.result.document.file_id;
+        return res.document.file_id;
       case EContentTypes.text:
         return null;
     }
