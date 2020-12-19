@@ -62,7 +62,7 @@ export class UsersComponent implements OnInit {
           dialog.data.loading = false;
           this.getData();
           dialogRef.close();
-          this._notify.openSuccess(`Користувач був вилалений успішно!`);
+          this._notify.openSuccess(`Користувач був видалений успішно!`);
         }, error => {
           console.error(error);
         });

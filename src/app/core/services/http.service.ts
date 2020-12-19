@@ -16,6 +16,9 @@ export class HttpService {
   public post(path: string, body: object, options?: any): Observable<object> {
     return this.http.post(`${this.apiUrl}${path}`, body, options);
   }
+  public put(path: string, body: object, options?: any): Observable<object> {
+    return this.http.put(`${this.apiUrl}${path}`, body, options);
+  }
   public postFormData(path: string, body: object, options?: any, fullPath?: boolean): Observable<object> {
     body = this.getFormData(body);
     fullPath ? path = path : path = `${this.apiUrl}${path}`;

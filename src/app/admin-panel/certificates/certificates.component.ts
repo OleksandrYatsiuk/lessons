@@ -1,15 +1,18 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { map, pluck, takeUntil } from 'rxjs/operators';
+import { EMPTY, Observable } from 'rxjs';
+import { concatMap, map, mergeMap } from 'rxjs/operators';
 import { ICertificate } from 'src/app/core/interfaces/certificates';
 import { Course } from 'src/app/core/interfaces/courses';
 import { SelectItems } from 'src/app/core/interfaces/select';
 import { CertificateDataService } from 'src/app/core/services/certificate.service';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
+import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
 import { UserDataService } from 'src/app/core/services/user-data.service';
+import { DeleteComponent } from 'src/app/shared/components/dialogs/delete/delete.component';
 import { User } from '../users/users.component';
 import { UploadItemComponent } from './upload-item/upload-item.component';
 
@@ -23,15 +26,17 @@ export class CertificatesComponent implements OnInit {
   usersOptions$: Observable<SelectItems[]>;
   courses: Course[];
   certificates$: Observable<ICertificate[]>;
-  form: FormGroup
+  form: FormGroup;
   users: User[];
-  subscribe$: any
+  selectedUser: User;
+  selectedCourse: Course;
   columns: string[] = ['userId', 'courseId', 'certificate', 'createdAt', 'delete'];
   constructor(
     private userService: UserDataService,
     private courseService: CourseDataService,
     private certificateService: CertificateDataService,
     private telegramService: TelegramBotService,
+    private notify: NotificationsService,
     private dialog: MatDialog,
     private fb: FormBuilder
   ) { }
@@ -46,46 +51,73 @@ export class CertificatesComponent implements OnInit {
 
   private _initForm(): void {
     this.form = this.fb.group({
-      userId: [null, []],
-      courseId: [null, []]
-    })
+      userId: [null, [Validators.required]],
+      courseId: [null, [Validators.required]]
+    });
   }
 
   showCertificatesList(data?: Partial<ICertificate>): void {
     this.certificates$ = this._queryCertificatesList(data);
   }
   openDialog(certificate: ICertificate): void {
-    console.log(certificate);
+    const dialogRef = this.dialog.open(DeleteComponent, { data: { content: 'сертифікат', loading: false } });
+    const dialog = dialogRef.componentInstance;
+    dialog.omSubmit.subscribe(() => {
+      dialog.data.loading = true;
+      this._queryDeleteCertificate(certificate.id)
+        .subscribe(() => {
+          dialog.data.loading = false;
+          dialogRef.close();
+          this.showCertificatesList();
+          this.notify.openSuccess(`Cертифікат був видалений успішно!`);
+        }, ({ error }: HttpErrorResponse) => {
+          dialog.data.loading = false;
+          this.notify.openError(error.result);
+        });
+    });
+
   }
 
   addCertificate(): void {
-    const dialog = this.dialog.open(UploadItemComponent, { disableClose: false });
-    dialog.afterClosed().pipe(
-    ).subscribe(file => {
-      if (file) {
-        console.log(file);
-        takeUntil(this.subscribe$)
-        this._querySendCertificate({
-          chat_id: 375462081,
-          document: file,
-          caption: 'Вітання'
-        })
-          .subscribe((message) => {
-            console.log(message)
-            this._queryCreateCertificate({
-              userId: this.form.value.userId,
-              courseId: this.form.value.courseId,
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
+      const dialog = this.dialog.open(UploadItemComponent, { disableClose: false });
+      dialog.afterClosed()
+        .pipe(
+          mergeMap(file => {
+            if (file) {
+              return this._querySendCertificate({
+                chat_id: 375462081,
+                document: file,
+                caption: 'Вітання'
+              });
+            } else {
+              return EMPTY;
+            }
+          }),
+          concatMap(message => {
+            return this._queryCreateCertificate({
+              ...this.form.value,
               fileId: message.document.file_id,
-            }).subscribe()
-          }
-          );
-      }
-    });
-  }
-  open(link: string): void {
-    window.open(link, '_blank')
+            });
+          })
+        ).subscribe(() => {
+          this.showCertificatesList();
+        });
+    }
+
   }
 
+  open(link: string): void {
+    window.open(link, '_blank');
+  }
+
+  refreshFileLink(element: ICertificate): void {
+    this._queryUpdateCertificate(element.id, element.fileId)
+      .subscribe(result => {
+        this.showCertificatesList();
+      });
+  }
 
   private _queryUserList(): Observable<SelectItems[]> {
     return this.userService.getList().pipe(
@@ -93,7 +125,7 @@ export class CertificatesComponent implements OnInit {
         this.users = res;
         return res.map(el => ({ label: `${el.firstName} ${el.lastName}` || el.phone, value: el.id }));
       })
-    )
+    );
   }
   private _queryCourseList(): Observable<SelectItems[]> {
     return this.courseService.getCourses().pipe(
@@ -113,8 +145,11 @@ export class CertificatesComponent implements OnInit {
   private _queryDeleteCertificate(id: ICertificate['id']): Observable<null> {
     return this.certificateService.queryDelete(id);
   }
+  private _queryUpdateCertificate(id: ICertificate['id'], fileId: ICertificate['fileId']): Observable<ICertificate> {
+    return this.certificateService.queryRefresh(id, fileId);
+  }
   private _querySendCertificate(body: any): Observable<any> {
-    return this.telegramService.sendDocument(body)
+    return this.telegramService.sendDocument(body);
   }
 
 }

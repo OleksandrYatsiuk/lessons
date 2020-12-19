@@ -21,4 +21,7 @@ export class CertificateDataService {
   public queryDelete(id: ICertificate['id']): Observable<null> {
     return this.http.delete(`${this.path}/${id}`).pipe(pluck('result'));
   }
+  public queryRefresh(id: ICertificate['id'], fileId: string): Observable<ICertificate> {
+    return this.http.put(`${this.path}/${id}`, { fileId }).pipe(pluck('result'));
+  }
 }

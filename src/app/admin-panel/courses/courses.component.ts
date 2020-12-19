@@ -46,7 +46,7 @@ export class CoursesComponent implements OnInit {
           dialogRef.close();
 
           this.getList();
-          this.notify.openSuccess(`Курс "${course.name}" був вилалений успішно!`);
+          this.notify.openSuccess(`Курс "${course.name}" був видалений успішно!`);
         }, error => {
           dialog.data.loading = false;
           console.error(error);

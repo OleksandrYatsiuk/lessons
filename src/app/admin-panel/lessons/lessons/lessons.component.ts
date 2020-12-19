@@ -58,7 +58,7 @@ export class LessonsComponent implements OnInit {
         .subscribe(response => {
           dialog.data.loading = false;
           this.showLessonsList();
-          this._notify.openSuccess(`Урок "${lesson.name}" був вилалений успішно!`);
+          this._notify.openSuccess(`Урок "${lesson.name}" був видалений успішно!`);
           dialogRef.close();
         }, error => {
           console.error(error);

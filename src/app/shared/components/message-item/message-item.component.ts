@@ -21,8 +21,6 @@ export class MessageItemComponent implements OnInit {
   messageTypes = EMessageTypes;
   contentTypes = EContentTypes;
 
-
-
   constructor(
     private http: MessagesService,
     private dialog: MatDialog,
