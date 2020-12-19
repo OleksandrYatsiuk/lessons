@@ -10,8 +10,7 @@
     "dev:ssr": "ng run lessons:serve-ssr",
     "build:ssr": "ng build --prod && ng run lessons:server:production",
     "serve:ssr": "node dist/lessons/server/main.js",
-    "postinstall": "ngcc && ng build --aot --prod",
-    "prerender": "ng run lessons:prerender"
+    "postinstall": "ngcc && npm run build:ssr"
   },
   "private": true,
   "dependencies": {
