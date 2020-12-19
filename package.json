@@ -3,14 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "dev:ssr": "ng run lessons:serve-ssr",
-    "serve:ssr": "node dist/lessons/server/main.js",
     "build:ssr": "ng build --prod && ng run lessons:server:production",
+    "serve:ssr": "node dist/lessons/server/main.js",
     "postinstall": "ngcc && ng build --aot --prod",
     "prerender": "ng run lessons:prerender"
   },
