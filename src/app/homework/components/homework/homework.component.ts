@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -18,14 +19,18 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 })
 export class HomeworkComponent implements OnInit {
   context: SafeHtml;
+  isBrowser: boolean;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: any,
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private lessonService: LessonsDataService,
     private userService: UserDataService,
     private sanitizer: DomSanitizer,
-    private storageService: LocalStorageService) { }
+    private storageService: LocalStorageService) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   lesson: Lesson;
   user: User;
@@ -46,11 +51,14 @@ export class HomeworkComponent implements OnInit {
 
   private _checkFromLocalStorage(): void {
 
-    const data = this.storageService.getFromLocalStorage('credentials');
+    let data = this.storageService.getFromLocalStorage('credentials');
     if (data) {
+      console.log(data);
+      data = JSON.parse(data);
       this._queryCodeCheck(data)
         .pipe(
-          mergeMap(() => this._queryLessonDetails(this.lessonId)))
+          mergeMap(() => this._queryLessonDetails(this.lessonId, { phone: data.phone }))
+        )
         .subscribe((lesson) => {
           this.lesson = lesson;
         }, (e) => {
@@ -76,8 +84,8 @@ export class HomeworkComponent implements OnInit {
     const dialog = this.dialog.open(ConfirmModalComponent,
       { data: { text: 'Введіть номер телефону профіля з Телеграму', user }, ...this.config });
 
-    dialog.afterClosed().subscribe(res => {
-      this._queryLessonDetails(this.lessonId).subscribe(lesson => this.lesson = lesson);
+    dialog.afterClosed().subscribe(phone => {
+      this._queryLessonDetails(this.lessonId, { phone }).subscribe(lesson => this.lesson = lesson);
       this.contentAllowed = true;
     });
   }
@@ -86,11 +94,12 @@ export class HomeworkComponent implements OnInit {
     return this.userService.checkCode(data);
   }
 
+  // tslint:disable-next-line:variable-name
   private _queryGetUser(chat_id: number): Observable<User> {
     return this.userService.getItem({ chat_id });
   }
-  private _queryLessonDetails(id: string): Observable<Lesson> {
-    return this.lessonService.getLesson(id);
+  private _queryLessonDetails(id: string, params?: Partial<User>): Observable<Lesson> {
+    return this.lessonService.getLesson(id, params);
   }
 
   public sanitizeLink(link: string): SafeResourceUrl {

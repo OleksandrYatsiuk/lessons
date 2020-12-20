@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { HttpService } from './http.service';
+import { User } from 'src/app/admin-panel/users/users.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class LessonsDataService {
   constructor(private http: HttpService) { }
   public path = '/lessons';
 
-  public getLesson(id: Lesson['id']): Observable<Lesson> {
-    return this.http.get(`${this.path}/${id}`).pipe(pluck('result'));
+  public getLesson(id: Lesson['id'], params?: Partial<User>): Observable<Lesson> {
+    return this.http.get(`${this.path}/${id}`, { params }).pipe(pluck('result'));
   }
   public getLessons(params?: Partial<Lesson>): Observable<Lesson[]> {
     return this.http.get(`${this.path}`, { params }).pipe(pluck('result'));

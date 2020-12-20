@@ -1,3 +1,4 @@
+import { PLATFORM_ID } from '@angular/core';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -16,11 +17,13 @@ export class ConfirmModalComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ConfirmModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { text: string, user: User },
-    private fb: FormBuilder, private http: UserDataService
+    private fb: FormBuilder, private http: UserDataService,
+    private ls: LocalStorageService
   ) { }
   public form: FormGroup;
   isCodePresent = false;
   ngOnInit(): void {
+
     this.form = this.fb.group({
       phone: [null, [Validators.required]],
       code: [null]
@@ -36,8 +39,8 @@ export class ConfirmModalComponent implements OnInit {
       if (code) {
         this._queryCodeCheck(this.form.value)
           .subscribe(result => {
-            this.dialogRef.close();
-            localStorage.setItem('credentials', JSON.stringify({ phone, code }));
+            this.dialogRef.close(phone);
+            this.ls.writeToLocalStorage('credentials', { phone, code });
           }, (e) => {
             this.isCodePresent = false;
             this.form.get('code').setValue(null);
@@ -46,12 +49,10 @@ export class ConfirmModalComponent implements OnInit {
       } else {
         this._queryGenerateCode(phone).subscribe(user => {
           this.isCodePresent = true;
-          this.form.get('code').setValue(user.code);
+          // this.form.get('code').setValue(user.code);
         });
       }
     }
-
-
   }
 
   private _queryGenerateCode(phone: User['phone']): Observable<User> {
