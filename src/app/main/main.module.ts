@@ -5,10 +5,10 @@ import { MainRoutingModule } from './main-routing.module';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { CourseProgramComponent } from './course-program/course-program.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
-import { CourseResultsComponent } from './course-results/course-results.component';
 import { CoursePriceComponent } from './course-price/course-price.component';
 import { QuestionComponent } from './question/question.component';
 import { FormsModule } from '@angular/forms';
+import { CourseStartComponent } from './course-start/course-start.component';
 
 @NgModule({
   declarations: [
@@ -16,9 +16,9 @@ import { FormsModule } from '@angular/forms';
     AboutUsComponent,
     CourseProgramComponent,
     CourseDetailsComponent,
-    CourseResultsComponent,
     CoursePriceComponent,
-    QuestionComponent],
+    QuestionComponent,
+    CourseStartComponent],
   imports: [
     CommonModule,
     MainRoutingModule,

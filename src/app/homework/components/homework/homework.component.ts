@@ -53,7 +53,6 @@ export class HomeworkComponent implements OnInit {
 
     let data = this.storageService.getFromLocalStorage('credentials');
     if (data) {
-      console.log(data);
       data = JSON.parse(data);
       this._queryCodeCheck(data)
         .pipe(

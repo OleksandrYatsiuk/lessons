@@ -1,0 +1,16 @@
+.title,
+h1.title {
+  padding-top: 10px;
+  text-transform: uppercase;
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    text-decoration: line-through;
+    background-color: black;
+    bottom: -2px;
+    left: 0px;
+    width: 95px;
+    height: 2px;
+  }
+}

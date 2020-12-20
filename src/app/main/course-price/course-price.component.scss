@@ -1,0 +1,45 @@
+.price {
+  width: 100%;
+  text-align: center;
+  background-image: url("../../../assets/img/price.jpg");
+  background-repeat: no-repeat;
+  color: white;
+  &-btn {
+    margin: auto;
+    outline: none;
+    margin-bottom: 30px;
+    align-items: center;
+    cursor: pointer;
+    border: 0px;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    font-size: 22px;
+    font-family: "Roboto";
+    font-weight: 400;
+    width: 300px;
+    height: 60px;
+    opacity: 0.6;
+    &:hover {
+      font-weight: 900;
+      opacity: 1;
+    }
+  }
+
+  &-title {
+    padding-top: 5%;
+    padding-left: 5%;
+    font-size: 5vw;
+    font-weight: bolder;
+    letter-spacing: 3px;
+  }
+  &-details {
+    padding: 5%;
+    font-size: 4vw;
+    letter-spacing: 2px;
+    line-height: 100%;
+  }
+  &-button {
+    margin: auto;
+  }
+}

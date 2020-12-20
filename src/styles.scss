@@ -8,6 +8,7 @@
 @import "./styles/elements/spinners.scss";
 @import "./styles/elements/forms.scss";
 @import "./styles/elements/chats.scss";
+@import "./styles/elements/text.scss";
 
 .container {
   display: flex;
@@ -15,11 +16,6 @@
   flex-wrap: wrap;
 }
 
-.custom-video {
-  height: 350px;
-  width: 600px;
-  margin: auto;
-}
 .center {
   text-align: center;
 }
