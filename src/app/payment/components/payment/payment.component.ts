@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, EMPTY } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, concatMap, map, mergeMap } from 'rxjs/operators';
 import { User } from 'src/app/admin-panel/users/users.component';
 import { Course } from 'src/app/core/interfaces/courses';
 import { Payments } from 'src/app/core/interfaces/payments';
@@ -39,7 +39,13 @@ export class PaymentComponent implements OnInit {
     this.initForm();
     this.route
       .queryParams.pipe(
-        mergeMap(({ chat_id }) => this.http.getItem({ chat_id }))
+        concatMap(({ chat_id }) => {
+          if (chat_id) {
+            return this.http.getItem({ chat_id });
+          } else {
+            return EMPTY;
+          }
+        })
       )
       .subscribe(user => this.form.patchValue({ ...user, userId: user.id }));
   }
