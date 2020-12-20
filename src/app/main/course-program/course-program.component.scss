@@ -1,9 +1,25 @@
 .course-agenda {
-  width: 100%;
-  //   background-image: url("../../../assets/img/price.jpg");
   height: auto;
 
   .result {
     // max-width: 50%;
   }
+}
+.list {
+  box-shadow: 10px 5px 5px grey;
+  width: 270px;
+}
+.certificate {
+  box-shadow: 10px 5px 5px grey;
+  max-width: 315px;
+
+  img {
+    width: 100%;
+  }
+}
+
+.line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }

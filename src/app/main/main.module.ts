@@ -9,6 +9,7 @@ import { CoursePriceComponent } from './course-price/course-price.component';
 import { QuestionComponent } from './question/question.component';
 import { FormsModule } from '@angular/forms';
 import { CourseStartComponent } from './course-start/course-start.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { CourseStartComponent } from './course-start/course-start.component';
     CommonModule,
     MainRoutingModule,
     FormsModule,
+    SharedModule
   ]
 })
 export class MainModule { }
