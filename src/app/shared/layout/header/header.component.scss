@@ -6,6 +6,8 @@ img {
 
 .header {
   height: 70px;
+  width: 100%;
+  min-width: 340px;
   display: flex;
   box-shadow: 0px 2px 30px #2524249c;
 }
@@ -13,8 +15,7 @@ img {
 .nav-block {
   display: flex;
   overflow-x: auto;
-  justify-content: space-around;
-  margin-bottom: 10px;
+  justify-content: space-between;
   padding: 10px;
 }
 span {

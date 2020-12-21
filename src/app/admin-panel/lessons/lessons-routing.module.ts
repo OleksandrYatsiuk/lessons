@@ -11,13 +11,11 @@ const routes: Routes = [
   { path: '', component: LessonsComponent },
   {
     path: 'create', component: LessonCreateComponent,
-    canDeactivate: [DirtyFormGuard]
   },
   {
     path: ':id', component: LessonItemComponent,
-    resolve: { lesson: LessonOverviewResolver },
-    canDeactivate: [DirtyFormGuard]
-  },
+    resolve: { lesson: LessonOverviewResolver }
+  }
 ];
 
 @NgModule({

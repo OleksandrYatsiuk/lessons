@@ -1,18 +1,18 @@
-<mat-expansion-panel hideToggle>
-  <mat-expansion-panel-header>
-    <mat-panel-title> Курс </mat-panel-title>
-    <mat-panel-description>
-      Тут будуть курси
-    </mat-panel-description>
-    <mat-panel-description>
-        <mat-icon >navigate_next</mat-icon>
+<div class="container">
+  <mat-expansion-panel hideToggle class="list">
+    <mat-expansion-panel-header>
+      <mat-panel-title> Курс процесуальних документів  </mat-panel-title>
+      <mat-panel-description> для студентів юридичного факультету та юристів </mat-panel-description>
+      <mat-panel-description>
+        <mat-icon>navigate_next</mat-icon>
       </mat-panel-description>
-  </mat-expansion-panel-header>
+    </mat-expansion-panel-header>
 
-  <div *ngFor="let lesson of lessons$ | async">
-    <div>
-      <span routerLink="{{ lesson.id }}">{{ lesson.name }}</span>
-      <mat-icon routerLink="{{ lesson.id }}">navigate_next</mat-icon>
+    <div *ngFor="let lesson of lessons$ | async">
+      <div>
+        <span routerLink="{{ lesson.id }}">{{ lesson.name }}</span>
+        <mat-icon routerLink="{{ lesson.id }}">navigate_next</mat-icon>
+      </div>
     </div>
-  </div>
-</mat-expansion-panel>
+  </mat-expansion-panel>
+</div>

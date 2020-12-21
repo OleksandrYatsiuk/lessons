@@ -12,8 +12,10 @@
 
 body {
   margin: 0px;
+  padding: 0px;
 }
 .container {
+  background: linear-gradient(#36aee16b, transparent);
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
