@@ -1,12 +1,39 @@
 .bot-form {
-    min-width: 350px;
-    max-width: 500px;
-    min-height: 300px;
-    text-align: center;
-    padding: 10px;
-    box-shadow: 0 0 30px -6px rgba(0, 0, 0, 0.15);
+  min-width: 350px;
+  max-width: 500px;
+  min-height: 300px;
+  text-align: center;
+  padding: 10px;
+  box-shadow: 0 0 30px -6px rgba(0, 0, 0, 0.15);
+}
+
+.telegram-btn {
+  outline: none;
+  cursor: pointer;
+  width: 280px;
+  height: 60px;
+  border-radius: 5px;
+  border: 1px solid #33abe0;
+  &:hover {
+    background: radial-gradient(transparent, #33abe0);
+    img {
+      animation: spin 3s linear infinite;
+    }
+  }
+  img {
+    width: 50px;
+  }
 }
 
 mat-form-field {
-    width: 100%;
+  width: 100%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }

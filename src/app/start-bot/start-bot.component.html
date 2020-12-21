@@ -1,13 +1,20 @@
 <div class="container">
-    <div class="bot-form">
-        <h3>Приєднатися до "Practical Legal Courses" network</h3>
+  <div class="bot-form">
+    <h3>Приєднатися до "Practical Legal Courses" network</h3>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Телефон</mat-label>
-            <input matInput placeholder="Введіть телефон" [formControl]="phone">
-        </mat-form-field>
-        <app-error-validation [control]="phone" [field]="'Телефон'"></app-error-validation>
+    <mat-form-field appearance="outline">
+      <mat-label>Телефон</mat-label>
+      <input matInput placeholder="Введіть телефон" [formControl]="phone" />
+    </mat-form-field>
+    <app-error-validation
+      [control]="phone"
+      [field]="'Телефон'"
+    ></app-error-validation>
 
-        <button mat-stroked-button color="primary" type="submit" (click)="openTelegram()">Telegram</button>
-    </div>
+    <button  class="telegram-btn" (click)="openTelegram()">
+      <img src="../../assets/img/telegram.png" alt="telegram" />
+    </button>
+
+    <!-- <button mat-stroked-button color="primary" type="submit">Telegram</button> -->
+  </div>
 </div>
