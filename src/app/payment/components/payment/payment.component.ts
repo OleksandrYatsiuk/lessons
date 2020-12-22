@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, EMPTY } from 'rxjs';
-import { catchError, concatMap, map, mergeMap } from 'rxjs/operators';
+import { catchError, concatMap, map } from 'rxjs/operators';
 import { User } from 'src/app/admin-panel/users/users.component';
 import { Course } from 'src/app/core/interfaces/courses';
 import { Payments } from 'src/app/core/interfaces/payments';
@@ -11,6 +11,7 @@ import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { PaymentService } from 'src/app/core/services/payment.service';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 import { phoneValidator } from 'src/app/core/validators/phone.validator';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -69,7 +70,8 @@ export class PaymentComponent implements OnInit {
       const { phone } = this.form.value;
       this.form.value.phone = phone.slice(phone.length - 10);
       this._queryPreparePayment({
-        ...this.form.value, phone, amount: this.price
+        ...this.form.value, phone, amount: this.price,
+        result_url: `${environment.apiUrl}/payments`
       })
         .subscribe(link => {
           window.open(link, '_blank');
