@@ -1,10 +1,17 @@
 <div class="container">
-  <mat-expansion-panel hideToggle class="list">
+  <mat-expansion-panel
+    hideToggle
+    class="list"
+    (expandedChange)="isOpened = $event"
+  >
     <mat-expansion-panel-header>
-      <mat-panel-title> Курс процесуальних документів  </mat-panel-title>
-      <mat-panel-description> для студентів юридичного факультету та юристів </mat-panel-description>
+      <mat-panel-title> Курс процесуальних документів </mat-panel-title>
       <mat-panel-description>
-        <mat-icon>navigate_next</mat-icon>
+        для студентів юридичного факультету та юристів
+      </mat-panel-description>
+      <mat-panel-description>
+        <mat-icon *ngIf="!isOpened">navigate_next</mat-icon>
+        <mat-icon *ngIf="isOpened">keyboard_arrow_down</mat-icon>
       </mat-panel-description>
     </mat-expansion-panel-header>
 

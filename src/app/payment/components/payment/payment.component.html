@@ -1,6 +1,6 @@
 <div class="container">
   <div class="payment-form">
-    <h3>Оплатити курс <strong> "Practical Legal Courses" </strong></h3>
+    <h3>Оплата курсу</h3>
     <form [formGroup]="form" (ngSubmit)="pay()">
       <mat-form-field appearance="outline">
         <mat-label>Ім'я</mat-label>
@@ -56,10 +56,7 @@
 
       <mat-form-field appearance="outline" class="row__col-2">
         <mat-label>Вибрати курс</mat-label>
-        <mat-select
-          formControlName="courseId"
-          (valueChange)="onChange($event)"
-        >
+        <mat-select formControlName="courseId" (valueChange)="onChange($event)">
           <mat-option
             *ngFor="let item of courseList$ | async"
             [value]="item.value"
@@ -72,10 +69,11 @@
         [control]="form.controls.courseId"
         [field]="'Вибрати курс'"
       ></app-error-validation>
-
-      <app-spin-button matType="mat-flat-button" [loading]="loading">
-        <span> Оплатити {{ price }} грн</span>
-      </app-spin-button>
+      <div class="payment-btn">
+        <app-spin-button matType="mat-flat-button" [loading]="loading">
+          <span> Оплатити {{ price }} грн</span>
+        </app-spin-button>
+      </div>
     </form>
   </div>
 </div>

@@ -11,6 +11,7 @@ import { LessonsDataService } from 'src/app/core/services/lessons-data.service';
 
 export class LessonsPublicListComponent implements OnInit {
   lessons$: Observable<Lesson[]>;
+  isOpened: boolean;
   constructor(private lessonService: LessonsDataService) { }
 
   ngOnInit(): void {
