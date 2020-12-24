@@ -55,7 +55,7 @@ export class PaymentComponent implements OnInit {
       userId: [''],
       firstName: [''],
       lastName: [''],
-      email: [''],
+      email: ['', [Validators.email]],
       courseId: [null, Validators.required],
       phone: ['', [Validators.required, phoneValidator()]]
     });

@@ -11,6 +11,9 @@
       <ng-container *ngSwitchCase="'required'"
         >Поле "{{ field }}" повинно бути заповненим.</ng-container
       >
+      <ng-container *ngSwitchCase="'email'"
+      >Електронна пошта має не коректний формат.</ng-container
+    >
       <ng-container *ngSwitchCase="'password'"
         >"{{ field }}" должен включать латинские заглавные буквы и цифры
       </ng-container>
@@ -31,9 +34,6 @@
             | i18nPlural: { "=1": "1 символ", other: "# символів" }
         }}.
       </ng-container>
-      <ng-container *ngSwitchCase="'email'"
-        >"{{ field }}" не валидный аддрес</ng-container
-      >
       <ng-container *ngSwitchCase="'min'"
         > Поле "{{ field }}" повинно бути не менше ніж {{ control.errors.min.min }}
       </ng-container>
