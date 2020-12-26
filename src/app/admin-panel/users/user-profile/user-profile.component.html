@@ -1,13 +1,11 @@
-<hr />
 <p>Full Name: {{ user?.firstName }} {{ user?.lastName }}</p>
 <p>Phone: {{ user.phone }}</p>
 <p>Create: {{ user.createdAt | date }}</p>
-<mat-slide-toggle
+
+<p-inputSwitch
   [(ngModel)]="user.haveMessages"
   (ngModelChange)="updateStatus($event)"
-  color="primary"
-  class="example-margin"
-  >Позначити всі повідомлення як прочитані
-</mat-slide-toggle>
-<hr />
+>
+</p-inputSwitch>
+<span>Позначити всі повідомлення як прочитані</span>
 <router-outlet></router-outlet>

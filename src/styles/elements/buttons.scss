@@ -1,29 +1,75 @@
 @import "../helpers/variables.scss";
+button {
+  cursor: pointer;
+  outline: none;
+}
+.btn {
+  &--red {
+    border-radius: 8px;
+    color: white;
+    border: 0px;
+    background-color: red;
+    padding: 10px;
+    margin: 5px;
+    opacity: 0.8;
+    transition: 0.3ms;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &--circle-red {
+    border-radius: 50%;
+    color: white;
+    border: 0px;
+    background-color: red;
+    padding: 10px;
+    margin: 5px;
+    opacity: 0.8;
+    transition: 0.3ms;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &--circle-blue {
+    border-radius: 50%;
+    color: white;
+    border: 0px;
+    background-color: #0d89ec;
+    padding: 10px;
+    margin: 5px;
+    opacity: 0.8;
+    transition: 0.3ms;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
 .mat-spinner circle {
-    stroke: $c-white;
+  stroke: $c-white;
 }
 .mat-button-wrapper {
-    display: flex;
+  display: flex;
 }
 .mat-flat-button.mat-primary,
 .mat-raised-button.mat-primary,
 .mat-fab.mat-primary,
 .mat-mini-fab.mat-primary {
-    background-color: $c-blue;
-    &:hover {
-        background-color: $c-blue-hover;
-    }
+  background-color: $c-blue;
+  &:hover {
+    background-color: $c-blue-hover;
+  }
+  &:active {
+    background-color: $c-black;
+    color: $c-white;
+  }
+  &.mat-button-disabled {
+    background-color: rgba(0, 0, 0, 0.12);
+    &:hover,
     &:active {
-        background-color: $c-black;
-        color: $c-white;
+      background-color: rgba(0, 0, 0, 0.12);
+      color: rgba(0, 0, 0, 0.26);
+      cursor: not-allowed;
     }
-    &.mat-button-disabled {
-        background-color: rgba(0, 0, 0, 0.12);
-        &:hover,
-        &:active {
-            background-color: rgba(0, 0, 0, 0.12);
-            color: rgba(0,0,0,.26);
-            cursor: not-allowed;
-        }
-    }
+  }
 }

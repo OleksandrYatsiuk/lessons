@@ -1,44 +1,40 @@
 <div class="container">
-    <table mat-table [dataSource]="courses$|async" class="mat-elevation-z8">
-
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Назва курсу </th>
-            <td mat-cell *matCellDef="let element" [routerLink]="[element.id]">{{element.name}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="createdAt">
-            <th mat-header-cell *matHeaderCellDef> Створено </th>
-            <td mat-cell *matCellDef="let element"> {{element.createdAt|date}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="updatedAt">
-            <th mat-header-cell *matHeaderCellDef> Оновлено </th>
-            <td mat-cell *matCellDef="let element"> {{element.updatedAt|date}} </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef> Статус </th>
-            <td mat-cell *matCellDef="let element"> {{element.status|extract:courseStatuses}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef>
-                <app-spin-button matType='mat-flat-button' color='primary' routerLink="/admin/courses/create">
-                    <span>Створити курс</span>
-                </app-spin-button>
-            </th>
-            <td mat-cell *matCellDef="let element">
-                <button (click)="openDialog(element)" mat-mini-fab color="warn">
-                    <mat-icon>delete</mat-icon>
-                </button>
-                <button routerLink="/admin/courses/{{element.id}}" mat-mini-fab color="primary">
-                    <mat-icon>edit</mat-icon>
-                </button>
-            </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+  <p-table [value]="courses$ | async">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Назва</th>
+        <th>Створено</th>
+        <th>Оновлено</th>
+        <th>Статус</th>
+        <th>
+          <app-spin-button
+            matType="mat-flat-button"
+            color="primary"
+            routerLink="/admin/courses/create"
+          >
+            <span>Створити заняття</span>
+          </app-spin-button>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td routerLink="/admin/lessons/{{ product.id }}">{{ product.name }}</td>
+        <td>{{ product.createdAt | date }}</td>
+        <td>{{ product.updatedAt | date }}</td>
+        <td>{{ product.status | extract: courseStatuses }}</td>
+        <td>
+          <button (click)="openDialog(product)" class="btn--circle-red">
+            <i class="pi pi-trash"></i>
+          </button>
+          <button
+            routerLink="/admin/courses/{{ product.id }}"
+            class="btn--circle-blue"
+          >
+            <i class="pi pi-pencil"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>

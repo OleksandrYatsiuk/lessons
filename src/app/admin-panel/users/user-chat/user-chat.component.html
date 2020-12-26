@@ -1,13 +1,5 @@
 <div class="container">
-  <mat-icon routerLink="../../">keyboard_arrow_left</mat-icon>
-  <mat-form-field appearance="outline">
-    <mat-label>Прогрес курсу</mat-label>
-    <mat-select (valueChange)="updateProgress($event)">
-      <mat-option *ngFor="let progress of progress" [value]="progress.value">
-        {{ progress.label }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <i class="pi pi-angle-left" routerLink="../../"></i>
 </div>
 <div class="chat-container">
   <div class="chat">

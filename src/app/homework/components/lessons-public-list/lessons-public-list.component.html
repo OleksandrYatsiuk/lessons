@@ -1,25 +1,14 @@
 <div class="container">
-  <mat-expansion-panel
-    hideToggle
-    class="list"
-    (expandedChange)="isOpened = $event"
-  >
-    <mat-expansion-panel-header>
-      <mat-panel-title> Курс процесуальних документів </mat-panel-title>
-      <mat-panel-description>
-        для студентів юридичного факультету та юристів
-      </mat-panel-description>
-      <mat-panel-description>
-        <mat-icon *ngIf="!isOpened">navigate_next</mat-icon>
-        <mat-icon *ngIf="isOpened">keyboard_arrow_down</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <div *ngFor="let lesson of lessons$ | async">
-      <div>
-        <span routerLink="{{ lesson.id }}">{{ lesson.name }}</span>
-        <mat-icon routerLink="{{ lesson.id }}">navigate_next</mat-icon>
+  <p-accordion>
+    <p-accordionTab
+      header="Курс процесуальних документів для студентів юридичного факультету та юристів"
+    >
+      <div *ngFor="let lesson of lessons$ | async">
+        <div>
+          <span routerLink="{{ lesson.id }}">{{ lesson.name }}</span>
+          <i class="pi pi-arrow-circle-right" [routerLink]="lesson.id"></i>
+        </div>
       </div>
-    </div>
-  </mat-expansion-panel>
+    </p-accordionTab>
+  </p-accordion>
 </div>

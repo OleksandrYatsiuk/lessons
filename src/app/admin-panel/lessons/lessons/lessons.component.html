@@ -1,58 +1,47 @@
 <div class="container">
-    <div class="example-container mat-elevation-z8">
-        <div class="example-table-container">
-            <table mat-table [dataSource]="lessons$|async">
-
-                <ng-container matColumnDef="name" sticky>
-                    <th mat-header-cell *matHeaderCellDef> Назва </th>
-                    <td mat-cell *matCellDef="let element" routerLink="/admin/lessons/{{element.id}}">{{element.name}}
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="createdAt">
-                    <th mat-header-cell *matHeaderCellDef> Створено </th>
-                    <td mat-cell *matCellDef="let element"> {{element.createdAt|date}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="updatedAt">
-                    <th mat-header-cell *matHeaderCellDef> Оновлено</th>
-                    <td mat-cell *matCellDef="let element"> {{element.updatedAt|date}} </td>
-                </ng-container>
-
-
-                <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef> Статус </th>
-                    <td mat-cell *matCellDef="let element"> {{element.status|extract:lessonStatuses}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="free">
-                    <th mat-header-cell *matHeaderCellDef> Ціна </th>
-                    <td mat-cell *matCellDef="let element">
-                        <mat-slide-toggle color="primary" [ngModel]="element.free"
-                            (ngModelChange)="updatePrice($event, element.id)">
-                            Безкоштовно</mat-slide-toggle>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="delete">
-                    <th mat-header-cell *matHeaderCellDef>
-                        <app-spin-button matType='mat-flat-button' color='primary' routerLink="/admin/lessons/create">
-                            <span>Створити заняття</span>
-                        </app-spin-button>
-                    </th>
-                    <td mat-cell *matCellDef="let element">
-                        <button (click)="openDialog(element)" mat-mini-fab color="warn">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                        <button routerLink="/admin/lessons/{{element.id}}" mat-mini-fab color="primary">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                    </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-        </div>
-    </div>
+  <p-table [value]="lessons$ | async">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Назва</th>
+        <th>Створено</th>
+        <th>Оновлено</th>
+        <th>Статус</th>
+        <th>Безкоштовно</th>
+        <th>
+          <app-spin-button
+            matType="mat-flat-button"
+            color="primary"
+            routerLink="/admin/lessons/create"
+          >
+            <span>Створити заняття</span>
+          </app-spin-button>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td routerLink="/admin/lessons/{{ product.id }}">{{ product.name }}</td>
+        <td>{{ product.createdAt | date }}</td>
+        <td>{{ product.updatedAt | date }}</td>
+        <td>{{ product.status | extract: lessonStatuses }}</td>
+        <td>
+          <p-inputSwitch
+            [ngModel]="product.free"
+            (ngModelChange)="updatePrice($event, product)"
+          ></p-inputSwitch>
+        </td>
+        <td>
+          <button (click)="openDialog(product)" class="btn--circle-red">
+            <i class="pi pi-trash"></i>
+          </button>
+          <button
+            routerLink="/admin/lessons/{{ product.id }}"
+            class="btn--circle-blue"
+          >
+            <i class="pi pi-pencil"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>

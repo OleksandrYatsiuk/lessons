@@ -34,18 +34,18 @@ export class LessonsComponent implements OnInit {
   constructor(
     private http: LessonsDataService,
     private dialog: MatDialog,
-    private _notify: NotificationsService,
+    private notify: NotificationsService,
     private loadService: PreloaderService) { }
 
   ngOnInit(): void {
     this.showLessonsList();
   }
 
-  updatePrice(free: boolean, id: Lesson['id']): void {
-    this._queryUpdateLessonPrice(id, free)
-      .subscribe(lesson => {
+  updatePrice(free: boolean, lesson: Lesson): void {
+    this._queryUpdateLessonPrice(lesson.id, { name: lesson.name, free, status: lesson.status })
+      .subscribe(({ name }) => {
         this.showLessonsList();
-        this._notify.openSuccess(`Урок "${lesson.name}" був оновлений успішно!`);
+        this.notify.openSuccess(`Урок "${name}" був оновлений успішно!`);
       });
   }
 
@@ -58,7 +58,7 @@ export class LessonsComponent implements OnInit {
         .subscribe(response => {
           dialog.data.loading = false;
           this.showLessonsList();
-          this._notify.openSuccess(`Урок "${lesson.name}" був видалений успішно!`);
+          this.notify.openSuccess(`Урок "${lesson.name}" був видалений успішно!`);
           dialogRef.close();
         }, error => {
           console.error(error);
@@ -81,7 +81,7 @@ export class LessonsComponent implements OnInit {
   private _queryDeleteLesson(id: Lesson['id']): Observable<any> {
     return this.http.delete(id);
   }
-  private _queryUpdateLessonPrice(id: Lesson['id'], free: boolean): Observable<Lesson> {
-    return this.http.update(id, { free });
+  private _queryUpdateLessonPrice(id: string, body: Partial<Lesson>): Observable<Lesson> {
+    return this.http.update(id, body);
   }
 }

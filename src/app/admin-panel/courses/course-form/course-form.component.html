@@ -1,41 +1,29 @@
 <form [formGroup]="form" class="form">
   <div class="row">
-    <mat-form-field appearance="outline" class="row__col-2">
-      <mat-label>Назва</mat-label>
-      <input
-        matInput
-        placeholder="Введіть назву курса"
-        formControlName="name"
-      />
-    </mat-form-field>
+    <h5>Назва</h5>
+    <input placeholder="Введіть назву курса" formControlName="name" pInputText/>
     <app-error-validation
       [control]="form.controls.name"
       [field]="'Назва'"
     ></app-error-validation>
-
-    <mat-form-field appearance="outline" class="row__col-2">
-      <mat-label>Виберіть статус публікації</mat-label>
-      <mat-select formControlName="status">
-        <mat-option *ngFor="let item of courseStatuses" [value]="item.value">
-          {{ item.label }}</mat-option
-        >
-      </mat-select>
-    </mat-form-field>
+    <h5>Виберіть статус публікації</h5>
+    <p-dropdown
+      [options]="courseStatuses"
+      formControlName="status"
+    ></p-dropdown>
     <app-error-validation
       [control]="form.controls.status"
       [field]="'Статус'"
     ></app-error-validation>
   </div>
   <div class="row">
-    <mat-form-field appearance="outline" class="row__col-2">
-      <mat-label>Ціна</mat-label>
-      <input
-        matInput
-        placeholder="Введіть ціну курса"
-        formControlName="price"
-        type="number"
-      />
-    </mat-form-field>
+    <h5>Ціна</h5>
+    <p-inputNumber
+    placeholder="Введіть ціну курса"
+    formControlName="price"
+    type="number"
+    >
+    </p-inputNumber>
     <app-error-validation
       [control]="form.controls.price"
       [field]="'Ціна'"

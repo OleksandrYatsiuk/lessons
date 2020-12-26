@@ -1,18 +1,12 @@
-<mat-form-field appearance="outline">
-  <mat-label>Фільтр по курсу</mat-label>
-  <mat-select
-    [ngModel]="selectedCourse"
-    (ngModelChange)="filter($event)"
-    [placeholder]="'Вибрати курс'"
-  >
-    <mat-option selected [value]="null">Вибрати курс</mat-option>
-    <mat-option *ngFor="let course of coursesList$ | async" [value]="course.id">
-      {{ course?.name }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<p-dropdown
+  [options]="coursesList$ | async"
+  optionValue="id"
+  optionLabel="name"
+  placeholder="Вибрати курс"
+  (onChange)="filter($event)"
+></p-dropdown>
 
-<mat-progress-bar mode="determinate" [value]="userProgress"></mat-progress-bar>
+<p-progressBar [value]="userProgress"></p-progressBar>
 
 <table
   mat-table
@@ -27,52 +21,44 @@
   <ng-container matColumnDef="isAnswered">
     <th mat-header-cell *matHeaderCellDef>Переписка</th>
     <td mat-cell *matCellDef="let lesson">
-      <mat-icon
+      <i
+        class="pi pi-envelope p-mr-4 p-text-secondary"
+        style="font-size: 2rem"
+        pBadge
+        severity="danger"
+        value="1+"
         *ngIf="!lesson?.isAnswered"
-        matBadge="?"
         routerLink="lesson/{{ lesson?.lessonId?._id }}"
-        matBadgeColor="warn"
-        >mail_outline
-      </mat-icon>
-      <mat-icon
+      ></i>
+      <i
+        class="pi pi-inbox"
+        style="font-size: 2rem"
         *ngIf="lesson.isAnswered"
         routerLink="lesson/{{ lesson?.lessonId?._id }}"
-        >mail_outline
-      </mat-icon>
+      ></i>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="progress">
     <th mat-header-cell *matHeaderCellDef>Прогрес</th>
     <td mat-cell *matCellDef="let element">
-      <mat-form-field appearance="outline">
-        <mat-label>Прогрес курсу</mat-label>
-        <mat-select
-          [(ngModel)]="element.progress"
-          (ngModelChange)="updateProgress(element, $event)"
-        >
-          <mat-option
-            *ngFor="let progress of progress"
-            [value]="progress?.value"
-          >
-            {{ progress.label }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <p-dropdown
+        [options]="progress"
+        [(ngModel)]="element.progress"
+        [placeholder]="'Прогрес курсу'"
+        (onChange)="updateProgress(element, $event)"
+      ></p-dropdown>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef>Статус</th>
+    <th mat-header-cell *matHeaderCellDef>Доступність</th>
     <td mat-cell *matCellDef="let element">
       <section class="example-section" class="row__col-2">
-        <mat-slide-toggle
+        <p-inputSwitch
           [(ngModel)]="element.status"
-          (ngModelChange)="updateStatus(element, $event)"
-          color="primary"
-          class="example-margin"
-          >Доступно
-        </mat-slide-toggle>
+          (onChange)="updateStatus(element, $event)"
+        ></p-inputSwitch>
       </section>
     </td>
   </ng-container>

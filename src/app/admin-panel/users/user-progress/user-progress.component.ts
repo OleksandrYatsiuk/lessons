@@ -52,31 +52,31 @@ export class UserProgressComponent implements OnInit {
     this.coursesList$ = this._queryCourseList();
   }
 
-  filter(courseId?: Course['id']): void {
-    this.selectedCourse = courseId;
-    if (courseId) {
-      this.studyProgressList$ = this._queryProgress({ params: { courseId } });
+  filter({ value }: { value: Course['id'] }): void {
+    this.selectedCourse = value;
+    if (value) {
+      this.studyProgressList$ = this._queryProgress({ params: { courseId: value } });
     } else {
       this.studyProgressList$ = this._queryProgress();
     }
   }
 
-  updateStatus(progress: IStudyProgress, status: boolean): void {
-    this._queryUpdate(progress._id, { status })
+  updateStatus(progress: IStudyProgress, { checked }: { checked: boolean }): void {
+    this._queryUpdate(progress._id, { status: checked })
       .subscribe(result => {
-        this.notify.openSuccess('Lesson status was updated successfully!');
+        this.notify.openSuccess('Оновлено статус заняття для користувача');
       });
   }
 
-  updateProgress(item: IStudyProgress, progress: EStudyProgress): void {
-    this._queryUpdate(item._id, { progress })
+  updateProgress(item: IStudyProgress, { value }: { value: EStudyProgress }): void {
+    this._queryUpdate(item._id, { progress: value })
       .subscribe(result => {
         if (this.selectedCourse) {
           this.studyProgressList$ = this._queryProgress({ params: { courseId: this.selectedCourse } });
         } else {
           this.studyProgressList$ = this._queryProgress();
         }
-        this.notify.openSuccess('Lesson progress was updated successfully!');
+        this.notify.openSuccess('Оновлено статус заняття для користувача');
       });
   }
 

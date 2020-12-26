@@ -13,6 +13,7 @@ import { SelectItems } from 'src/app/core/interfaces/select';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 import { User } from '../users/users.component';
 import { PreloaderService } from 'src/app/core/services/preloader.service';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-messages',
@@ -24,9 +25,9 @@ export class MessagesComponent implements OnInit {
   public text: string;
 
   public isCourseSelected = false;
-  usersList$: Observable<SelectItems[]>;
-  coursesList$: Observable<SelectItems[]>;
-  lessonsList$: Observable<SelectItems[]>;
+  usersList$: Observable<SelectItem[]>;
+  coursesList$: Observable<SelectItem[]>;
+  lessonsList$: Observable<SelectItem[]>;
   user: User;
   form: FormGroup;
   messages: CustomMessage[];
@@ -58,7 +59,7 @@ export class MessagesComponent implements OnInit {
     this.http2.getItem({ _id: value }).subscribe(user => this.user = user);
   }
 
-  public getUsers(): Observable<SelectItems[]> {
+  public getUsers(): Observable<SelectItem[]> {
     return this.http2.getList().pipe(map((users: User[]) => {
       return users.map(user => {
         if (user.firstName && user.lastName) {
@@ -70,13 +71,13 @@ export class MessagesComponent implements OnInit {
     }));
   }
 
-  public getCourses(): Observable<SelectItems[]> {
+  public getCourses(): Observable<SelectItem[]> {
     return this.courseService.getCourses().pipe(map((courses: Course[]) => {
       return courses.map(course => ({ label: course.name, value: course.id }));
     }));
   }
 
-  public getLessons(courseId: Course['id']): Observable<SelectItems[]> {
+  public getLessons(courseId: Course['id']): Observable<SelectItem[]> {
     return this.lessonService.getLessons({ courseId }).pipe(
       map((lessons: Lesson[]) => {
         return lessons.map(lesson => ({ label: lesson.name, value: lesson.id }));

@@ -1,11 +1,13 @@
 <h2 mat-dialog-title>Delete Dialog</h2>
 <mat-dialog-content class="mat-typography">
-    <h3> Ви дійсно хочете видалити {{data?.content||data}}?</h3>
+  <h3>Ви дійсно хочете видалити {{ data?.content || data }}?</h3>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-    <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
-    <app-spin-button [loading]="data.loading" matType='mat-flat-button' color="warn" (click)="omSubmit.emit($event)">
-        <span>Delete</span>
-    </app-spin-button>
-
+  <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
+  <button class="btn--red" (click)="omSubmit.emit($event)" *ngIf="!data?.loading">
+    <i class="pi pi-trash"></i>
+  </button>
+  <button class="btn--red" *ngIf="data?.loading">
+    <i class="pi pi-spin pi-spinner"></i>
+  </button>
 </mat-dialog-actions>

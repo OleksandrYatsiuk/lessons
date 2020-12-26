@@ -1,81 +1,51 @@
 <div class="form" [formGroup]="form">
   <div class="row">
-    <mat-form-field appearance="outline" class="row__col-2">
-      <mat-label>Виберіть користувача</mat-label>
-      <mat-select formControlName="userId">
-        <mat-option
-          *ngFor="let item of usersOptions$ | async"
-          [value]="item.value"
-        >
-          {{ item.label }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="row__col-2">
-      <mat-label>Виберіть курс</mat-label>
-      <mat-select formControlName="courseId">
-        <mat-option
-          *ngFor="let item of courseOptions$ | async"
-          [value]="item.value"
-        >
-          {{ item.label }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <p-dropdown
+      [options]="usersOptions$ | async"
+      [placeholder]="'Виберіть користувача'"
+      formControlName="userId"
+    ></p-dropdown>
+    <p-dropdown
+      [options]="courseOptions$ | async"
+      [placeholder]="'Виберіть курс'"
+      formControlName="courseId"
+    ></p-dropdown>
   </div>
-  <div class="row__col-2">
-    <app-spin-button (click)="addCertificate()" [disabled]="form.invalid">
-      <span>Додати сертифікат</span>
-    </app-spin-button>
-  </div>
-  <div class="row__col-2">
-    <app-spin-button (click)="showCertificatesList(form.value)">
-      <span>Шукати</span>
-    </app-spin-button>
-  </div>
+  <app-spin-button (click)="showCertificatesList(form.value)">
+    <span>Шукати</span>
+  </app-spin-button>
 </div>
 
 <div class="container">
-  <table
-    mat-table
-    [dataSource]="certificates$ | async"
-    class="mat-elevation-z8"
-  >
-    <ng-container matColumnDef="userId">
-      <th mat-header-cell *matHeaderCellDef>Користувач</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.firstName }} {{ element.userId }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="courseId">
-      <th mat-header-cell *matHeaderCellDef>Курс</th>
-      <td mat-cell *matCellDef="let element">{{ element.courseId }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="certificate">
-      <th mat-header-cell *matHeaderCellDef>Сертифікат</th>
-      <td mat-cell *matCellDef="let element">
-        <button (click)="open(element?.fileLink)">Скачати сертитфікат</button>
-        <mat-icon (click)="refreshFileLink(element)">refresh</mat-icon>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="createdAt">
-      <th mat-header-cell *matHeaderCellDef>Створено</th>
-      <td mat-cell *matCellDef="let element">{{ element.createdAt }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element">
-        <button (click)="openDialog(element)" mat-mini-fab color="warn">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td></ng-container
-    >
-
-    <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr mat-row *matRowDef="let row; columns: columns"></tr>
-  </table>
+  <p-table [value]="certificates$ | async">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Користувач</th>
+        <th>Курс</th>
+        <th>Сертифікат</th>
+        <th>Створено</th>
+        <th>
+          <app-spin-button (click)="addCertificate()" [disabled]="form.invalid">
+            <span>Додати сертифікат</span>
+          </app-spin-button>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-certificate>
+      <tr>
+        <td>{{ certificate.firstName }} {{ certificate.userId }}</td>
+        <td>{{ certificate.courseId }}</td>
+        <td>
+          <i class="pi pi-download" (click)="open(certificate?.fileLink)"></i>
+          <i class="pi pi-refresh" (click)="refreshFileLink(certificate)"></i>
+        </td>
+        <td>{{ certificate.createdAt | date }}</td>
+        <td>
+          <button (click)="openDialog(certificate)" class="btn--circle-red">
+            <i class="pi pi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>

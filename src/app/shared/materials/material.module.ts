@@ -17,6 +17,18 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
+import { MultiSelectModule } from 'primeng/multiselect';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { BadgeModule } from 'primeng/badge';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { AccordionModule } from 'primeng/accordion';
+import { TableModule } from 'primeng/table';
+import {TabMenuModule} from 'primeng/tabmenu';
 @NgModule({
   declarations: [],
   imports: [
@@ -35,7 +47,20 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatBadgeModule,
     MatCheckboxModule,
     MatDividerModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    // primeNG
+    MultiSelectModule,
+    DropdownModule,
+    InputNumberModule,
+    InputTextModule,
+    InputSwitchModule,
+    InputMaskModule,
+    InputTextareaModule,
+    BadgeModule,
+    ProgressBarModule,
+    AccordionModule,
+    TableModule,
+    TabMenuModule
   ],
   exports: [
     MatFormFieldModule,
@@ -53,6 +78,20 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatBadgeModule,
     MatCheckboxModule,
     MatDividerModule,
-    MatSlideToggleModule]
+    MatSlideToggleModule,
+    // primeNG
+    MultiSelectModule,
+    DropdownModule,
+    InputNumberModule,
+    InputTextModule,
+    InputSwitchModule,
+    InputMaskModule,
+    InputTextareaModule,
+    BadgeModule,
+    ProgressBarModule,
+    AccordionModule,
+    TableModule,
+    TabMenuModule
+  ]
 })
 export class MaterialModule { }

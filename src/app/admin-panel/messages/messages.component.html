@@ -18,47 +18,27 @@
         </div>
       </div>
       <form [formGroup]="form" class="search">
-        <mat-form-field appearance="outline">
-          <mat-label>Select User</mat-label>
-          <mat-select
-            formControlName="userId"
-            (selectionChange)="onChange($event)"
-          >
-            <mat-option
-              *ngFor="let item of usersList$ | async"
-              [value]="item.value"
-            >
-              {{ item.label }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Select Course</mat-label>
-          <mat-select (selectionChange)="setCourse($event)">
-            <mat-option
-              *ngFor="let item of coursesList$ | async"
-              [value]="item.value"
-            >
-              {{ item.label }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Select Lesson</mat-label>
-          <mat-select formControlName="lessonId" [disabled]="!isCourseSelected">
-            <mat-option
-              *ngFor="let item of lessonsList$ | async"
-              [value]="item.value"
-            >
-              {{ item.label }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <p-dropdown
+          [options]="usersList$ | async"
+          [placeholder]="'Вибрати користувача'"
+          (onChange)="onChange($event)"
+          formControlName="userId"
+        ></p-dropdown>
+        <p-dropdown
+          [options]="coursesList$ | async"
+          [placeholder]="'Вибрати курс'"
+          (onChange)="setCourse($event)"
+        ></p-dropdown>
+        <p-dropdown
+          [options]="lessonsList$ | async"
+          [disabled]="!isCourseSelected"
+          formControlName="lessonId"
+          [placeholder]="'Вибрати заняття'"
+        ></p-dropdown>
 
         <app-spin-button
           [loading]="loading"
+          [disabled]="form.invalid"
           matType="mat-flat-button"
           (click)="search()"
         >

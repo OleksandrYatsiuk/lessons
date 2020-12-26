@@ -1,13 +1,17 @@
 <div class="panel">
-  <mat-form-field appearance="outline" class="form-control">
-    <textarea
-      matInput
-      placeholder="Start entering message..."
-      [(ngModel)]="message"
-    ></textarea>
-  </mat-form-field>
-  <mat-icon (click)="sendMessage(message, file)">send</mat-icon>
-  <mat-icon *ngIf="!file" (click)="fileInput.click()">attach_file</mat-icon>
-  <mat-icon *ngIf="file" matBadge="1" matBadgeSize="large" (click)="fileInput.click()">attach_file</mat-icon>
+  <textarea
+    pInputTextarea
+    placeholder="Start entering message..."
+    [(ngModel)]="message"
+  ></textarea>
+  <i class="pi pi-send" (click)="sendMessage(message, file)"></i>
+  <i class="pi pi-cloud-upload"  *ngIf="!file" (click)="fileInput.click()"></i>
+  <mat-icon
+    *ngIf="file"
+    matBadge="1"
+    matBadgeSize="large"
+    (click)="fileInput.click()"
+    >attach_file</mat-icon
+  >
   <input hidden type="file" #fileInput (change)="setFiles($event)" /><br />
 </div>
