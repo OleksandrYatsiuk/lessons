@@ -6,7 +6,6 @@ import { catchError, concatMap, map } from 'rxjs/operators';
 import { User } from 'src/app/admin-panel/users/users.component';
 import { Course } from 'src/app/core/interfaces/courses';
 import { Payments } from 'src/app/core/interfaces/payments';
-import { SelectItems } from 'src/app/core/interfaces/select';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { PaymentService } from 'src/app/core/services/payment.service';
 import { UserDataService } from 'src/app/core/services/user-data.service';
@@ -30,7 +29,7 @@ export class PaymentComponent implements OnInit {
   ) { }
   form: FormGroup;
   price = 0;
-  courseList$: Observable<SelectItems[]>;
+  courseList$: Observable<Course[]>;
   coursesList: Course[];
   user: User;
   loading = false;
@@ -48,7 +47,9 @@ export class PaymentComponent implements OnInit {
           }
         })
       )
-      .subscribe(user => this.form.patchValue({ ...user, userId: user.id }));
+      .subscribe(user => {
+        this.form.patchValue({ ...user, userId: user.id, courseId: this.route.snapshot.queryParams.courseId });
+      });
   }
   public initForm(): void {
     this.form = this.fb.group({
@@ -60,9 +61,8 @@ export class PaymentComponent implements OnInit {
       phone: ['', [Validators.required, phoneValidator()]]
     });
   }
-  onChange(id: string): void {
-    const course = this.coursesList.find(el => el.id === id);
-    this.price = course.price;
+  onChange({ value }: { value: Course }): void {
+    this.price = value.price;
   }
   public pay(): void {
     this.form.markAllAsTouched();
@@ -87,15 +87,7 @@ export class PaymentComponent implements OnInit {
         return EMPTY;
       }));
   }
-  private _queryCourseList(): Observable<SelectItems[]> {
-    return this.courseService.getCourses().pipe(
-
-      map(courses => {
-        this.coursesList = courses;
-        const data = courses.map(({ name, id }) => ({ label: name, value: id }));
-        data.unshift({ label: 'Вибрати курс', value: null });
-        return data;
-      })
-    );
+  private _queryCourseList(): Observable<Course[]> {
+    return this.courseService.getCourses();
   }
 }

@@ -2,69 +2,52 @@
   <div class="payment-form">
     <h3>Оплата курсу</h3>
     <form [formGroup]="form" (ngSubmit)="pay()">
-      <mat-form-field appearance="outline">
-        <mat-label>Ім'я</mat-label>
-        <input
-          matInput
-          placeholder="Введіть ім'я"
-          formControlName="firstName"
-        />
-      </mat-form-field>
+      <input
+        pInputText
+        placeholder="Введіть ім'я"
+        formControlName="firstName"
+      />
       <app-error-validation
         [control]="form.controls.firstName"
         [field]="'Ім\'я'"
       ></app-error-validation>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Прізвище</mat-label>
-        <input
-          matInput
-          placeholder="Введіть прізвище"
-          formControlName="lastName"
-        />
-      </mat-form-field>
+      <input
+        pInputText
+        placeholder="Введіть прізвище"
+        formControlName="lastName"
+      />
       <app-error-validation
         [control]="form.controls.lastName"
         [field]="'Прізвище'"
       ></app-error-validation>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Пошта</mat-label>
-        <input
-          matInput
-          placeholder="Введіть електронну пошту"
-          formControlName="email"
-        />
-      </mat-form-field>
+      <input
+        pInputText
+        placeholder="Введіть електронну пошту"
+        formControlName="email"
+      />
       <app-error-validation
         [control]="form.controls.email"
         [field]="'Пошта'"
       ></app-error-validation>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Телефон</mat-label>
-        <input
-          matInput
-          placeholder="Введіть номер телефона"
-          formControlName="phone"
-        />
-      </mat-form-field>
+      <input
+        pInputText
+        placeholder="Введіть номер телефона"
+        formControlName="phone"
+      />
       <app-error-validation
         [control]="form.controls.phone"
         [field]="'Телефон'"
       ></app-error-validation>
 
-      <mat-form-field appearance="outline" class="row__col-2">
-        <mat-label>Вибрати курс</mat-label>
-        <mat-select formControlName="courseId" (valueChange)="onChange($event)">
-          <mat-option
-            *ngFor="let item of courseList$ | async"
-            [value]="item.value"
-          >
-            {{ item.label }}</mat-option
-          >
-        </mat-select>
-      </mat-form-field>
+      <p-dropdown
+        [options]="courseList$ | async"
+        optionLabel="name"
+        (onChange)="onChange($event)"
+        [placeholder]="'Вибрати курс'"
+      ></p-dropdown>
       <app-error-validation
         [control]="form.controls.courseId"
         [field]="'Вибрати курс'"
