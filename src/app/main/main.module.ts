@@ -19,7 +19,8 @@ import { SharedModule } from '../shared/shared.module';
     CourseDetailsComponent,
     CoursePriceComponent,
     QuestionComponent,
-    CourseStartComponent],
+    CourseStartComponent,
+  ],
   imports: [
     CommonModule,
     MainRoutingModule,

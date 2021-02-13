@@ -14,7 +14,13 @@ import { ConfirmComponent } from './components/dialogs/confirm/confirm.component
 import { ChatActionsComponent } from './components/chat-actions/chat-actions.component';
 import { MessageItemComponent } from './components/message-item/message-item.component';
 import { ErrorValidationComponent } from './components/error-validation/error-validation.component';
+import { HttpClient } from '@angular/common/http';
+import {TranslateModule, TranslateLoader, TranslateStore} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/lang/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -36,6 +42,14 @@ import { ErrorValidationComponent } from './components/error-validation/error-va
     ReactiveFormsModule,
     MaterialModule,
     AngularEditorModule,
+    TranslateModule.forChild({
+      defaultLanguage: 'uk',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+    }
+    })
   ],
   exports: [
     HeaderComponent,
@@ -51,7 +65,9 @@ import { ErrorValidationComponent } from './components/error-validation/error-va
     PreloaderComponent,
     ChatActionsComponent,
     MessageItemComponent,
-    ErrorValidationComponent
+    ErrorValidationComponent,
+    TranslateModule
   ],
+  providers: [TranslateStore]
 })
 export class SharedModule { }

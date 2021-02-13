@@ -32,6 +32,8 @@
     "@angular/router": "~11.0.5",
     "@kolkov/angular-editor": "^1.1.4",
     "@nguniversal/express-engine": "^11.0.1",
+    "@ngx-translate/core": "^13.0.0",
+    "@ngx-translate/http-loader": "^6.0.0",
     "@types/node-telegram-bot-api": "^0.50.4",
     "angular-crypto": "0.0.3",
     "crypto-js": "^4.0.0",
