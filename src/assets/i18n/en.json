@@ -1,0 +1,21 @@
+{
+  "pageTitles": {
+    "coursePayment": "Course Payment",
+    "connectToPLC": "Connect to the \"Practical Legal Courses\"",
+    "enrollCourse": "Enroll in a Course",
+    "lessonsList": "List of Lessons",
+    "adminPanel": "Admin Panel"
+  },
+
+  "paymentButtonLabel": "Pay {{value}} uah",
+
+  "labels": {
+    "phone": "Phone"
+  },
+  "placeholders": {
+    "phone": "Enter phone number"
+  },
+  "validations": {
+    "required": "Field \"{{ value }}\" is required."
+  }
+}

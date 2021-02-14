@@ -1,6 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { PreloaderService } from './core/services/preloader.service';
 
 @Component({
@@ -14,11 +13,16 @@ export class AppComponent implements AfterViewInit {
   loading = false;
   constructor(
     private loadService: PreloaderService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+
   ) {
   }
+
   ngAfterViewInit(): void {
     this.loadService.loading
-      .subscribe(load => { this.loading = load; this.cdr.detectChanges(); });
+      .subscribe(load => {
+        this.loading = load;
+        this.cdr.detectChanges();
+      });
   }
 }

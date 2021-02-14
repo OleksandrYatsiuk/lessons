@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { ERROR_LIST } from './error-messages-list';
 
 @Component({
@@ -14,7 +15,8 @@ export class ErrorValidationComponent {
   @Input() control: AbstractControl;
   @Input() update: EventEmitter<boolean>;
   list = ERROR_LIST;
-  constructor() { }
+  constructor() {
+  }
 
 }
 

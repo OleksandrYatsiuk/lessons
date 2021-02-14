@@ -1,15 +1,21 @@
 <header class="header">
   <img src="../../../../assets/logo.png" alt="logo" routerLink="/" />
   <nav class="nav-block">
-    <span routerLink="/homework/lessons" routerLinkActive="active"
-      >Список завдань</span
-    >
-    <span routerLink="/payment" routerLinkActive="active">Оплатити курс</span>
-    <span routerLink="/start" routerLinkActive="active"
-      >Записатися на курс</span
-    >
+    <span routerLink="/homework/lessons" routerLinkActive="active">{{
+      "pageTitles.lessonsList" | translate
+    }}</span>
+    <span routerLink="/payment" routerLinkActive="active">{{
+      "pageTitles.coursePayment" | translate
+    }}</span>
+    <span routerLink="/start" routerLinkActive="active">{{
+      "pageTitles.enrollCourse" | translate
+    }}</span>
     <span routerLink="/admin" routerLinkActive="active"
-      >Адміністративна панель</span
+      >{{"pageTitles.adminPanel"|translate}}</span
     >
   </nav>
+  <p-dropdown
+    [options]="languages"
+    (onChange)="onChangeLang($event)"
+  ></p-dropdown>
 </header>

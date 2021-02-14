@@ -1,18 +1,33 @@
-.payment-form {
-  border-radius: 20px;
-  background-color: white;
-  margin-top: 50px;
-  max-width: 500px;
-  min-height: 300px;
-  padding: 10px;
-  box-shadow: 0 0 30px -6px rgba(0, 0, 0, 0.15);
-  min-width: 320px;
-  h3 {
+.payment {
+  &__form {
+    border-radius: 20px;
+    background-color: white;
+    margin-top: 50px;
+    max-width: 500px;
+    min-height: 300px;
+    padding: 10px;
+    box-shadow: 0 0 30px -6px rgba(0, 0, 0, 0.15);
+    min-width: 320px;
+  }
+
+  &__title {
     text-align: center;
   }
-}
-.payment-btn {
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
+
+  &__field {
+    width: 100%;
+    margin-top: 18px;
+    border-radius: 5px;
+  }
+
+  &__select-field {
+    width: 100%;
+    margin-top: 18px;
+  }
+
+  &__submit {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
 }

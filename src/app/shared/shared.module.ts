@@ -15,11 +15,11 @@ import { ChatActionsComponent } from './components/chat-actions/chat-actions.com
 import { MessageItemComponent } from './components/message-item/message-item.component';
 import { ErrorValidationComponent } from './components/error-validation/error-validation.component';
 import { HttpClient } from '@angular/common/http';
-import {TranslateModule, TranslateLoader, TranslateStore} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader, TranslateStore } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/lang/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -42,14 +42,7 @@ export function createTranslateLoader(http: HttpClient) {
     ReactiveFormsModule,
     MaterialModule,
     AngularEditorModule,
-    TranslateModule.forChild({
-      defaultLanguage: 'uk',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient]
-    }
-    })
+    TranslateModule
   ],
   exports: [
     HeaderComponent,

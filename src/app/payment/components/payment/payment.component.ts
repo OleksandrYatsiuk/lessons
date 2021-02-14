@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, EMPTY } from 'rxjs';
-import { catchError, concatMap, map } from 'rxjs/operators';
+import { catchError, concatMap } from 'rxjs/operators';
 import { User } from 'src/app/admin-panel/users/users.component';
 import { Course } from 'src/app/core/interfaces/courses';
 import { Payments } from 'src/app/core/interfaces/payments';
@@ -25,7 +26,8 @@ export class PaymentComponent implements OnInit {
     private payment: PaymentService,
     private http: UserDataService,
     private route: ActivatedRoute,
-    private courseService: CourseDataService
+    private courseService: CourseDataService,
+    public translate: TranslateService
   ) { }
   form: FormGroup;
   price = 0;
@@ -35,6 +37,13 @@ export class PaymentComponent implements OnInit {
   loading = false;
 
   ngOnInit(): void {
+
+    this.translate.onLangChange.subscribe((change: any) => {
+      this.translate.use(change.lang)
+      this.translate.setDefaultLang(change.lang);
+      console.log(change);
+      // this.cdr.detectChanges();
+    })
     this.courseList$ = this._queryCourseList();
     this.initForm();
     this.route

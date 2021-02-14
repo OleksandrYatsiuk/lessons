@@ -1,9 +1,10 @@
 <div class="container">
-  <div class="payment-form">
-    <h3>Оплата курсу</h3>
+  <div class="payment__form">
+    <h2 class="payment__title">{{ "pageTitles.coursePayment" | translate }}</h2>
     <form [formGroup]="form" (ngSubmit)="pay()">
       <input
         pInputText
+        class="payment__field"
         placeholder="Введіть ім'я"
         formControlName="firstName"
       />
@@ -14,6 +15,7 @@
 
       <input
         pInputText
+        class="payment__field"
         placeholder="Введіть прізвище"
         formControlName="lastName"
       />
@@ -24,6 +26,7 @@
 
       <input
         pInputText
+        class="payment__field"
         placeholder="Введіть електронну пошту"
         formControlName="email"
       />
@@ -34,6 +37,7 @@
 
       <input
         pInputText
+        class="payment__field"
         placeholder="Введіть номер телефона"
         formControlName="phone"
       />
@@ -42,19 +46,25 @@
         [field]="'Телефон'"
       ></app-error-validation>
 
-      <p-dropdown
-        [options]="courseList$ | async"
-        optionLabel="name"
-        (onChange)="onChange($event)"
-        [placeholder]="'Вибрати курс'"
-      ></p-dropdown>
+      <div class="payment__select-field">
+        <p-dropdown
+          [options]="courseList$ | async"
+          styleClass="plc-dropdown"
+          optionLabel="name"
+          (onChange)="onChange($event)"
+          [placeholder]="'Вибрати курс'"
+        ></p-dropdown>
+      </div>
+
       <app-error-validation
         [control]="form.controls.courseId"
         [field]="'Вибрати курс'"
       ></app-error-validation>
-      <div class="payment-btn">
+      <div class="payment__submit">
         <app-spin-button matType="mat-flat-button" [loading]="loading">
-          <span> Оплатити {{ price }} грн</span>
+          <span translate [translateParams]="{ value: price }">
+            paymentButtonLabel</span
+          >
         </app-spin-button>
       </div>
     </form>

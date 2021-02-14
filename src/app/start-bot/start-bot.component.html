@@ -1,19 +1,19 @@
 <div class="container">
   <div class="bot-form">
-    <h3>Приєднатися до "Practical Legal Courses"</h3>
+    <h3>{{ "pageTitles.connectToPLC" | translate }}</h3>
     <div>
       <mat-form-field appearance="outline">
-        <mat-label>Телефон</mat-label>
+        <mat-label>{{ "labels.phone" | translate }}</mat-label>
         <input
           matInput
-          placeholder="Введіть телефон"
+          [placeholder]="'placeholders.phone' | translate"
           [formControl]="phone"
           placeholder="+38 099 99 99 999"
         />
       </mat-form-field>
       <app-error-validation
         [control]="phone"
-        [field]="'Телефон'"
+        [field]="'labels.phone' | translate"
       ></app-error-validation>
     </div>
 
