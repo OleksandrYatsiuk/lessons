@@ -16,7 +16,8 @@ export class TokenInterceptor implements HttpInterceptor {
     if (request.url.includes(environment.apiUrl)) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.bearerToken}`
+          Authorization: `Bearer ${this.bearerToken}`,
+          'Accept-Encoding': 'gzip, compress, br'
         }
       });
     }
