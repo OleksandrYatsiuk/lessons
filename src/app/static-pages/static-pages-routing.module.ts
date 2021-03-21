@@ -7,7 +7,7 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
 const router: Routes = [
   { path: 'terms-and-condition', component: TermsAndConditionsComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent }
-]
+];
 
 
 @NgModule({

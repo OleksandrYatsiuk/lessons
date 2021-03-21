@@ -1,0 +1,6 @@
+<button (click)="increment()">Increment</button>
+<button (click)="decrement()" [disabled]="(count$ | async) <= 0">Decrement</button>
+<button (click)="reset()" [disabled]="(count$ | async) === 0">Reset Counter</button>
+
+<p>Current Count: {{ count$ | async }}</p>
+<p>Updated At: {{ updatedAt$ | async | date:'yyy-MM-dd HH:mm:ss' }}</p>

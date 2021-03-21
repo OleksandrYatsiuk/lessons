@@ -175,6 +175,7 @@
   },
   "defaultProject": "lessons",
   "cli": {
-    "analytics": "dba5a0fe-61b9-46dc-a8c5-2f23c8931524"
+    "analytics": "dba5a0fe-61b9-46dc-a8c5-2f23c8931524",
+    "defaultCollection": "@ngrx/schematics"
   }
 }
