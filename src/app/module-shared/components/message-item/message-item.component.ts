@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { DeleteComponent } from 'src/app/module-shared/components/dialogs/delete/delete.component';
 import { catchError } from 'rxjs/operators';
-import { CustomMessage, EMessageTypes, EContentTypes } from 'src/app/admin-panel/messages/message.interface';
+import { CustomMessage, EMessageTypes, EContentTypes } from 'src/app/module-admin-panel/messages/message.interface';
 
 @Component({
   selector: 'app-message-item',

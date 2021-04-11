@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { HttpService } from './http.service';
-import { User } from 'src/app/admin-panel/users/users.component';
+import { User } from 'src/app/module-admin-panel/users/users.component';
 
 @Injectable({
   providedIn: 'root'

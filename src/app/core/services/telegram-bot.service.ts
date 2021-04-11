@@ -1,4 +1,4 @@
-import { CustomMessage } from './../../admin-panel/messages/message.interface';
+import { CustomMessage } from '../../module-admin-panel/messages/message.interface';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.prod';

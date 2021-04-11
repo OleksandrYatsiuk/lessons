@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, CanActivate } from '@angular/router';
-import { LoginComponent } from 'src/app/admin-panel/login/login.component';
+import { LoginComponent } from 'src/app/module-admin-panel/login/login.component';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 @Injectable()
 export class AuthGuard implements CanActivate {

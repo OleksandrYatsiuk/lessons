@@ -10,8 +10,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   constructor(private storage: LocalStorageService) { }
 
-
-  public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     if (request.url.includes(environment.apiUrl)) {
       request = request.clone({

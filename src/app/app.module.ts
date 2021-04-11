@@ -6,20 +6,26 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './module-shared/shared.module';
 import { CoreModule } from './core/core.module';
-import { MainModule } from './main/main.module';
+import { MainModule } from './module-main/main.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import uk from '@angular/common/locales/uk';
 import { FormsModule } from '@angular/forms';
-import { StartBotComponent } from './start-bot/start-bot.component';
+import { StartBotComponent } from './module-start-bot/start-bot.component';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ELanguage } from './core/interfaces/languages.interface';
+import uk from '@angular/common/locales/uk';
+import ru from '@angular/common/locales/ru';
+import en from '@angular/common/locales/en';
+
 
 registerLocaleData(uk);
+registerLocaleData(ru);
+registerLocaleData(en);
 
 
-export function HttpLoaderFactory(http: HttpClient) {
+export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
@@ -39,13 +45,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     CoreModule,
     MainModule,
     TranslateModule.forRoot({
-      defaultLanguage: 'uk',
+      defaultLanguage: ELanguage.uk,
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
+        useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    }),
+    })
   ],
   exports: [
     SharedModule,
@@ -54,7 +60,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } },
-    { provide: LOCALE_ID, useValue: 'uk' }
+    { provide: LOCALE_ID, useValue: ELanguage.uk }
   ],
   bootstrap: [AppComponent]
 })
