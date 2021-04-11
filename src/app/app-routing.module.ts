@@ -19,7 +19,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
     initialNavigation: 'enabled',
-    relativeLinkResolution: 'legacy'
+    relativeLinkResolution: 'corrected'
 })],
   exports: [RouterModule],
   providers: [AuthGuard]
