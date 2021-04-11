@@ -25,14 +25,6 @@ export class LessonsFormComponent implements OnInit {
   loading = false;
   coursesList$: Observable<SelectItems[]>;
 
-  constructor(
-    private fb: FormBuilder,
-    private http: LessonsDataService,
-    private courseService: CourseDataService,
-    private errorHandler: ErrorHandlerService,
-    private notify: NotificationsService,
-    private router: Router) { }
-
   lessonStatuses: SelectItems[] = [
     { value: ECourseStatus.PUBLISHED, label: 'Опубліковано' },
     { value: ECourseStatus.DRAFT, label: 'Чорновик' }];
@@ -62,6 +54,14 @@ export class LessonsFormComponent implements OnInit {
     sanitize: true,
     toolbarPosition: 'top',
   };
+  constructor(
+    private fb: FormBuilder,
+    private http: LessonsDataService,
+    private courseService: CourseDataService,
+    private errorHandler: ErrorHandlerService,
+    private notify: NotificationsService,
+    private router: Router) { }
+
 
   ngOnInit(): void {
     this.coursesList$ = this._queryCourseList();

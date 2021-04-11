@@ -1,4 +1,4 @@
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from 'src/app/module-shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LessonItemComponent } from './lesson-item/lesson-item.component';

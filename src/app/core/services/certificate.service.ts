@@ -8,9 +8,9 @@ import { HttpService } from './http.service';
   providedIn: 'root'
 })
 export class CertificateDataService {
+  private path = `/certificates`;
 
   constructor(private http: HttpService) { }
-  private path = `/certificates`;
 
   public queryCreate(body: Partial<ICertificate>): Observable<ICertificate> {
     return this.http.post(this.path, body).pipe(pluck('result'));

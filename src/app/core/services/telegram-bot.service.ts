@@ -17,9 +17,9 @@ export class TelegramBotService {
 
   constructor(private http: HttpService, private rest: HttpClient) { }
 
-  // tslint:disable-next-line: variable-name
-  public sendMessage(chat_id: number, text = ''): Observable<any> {
-    return this.rest.post(`${this.apiTelegramUrl}/sendMessage`, { chat_id, text }).pipe(pluck('result'));
+  public sendMessage(chatId: number, text = ''): Observable<any> {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    return this.rest.post(`${this.apiTelegramUrl}/sendMessage`, { chat_id: chatId, text }).pipe(pluck('result'));
   }
 
   public sendPhoto(body?: any): Observable<any> {

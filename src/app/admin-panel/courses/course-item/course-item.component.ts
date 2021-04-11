@@ -1,10 +1,10 @@
 import { Course } from 'src/app/core/interfaces/courses';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ComponentCanDeactivate } from 'src/app/shared/guards/dirty-form.guard';
+import { ComponentCanDeactivate } from 'src/app/module-shared/guards/dirty-form.guard';
 import { Observable } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ConfirmComponent } from 'src/app/shared/components/dialogs/confirm/confirm.component';
+import { ConfirmComponent } from 'src/app/module-shared/components/dialogs/confirm/confirm.component';
 
 @Component({
   selector: 'app-course-item',
@@ -14,16 +14,17 @@ import { ConfirmComponent } from 'src/app/shared/components/dialogs/confirm/conf
 export class CourseItemComponent implements OnInit, ComponentCanDeactivate {
   public course: Course;
   panelOpenState = false;
-  constructor(private route: ActivatedRoute, private dialog: MatDialog) {
-    this.course = this.route.snapshot.data.course;
-  }
-
+  isDirtyForm: boolean;
   private config: MatDialogConfig = {
     autoFocus: false,
     disableClose: true,
     hasBackdrop: true
   };
-  isDirtyForm: boolean;
+  constructor(private route: ActivatedRoute, private dialog: MatDialog) {
+    this.course = this.route.snapshot.data.course;
+  }
+
+
   isDirty(dirty: boolean): void {
     this.isDirtyForm = dirty;
   }

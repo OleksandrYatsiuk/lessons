@@ -7,10 +7,11 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ErrorHandlerService {
     private msg = new BehaviorSubject<any>(null);
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errorMessage = this.msg.asObservable();
     constructor() { }
 
-    hasError(error: object): void {
+    hasError(error: any): void {
         this.msg.next(error);
     }
 

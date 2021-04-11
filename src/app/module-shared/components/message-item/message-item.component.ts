@@ -4,7 +4,7 @@ import { MessagesService } from 'src/app/core/services/messages.service';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
-import { DeleteComponent } from 'src/app/shared/components/dialogs/delete/delete.component';
+import { DeleteComponent } from 'src/app/module-shared/components/dialogs/delete/delete.component';
 import { catchError } from 'rxjs/operators';
 import { CustomMessage, EMessageTypes, EContentTypes } from 'src/app/admin-panel/messages/message.interface';
 

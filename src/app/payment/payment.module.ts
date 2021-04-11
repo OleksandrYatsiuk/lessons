@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../module-shared/shared.module';
 import { PaymentStatusComponent } from './components/payment-status/payment-status.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';

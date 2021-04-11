@@ -6,10 +6,10 @@ import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+  private bearerToken = this.storage.getFromLocalStorage('plc_token');
 
   constructor(private storage: LocalStorageService) { }
 
-  private bearerToken = this.storage.getFromLocalStorage('plc_token');
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -17,7 +17,7 @@ export class TokenInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${this.bearerToken}`,
-          'Accept-Encoding': 'gzip, compress, br'
+          // 'Accept-Encoding': 'gzip, compress, br'
         }
       });
     }

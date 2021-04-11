@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { NotificationsService } from './../../core/services/notifications.service';
-import { DeleteComponent } from './../../shared/components/dialogs/delete/delete.component';
+import { DeleteComponent } from '../../module-shared/components/dialogs/delete/delete.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UserDataService } from 'src/app/core/services/user-data.service';
@@ -12,6 +12,7 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   chat_id: number | null;
   code: number;
   haveMessages: boolean;
@@ -26,7 +27,13 @@ export interface User {
 })
 export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['view', 'fullName', 'phone', 'email', 'chat_id', 'createdAt', 'updatedAt', 'delete'];
-  public users: User[];
+  users: User[];
+  private config: MatDialogConfig = {
+    autoFocus: false,
+    disableClose: true,
+    hasBackdrop: true
+  };
+
   constructor(
     private http: UserDataService,
     private dialog: MatDialog,
@@ -34,11 +41,6 @@ export class UsersComponent implements OnInit {
     private loadService: PreloaderService
   ) { }
 
-  private config: MatDialogConfig = {
-    autoFocus: false,
-    disableClose: true,
-    hasBackdrop: true
-  };
 
   ngOnInit(): void {
     this.getData();

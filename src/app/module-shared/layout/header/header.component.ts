@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
     { label: 'UK', value: 'uk' },
     { label: 'EN', value: 'en' },
     { label: 'RU', value: 'ru', disabled: true }
-  ]
+  ];
   constructor(private translate: TranslateService) { }
 
   ngOnInit(): void {

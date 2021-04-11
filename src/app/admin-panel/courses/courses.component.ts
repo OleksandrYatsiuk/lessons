@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { NotificationsService } from './../../core/services/notifications.service';
-import { DeleteComponent } from './../../shared/components/dialogs/delete/delete.component';
+import { DeleteComponent } from '../../module-shared/components/dialogs/delete/delete.component';
 import { Course, ECourseStatus } from './../../core/interfaces/courses';
 import { Component, OnInit } from '@angular/core';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
@@ -16,14 +16,15 @@ import { tap } from 'rxjs/operators';
 
 })
 export class CoursesComponent implements OnInit {
-  public courses$: Observable<Course[]>;
+  courses$: Observable<Course[]>;
+  courseStatuses: SelectItems[] = [
+    { value: ECourseStatus.PUBLISHED, label: 'Опубліковано' },
+    { value: ECourseStatus.DRAFT, label: 'Чорновик' }];
   displayedColumns: string[] = ['name', 'createdAt', 'updatedAt', 'status', 'delete'];
   private config: MatDialogConfig = {
     autoFocus: false
   };
-  courseStatuses: SelectItems[] = [
-    { value: ECourseStatus.PUBLISHED, label: 'Опубліковано' },
-    { value: ECourseStatus.DRAFT, label: 'Чорновик' }];
+
   constructor(
     private http: CourseDataService,
     private dialog: MatDialog,

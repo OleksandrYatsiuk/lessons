@@ -1,3 +1,14 @@
+/* eslint-disable no-shadow */
+
+export enum EContentTypes {
+    file = 'file',
+    photo = 'photo',
+    text = 'text'
+}
+export enum EMessageTypes {
+    bot = 'bot',
+    user = 'user'
+}
 export interface CustomMessage {
     readonly id?: string;
     userId: string;
@@ -19,12 +30,3 @@ export interface MessageOptions {
     fileId: string;
 }
 
-export enum EContentTypes {
-    file = 'file',
-    photo = 'photo',
-    text = 'text'
-}
-export enum EMessageTypes {
-    bot = 'bot',
-    user = 'user'
-}

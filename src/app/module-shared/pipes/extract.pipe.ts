@@ -1,4 +1,4 @@
-import { SelectItems } from './../../core/interfaces/select';
+import { SelectItems } from '../../core/interfaces/select';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({

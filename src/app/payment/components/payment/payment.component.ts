@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -20,6 +21,12 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./payment.component.scss']
 })
 export class PaymentComponent implements OnInit {
+  form: FormGroup;
+  price = 0;
+  courseList$: Observable<Course[]>;
+  coursesList: Course[];
+  user: User;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -29,21 +36,15 @@ export class PaymentComponent implements OnInit {
     private courseService: CourseDataService,
     public translate: TranslateService
   ) { }
-  form: FormGroup;
-  price = 0;
-  courseList$: Observable<Course[]>;
-  coursesList: Course[];
-  user: User;
-  loading = false;
 
   ngOnInit(): void {
 
     this.translate.onLangChange.subscribe((change: any) => {
-      this.translate.use(change.lang)
+      this.translate.use(change.lang);
       this.translate.setDefaultLang(change.lang);
       console.log(change);
       // this.cdr.detectChanges();
-    })
+    });
     this.courseList$ = this._queryCourseList();
     this.initForm();
     this.route

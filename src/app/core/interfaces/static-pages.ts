@@ -1,4 +1,5 @@
 
+// eslint-disable-next-line no-shadow
 export enum EStaticPages {
     privacyPolicy = 1,
     termsAndConditions = 2

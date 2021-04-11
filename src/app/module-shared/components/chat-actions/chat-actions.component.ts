@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
 import { pluck } from 'rxjs/operators';
@@ -10,14 +11,14 @@ import { User } from 'src/app/admin-panel/users/users.component';
   styleUrls: ['./chat-actions.component.scss']
 })
 export class ChatActionsComponent implements OnInit {
-
-  constructor(private http: TelegramBotService) { }
-  msg: CustomMessage;
-  message: string;
-  file: File;
   @Input() user: User;
   @Input() lessonId: string;
   @Output() sended = new EventEmitter<boolean>();
+  msg: CustomMessage;
+  message: string;
+  file: File;
+
+  constructor(private http: TelegramBotService) { }
 
   ngOnInit(): void {
   }
@@ -45,6 +46,14 @@ export class ChatActionsComponent implements OnInit {
     }
   }
 
+  setFiles(event: Event & { target: HTMLInputElement }): void {
+    const files = event.target.files;
+    if (!files) {
+      return;
+    }
+    this.file = files[0];
+  }
+
   private _save(res: any, type: EContentTypes, text?: string): void {
     const fileId = this._getFileLink(res, type);
     this.http.saveMessage({
@@ -66,14 +75,6 @@ export class ChatActionsComponent implements OnInit {
         this.file = null;
         this.sended.emit(true);
       });
-  }
-
-  public setFiles(event: Event & { target: HTMLInputElement }): void {
-    const files = event.target.files;
-    if (!files) {
-      return;
-    }
-    this.file = files[0];
   }
 
   private _getFileLink(res: any, type: EContentTypes): string {

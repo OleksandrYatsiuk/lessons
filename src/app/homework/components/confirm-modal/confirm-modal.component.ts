@@ -1,4 +1,3 @@
-import { PLATFORM_ID } from '@angular/core';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -13,15 +12,14 @@ import { UserDataService } from 'src/app/core/services/user-data.service';
   styleUrls: ['./confirm-modal.component.scss']
 })
 export class ConfirmModalComponent implements OnInit {
-
+  isCodePresent = false;
+  public form: FormGroup;
   constructor(
     public dialogRef: MatDialogRef<ConfirmModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { text: string, user: User },
+    @Inject(MAT_DIALOG_DATA) public data: { text: string; user: User },
     private fb: FormBuilder, private http: UserDataService,
     private ls: LocalStorageService
   ) { }
-  public form: FormGroup;
-  isCodePresent = false;
   ngOnInit(): void {
 
     this.form = this.fb.group({
@@ -58,7 +56,7 @@ export class ConfirmModalComponent implements OnInit {
   private _queryGenerateCode(phone: User['phone']): Observable<User> {
     return this.http.generateCode(phone);
   }
-  private _queryCodeCheck(data: { phone: string, code: number }): Observable<boolean> {
+  private _queryCodeCheck(data: { phone: string; code: number }): Observable<boolean> {
     return this.http.checkCode(data);
   }
 

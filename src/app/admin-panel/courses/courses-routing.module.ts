@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CoursesComponent } from './courses.component';
 import { CourseItemComponent } from './course-item/course-item.component';
 import { CourseOverviewResolver } from './course-overview.resolver';
-import { DirtyFormGuard } from 'src/app/shared/guards/dirty-form.guard';
+import { DirtyFormGuard } from 'src/app/module-shared/guards/dirty-form.guard';
 
 const routes: Routes = [
   {

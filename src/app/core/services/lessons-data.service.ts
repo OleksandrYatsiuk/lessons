@@ -9,9 +9,8 @@ import { User } from 'src/app/admin-panel/users/users.component';
   providedIn: 'root'
 })
 export class LessonsDataService {
-
-  constructor(private http: HttpService) { }
   public path = '/lessons';
+  constructor(private http: HttpService) { }
 
   public getLesson(id: Lesson['id'], params?: Partial<User>): Observable<Lesson> {
     return this.http.get(`${this.path}/${id}`, { params }).pipe(pluck('result'));
@@ -26,7 +25,7 @@ export class LessonsDataService {
     return this.http.path(`${this.path}/${id}`, body).pipe(pluck('result'));
   }
 
-  public delete(id: Lesson['id']): Observable<object> {
+  public delete(id: Lesson['id']): Observable<any> {
     return this.http.delete(`${this.path}/${id}`).pipe(pluck('result'));
   }
 }

@@ -1,5 +1,9 @@
-import { SafeHtml } from '@angular/platform-browser';
 
+// eslint-disable-next-line no-shadow
+export enum ECourseStatus {
+    DRAFT = 1,
+    PUBLISHED = 2
+}
 export interface Course {
     readonly id: string;
     name: string;
@@ -24,7 +28,3 @@ export interface Lesson {
     updatedAt: number;
 }
 
-export enum ECourseStatus {
-    DRAFT = 1,
-    PUBLISHED = 2
-}

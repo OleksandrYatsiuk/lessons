@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeworkComponent } from './components/homework/homework.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../module-shared/shared.module';
 import { LessonOverviewResolver } from '../admin-panel/lessons/lesson-overview.resolver';
 import { LessonsPublicListComponent } from './components/lessons-public-list/lessons-public-list.component';
 

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { PreloaderService } from './core/services/preloader.service';
 
@@ -8,21 +8,20 @@ import { PreloaderService } from './core/services/preloader.service';
   styleUrls: ['./app.component.scss'],
 
 })
-export class AppComponent implements AfterViewInit {
-  title = '';
-  loading = false;
+export class AppComponent implements OnInit {
+  load = false;
   constructor(
-    private loadService: PreloaderService,
-    private cdr: ChangeDetectorRef,
+    private _ps: PreloaderService,
+    private _cd: ChangeDetectorRef
+  ) { }
 
-  ) {
-  }
-
-  ngAfterViewInit(): void {
-    this.loadService.loading
-      .subscribe(load => {
-        this.loading = load;
-        this.cdr.detectChanges();
+  ngOnInit(): void {
+    this._ps.loading
+      .subscribe((isLoad: boolean) => {
+        if (isLoad !== null) {
+          this.load = isLoad;
+        }
+        this._cd.detectChanges();
       });
   }
 }

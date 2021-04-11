@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LessonItemComponent } from './lesson-item/lesson-item.component';
 import { LessonsComponent } from './lessons/lessons.component';
-import { DirtyFormGuard } from 'src/app/shared/guards/dirty-form.guard';
+import { DirtyFormGuard } from 'src/app/module-shared/guards/dirty-form.guard';
 
 const routes: Routes = [
   { path: '', component: LessonsComponent },

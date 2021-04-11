@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -20,7 +21,16 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 export class HomeworkComponent implements OnInit {
   context: SafeHtml;
   isBrowser: boolean;
-
+  lesson: Lesson;
+  user: User;
+  lessonId: Lesson['id'];
+  chatId: User['chat_id'];
+  contentAllowed = true;
+  private config: MatDialogConfig = {
+    autoFocus: false,
+    disableClose: true,
+    hasBackdrop: true
+  };
   constructor(
     @Inject(PLATFORM_ID) private platformId: any,
     private dialog: MatDialog,
@@ -32,21 +42,19 @@ export class HomeworkComponent implements OnInit {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
-  lesson: Lesson;
-  user: User;
-  lessonId: Lesson['id'];
-  chatId: User['chat_id'];
-  private config: MatDialogConfig = {
-    autoFocus: false,
-    disableClose: true,
-    hasBackdrop: true
-  };
-  contentAllowed = true;
+
 
   ngOnInit(): void {
     this.lessonId = this.route.snapshot.params.id;
     this.chatId = this.route.snapshot.queryParams.chat_id;
     this._checkFromLocalStorage();
+  }
+
+  sanitizeLink(link: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(link);
+  }
+  sanitizeContent(content: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(content);
   }
 
   private _checkFromLocalStorage(): void {
@@ -89,7 +97,7 @@ export class HomeworkComponent implements OnInit {
     });
   }
 
-  private _queryCodeCheck(data: { phone: string, code: number }): Observable<boolean> {
+  private _queryCodeCheck(data: { phone: string; code: number }): Observable<boolean> {
     return this.userService.checkCode(data);
   }
 
@@ -99,13 +107,6 @@ export class HomeworkComponent implements OnInit {
   }
   private _queryLessonDetails(id: string, params?: Partial<User>): Observable<Lesson> {
     return this.lessonService.getLesson(id, params);
-  }
-
-  public sanitizeLink(link: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(link);
-  }
-  public sanitizeContent(content: string): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(content);
   }
 
 }

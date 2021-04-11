@@ -24,7 +24,7 @@ export class UserDataService {
   public generateCode(phone: User['phone']): Observable<User> {
     return this.http.post(`${this.apiUrl}${this.path}/code`, { phone }).pipe(pluck('result'));
   }
-  public checkCode(data: { code: number, phone: string }): Observable<boolean> {
+  public checkCode(data: { code: number; phone: string }): Observable<boolean> {
     return this.http.post(`${this.apiUrl}${this.path}/code-check`, data).pipe(pluck('result'));
   }
   public remove(id: User['id']): Observable<string> {

@@ -7,7 +7,6 @@ import { catchError } from 'rxjs/operators';
 import { ErrorHandlerService } from 'src/app/core/services/error-handler.service';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { UserDataService } from 'src/app/core/services/user-data.service';
-import { phoneValidator } from 'src/app/core/validators/phone.validator';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +14,8 @@ import { phoneValidator } from 'src/app/core/validators/phone.validator';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  form: FormGroup;
+  loading = false;
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<LoginComponent>,
@@ -23,17 +23,11 @@ export class LoginComponent implements OnInit {
     private errorHandler: ErrorHandlerService,
     private storage: LocalStorageService
   ) { }
-  form: FormGroup;
-  loading = false;
+
   ngOnInit(): void {
     this.initForm();
   }
-  private initForm(): void {
-    this.form = this.fb.group({
-      phone: ['', [Validators.required]],
-      password: ['', [Validators.required]]
-    });
-  }
+
 
   login(): void {
     this.form.markAllAsTouched();
@@ -44,6 +38,15 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+
+
+  private initForm(): void {
+    this.form = this.fb.group({
+      phone: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    });
+  }
+
 
   private _queryUserLogin(): Observable<{ token: string }> {
     this.loading = true;

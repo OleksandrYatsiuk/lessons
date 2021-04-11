@@ -7,13 +7,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./delete.component.scss'],
 })
 export class DeleteComponent implements OnInit {
-
+  omSubmit = new EventEmitter();
   constructor(
     public dialogRef: MatDialogRef<DeleteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
-  omSubmit = new EventEmitter();
   ngOnInit(): void {
   }
 

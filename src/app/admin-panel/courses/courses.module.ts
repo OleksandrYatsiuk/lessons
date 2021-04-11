@@ -1,5 +1,5 @@
-import { DeleteComponent } from './../../shared/components/dialogs/delete/delete.component';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { DeleteComponent } from '../../module-shared/components/dialogs/delete/delete.component';
+import { SharedModule } from 'src/app/module-shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseItemComponent } from './course-item/course-item.component';

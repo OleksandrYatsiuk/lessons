@@ -3,7 +3,7 @@ import { ECourseStatus, Lesson } from './../../../core/interfaces/courses';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { LessonsDataService } from 'src/app/core/services/lessons-data.service';
-import { DeleteComponent } from 'src/app/shared/components/dialogs/delete/delete.component';
+import { DeleteComponent } from 'src/app/module-shared/components/dialogs/delete/delete.component';
 import { SelectItems } from 'src/app/core/interfaces/select';
 import { Observable } from 'rxjs';
 import { PreloaderService } from 'src/app/core/services/preloader.service';

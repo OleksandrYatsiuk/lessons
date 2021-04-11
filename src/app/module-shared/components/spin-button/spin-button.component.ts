@@ -1,7 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
-export type MatBtnTypes = 'mat-button' | 'mat-raised-button' | 'mat-stroked-button' | 'mat-flat-button' | 'mat-icon-button' | 'mat-fab' | 'mat-mini-fab';
+export type MatBtnTypes = 'mat-button' | 'mat-raised-button' | 'mat-stroked-button' | 'mat-flat-button'
+  | 'mat-icon-button' | 'mat-fab' | 'mat-mini-fab';
+
+// eslint-disable-next-line no-shadow
 export enum EMatBtn {
   'mat-button' = 'mat-button',
   'mat-raised-button' = 'mat-raised-button',

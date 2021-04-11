@@ -16,6 +16,7 @@ import { HttpResponseBase } from '@angular/common/http';
 //     message: string;
 //     result: Error[] | string;
 // }
+// eslint-disable-next-line no-shadow
 export enum Statuses {
     success = 'success',
     error = 'error'
@@ -26,7 +27,7 @@ export enum Statuses {
 //     code?: number;
 // }
 
-export interface BaseResponse<T = {}> extends HttpResponseBase {
+export interface BaseResponse<T = any> extends HttpResponseBase {
     result: T;
 }
 

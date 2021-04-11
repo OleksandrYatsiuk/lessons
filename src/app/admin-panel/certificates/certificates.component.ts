@@ -12,7 +12,7 @@ import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
 import { UserDataService } from 'src/app/core/services/user-data.service';
-import { DeleteComponent } from 'src/app/shared/components/dialogs/delete/delete.component';
+import { DeleteComponent } from 'src/app/module-shared/components/dialogs/delete/delete.component';
 import { User } from '../users/users.component';
 import { UploadItemComponent } from './upload-item/upload-item.component';
 
@@ -48,14 +48,6 @@ export class CertificatesComponent implements OnInit {
     this._initForm();
 
   }
-
-  private _initForm(): void {
-    this.form = this.fb.group({
-      userId: [null, [Validators.required]],
-      courseId: [null, [Validators.required]]
-    });
-  }
-
   showCertificatesList(data?: Partial<ICertificate>): void {
     this.certificates$ = this._queryCertificatesList(data);
   }
@@ -95,12 +87,10 @@ export class CertificatesComponent implements OnInit {
               return EMPTY;
             }
           }),
-          concatMap(message => {
-            return this._queryCreateCertificate({
-              ...this.form.value,
-              fileId: message.document.file_id,
-            });
-          })
+          concatMap(message => this._queryCreateCertificate({
+            ...this.form.value,
+            fileId: message.document.file_id,
+          }))
         ).subscribe(() => {
           this.showCertificatesList();
         });
@@ -118,6 +108,14 @@ export class CertificatesComponent implements OnInit {
         this.showCertificatesList();
       });
   }
+
+  private _initForm(): void {
+    this.form = this.fb.group({
+      userId: [null, [Validators.required]],
+      courseId: [null, [Validators.required]]
+    });
+  }
+
 
   private _queryUserList(): Observable<SelectItems[]> {
     return this.userService.getList().pipe(

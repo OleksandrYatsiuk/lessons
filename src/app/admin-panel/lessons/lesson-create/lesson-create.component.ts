@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { ConfirmComponent } from 'src/app/shared/components/dialogs/confirm/confirm.component';
-import { ComponentCanDeactivate } from 'src/app/shared/guards/dirty-form.guard';
+import { ConfirmComponent } from 'src/app/module-shared/components/dialogs/confirm/confirm.component';
+import { ComponentCanDeactivate } from 'src/app/module-shared/guards/dirty-form.guard';
 
 @Component({
   selector: 'app-lesson-create',
@@ -11,9 +11,9 @@ import { ComponentCanDeactivate } from 'src/app/shared/guards/dirty-form.guard';
 })
 export class LessonCreateComponent implements OnInit, ComponentCanDeactivate {
 
+  isDirtyForm: boolean;
   constructor(private dialog: MatDialog) { }
 
-  isDirtyForm: boolean;
 
   isDirty(dirty: boolean): void {
     this.isDirtyForm = dirty;

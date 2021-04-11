@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '@environments/environment';
+import { transformToFormData } from '@utils/form-data-transformer';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -10,60 +11,25 @@ export class HttpService {
   private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
-  public get(path: string, options?: object): Observable<object> {
+  public get(path: string, options?: any): Observable<any> {
     return this.http.get(`${this.apiUrl}${path}`, options);
   }
-  public post(path: string, body: object, options?: any): Observable<object> {
+  public post(path: string, body: any, options?: any): Observable<any> {
     return this.http.post(`${this.apiUrl}${path}`, body, options);
   }
-  public put(path: string, body: object, options?: any): Observable<object> {
+  public put(path: string, body: any, options?: any): Observable<any> {
     return this.http.put(`${this.apiUrl}${path}`, body, options);
   }
-  public postFormData(path: string, body: object, options?: any, fullPath?: boolean): Observable<object> {
-    body = this.getFormData(body);
+  public postFormData(path: string, body: any, options?: any, fullPath?: boolean): Observable<any> {
+    body = transformToFormData(body);
     fullPath ? path = path : path = `${this.apiUrl}${path}`;
     return this.http.post(path, body, options);
   }
-  public path(path: string, body: object, options?: any): Observable<object> {
+  public path(path: string, body: any, options?: any): Observable<any> {
     return this.http.patch(`${this.apiUrl}${path}`, body, options);
   }
-  public delete(path: string, options?: object): Observable<object> {
+  public delete(path: string, options?: any): Observable<any> {
     return this.http.delete(`${this.apiUrl}${path}`, options);
   }
 
-
-
-  private getFormData(raw: object): FormData {
-    const formData = new FormData();
-
-    Object.entries(raw)
-      .filter(([param, value]) => value !== null)
-      .forEach(([param, value]) => {
-        if (Array.isArray(value)) {
-          this.setArrayKeys(formData, param, value);
-        } else if (typeof value === 'object') {
-          if (value instanceof File) {
-            formData.append(param, value);
-          } else {
-            this.setObjectKeys(formData, param, value);
-          }
-        } else {
-          formData.append(param, value);
-        }
-      });
-    return formData;
-  }
-
-  private setArrayKeys(formData: FormData, param: string, array: string[]): void {
-    array.forEach((el, index) => {
-      formData.append(`${param}[${index}]`, el);
-    });
-  }
-
-  private setObjectKeys(formData: FormData, param: string, object: object): void {
-    // tslint:disable-next-line: forin
-    for (const key in object) {
-      formData.append(`${param}[${key}]`, object[key]);
-    }
-  }
 }

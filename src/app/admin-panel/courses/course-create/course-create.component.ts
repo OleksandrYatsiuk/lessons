@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { ConfirmComponent } from 'src/app/shared/components/dialogs/confirm/confirm.component';
-import { ComponentCanDeactivate } from 'src/app/shared/guards/dirty-form.guard';
+import { ConfirmComponent } from 'src/app/module-shared/components/dialogs/confirm/confirm.component';
+import { ComponentCanDeactivate } from 'src/app/module-shared/guards/dirty-form.guard';
 
 @Component({
   selector: 'app-course-create',
@@ -10,14 +10,14 @@ import { ComponentCanDeactivate } from 'src/app/shared/guards/dirty-form.guard';
   styleUrls: ['./course-create.component.scss']
 })
 export class CourseCreateComponent implements OnInit, ComponentCanDeactivate {
-
-  constructor(private dialog: MatDialog) { }
+  isDirtyForm: boolean;
   private config: MatDialogConfig = {
     autoFocus: false,
     disableClose: true,
     hasBackdrop: true
   };
-  isDirtyForm: boolean;
+  constructor(private dialog: MatDialog) { }
+
   isDirty(dirty): void {
     this.isDirtyForm = dirty;
   }

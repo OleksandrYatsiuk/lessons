@@ -1,7 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -12,11 +14,18 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-   
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@utils/*": [
+        "src/app/utils/*"
+      ],
+      "@environments/*": [
+        "src/environments/*"
+      ],
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
