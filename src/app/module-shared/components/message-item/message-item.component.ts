@@ -2,11 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY, Observable } from 'rxjs';
 import { MessagesService } from 'src/app/core/services/messages.service';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
-import { DeleteComponent } from 'src/app/module-shared/components/dialogs/delete/delete.component';
 import { catchError } from 'rxjs/operators';
 import { CustomMessage, EMessageTypes, EContentTypes } from 'src/app/module-admin-panel/messages/message.interface';
+import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
 
 @Component({
   selector: 'app-message-item',
@@ -23,31 +22,26 @@ export class MessageItemComponent implements OnInit {
 
   constructor(
     private http: MessagesService,
-    private dialog: MatDialog,
+    private _cs: ConfirmService,
     private notify: NotificationsService) { }
 
   ngOnInit(): void {
   }
 
   openDialog(message: CustomMessage): void {
-    const dialogRef = this.dialog.open(DeleteComponent,
-      { data: { content: 'повідомлення', loading: false }, autoFocus: false });
-    const dialog = dialogRef.componentInstance;
-    dialog.omSubmit.subscribe(() => {
-      dialog.data.loading = true;
-      this._queryDeleteMessage(message.id)
-        .subscribe(response => {
-          dialog.data.loading = false;
-          this.removed.emit();
-          dialogRef.close();
-          if (response?.code) {
-            this.notify.openSuccess(response.result);
-          } else {
-            this.notify.openSuccess(`Повідомлення видалено успішно!`);
-          }
-        }, (error) => {
-          dialog.data.loading = false;
-        });
+
+    this._cs.delete().subscribe(isDeleted => {
+      if (isDeleted) {
+        this._queryDeleteMessage(message.id)
+          .subscribe(response => {
+            this.removed.emit();
+            if (response?.code) {
+              this.notify.openSuccess(response.result);
+            } else {
+              this.notify.openSuccess(`Повідомлення видалено успішно!`);
+            }
+          });
+      }
     });
   }
 

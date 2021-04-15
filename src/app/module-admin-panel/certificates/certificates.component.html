@@ -1,11 +1,13 @@
 <div class="form" [formGroup]="form">
   <div class="row">
     <p-dropdown
+      class="plc-dropdown"
       [options]="usersOptions$ | async"
       [placeholder]="'Виберіть користувача'"
       formControlName="userId"
     ></p-dropdown>
     <p-dropdown
+      class="plc-dropdown"
       [options]="courseOptions$ | async"
       [placeholder]="'Виберіть курс'"
       formControlName="courseId"
@@ -17,7 +19,7 @@
 </div>
 
 <div class="container">
-  <p-table [value]="certificates$ | async">
+  <p-table [value]="certificates$ | async" class="plc-table">
     <ng-template pTemplate="header">
       <tr>
         <th>Користувач</th>
@@ -41,8 +43,8 @@
         </td>
         <td>{{ certificate.createdAt | date }}</td>
         <td>
-          <button (click)="openDialog(certificate)" class="btn--circle-red">
-            <i class="pi pi-trash"></i>
+          <button (click)="openDialog(certificate)" class="btn__circle">
+            <i class="icon icon--delete"></i>
           </button>
         </td>
       </tr>

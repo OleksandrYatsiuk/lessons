@@ -1,7 +1,47 @@
 mat-icon {
-    cursor: pointer;
-    outline: none;
-    &:hover {
-        color: gray;
-    }
+  cursor: pointer;
+  outline: none;
+  &:hover {
+    color: gray;
+  }
+}
+
+.icon {
+  display: inline-block;
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  margin: 0;
+  padding: 0;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  user-select: none;
+  transition: all 0.3s;
+
+  &--delete {
+    background-image: url("../../assets/icons/trash.svg");
+  }
+  &--edit {
+    background-image: url("../../assets/icons/pencil.svg");
+  }
+  &--user {
+    background-image: url("../../assets/icons/user.svg");
+  }
+  &--close {
+    background-image: url("../../assets/icons/close-small.svg");
+
+  }
+}
+
+button:disabled {
+  cursor: default;
+  .icon:hover,
+  .icon {
+    cursor: default;
+    pointer-events: none;
+    filter: grayscale(1);
+  }
 }

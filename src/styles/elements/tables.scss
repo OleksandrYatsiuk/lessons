@@ -1,13 +1,44 @@
+@import "../helpers/index.scss";
+
 mat-divider.mat-divider {
-    margin-top: 5px;
-    margin-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .example-container.mat-elevation-z8 {
-    overflow-x: auto;
-    width: 100%;
+  overflow-x: auto;
+  width: 100%;
 }
 
 table {
+  width: 100%;
+}
+
+.p-datatable table {
+  @include mobile-up {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+.plc-table {
+  table {
     width: 100%;
+  }
+  .p-datatable-thead {
+    width: 100%;
+    tr {
+      height: 30px;
+      background: #d6cfcf;
+    }
+    th {
+      border-right: 1px solid gray;
+    }
+  }
+  .p-datatable-tbody {
+    td {
+      background: white;
+      border-bottom: 1px solid gray;
+    }
+  }
 }

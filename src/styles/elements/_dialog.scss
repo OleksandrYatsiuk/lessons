@@ -1,0 +1,142 @@
+@import "../helpers/index.scss";
+.p-dialog {
+  position: relative;
+  width: 450px;
+  max-width: 600px;
+  min-height: 140px;
+  margin: auto;
+  border-radius: 5px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  background-color: #fff;
+  margin: 50px auto;
+
+  &-content {
+    color: $c-red;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+  }
+  &-title {
+    margin: 0 auto;
+    @include genText(18px, 21px, 700);
+  }
+
+  &-visible {
+    font-size: 14px;
+    line-height: 16px;
+    color: $c-gray;
+    text-align: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    margin-top: 24px;
+    width: 360px;
+  }
+}
+
+.p-button {
+  height: 40px;
+  width: 168px;
+}
+
+.p-confirm-dialog .p-dialog-content {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+body {
+  .p-dialog-mask {
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+}
+
+.plc-confirm-dialog {
+  &.p-dialog {
+    padding: 24px;
+  }
+
+  .p-dialog-header {
+    @include genText(18px, 21px, 700);
+    width: 100%;
+    text-align: center;
+  }
+  .p-dialog-content {
+    @include genText(14px, 16px, 400);
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  &--dangerous {
+    &.p-dialog {
+      border: 1px solid $c-red;
+    }
+    .p-dialog-header {
+      .p-dialog-title {
+        color: $c-red;
+      }
+    }
+  }
+  &--warning {
+    &.p-dialog {
+      border: 1px solid yellow;
+    }
+    .p-dialog-header {
+      .p-dialog-title {
+        color: yellow;
+      }
+    }
+  }
+}
+
+.plc-dynamic-dialog {
+  border-radius: 8px;
+  &.p-dialog.p-dynamic-dialog {
+    max-width: 100%;
+    .p-dialog-header {
+      padding: 0 24px;
+      height: 64px;
+      border-bottom: 1px solid $c-gray;
+      &-icons {
+        width: 32px;
+        height: 32px;
+        margin-left: 5px;
+      }
+      &-icon {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: #f9f9f9;
+        transition: all 0.4s;
+        border: 0;
+        &:hover {
+          background-color: #e4e3e3;
+        }
+      }
+      &-close-icon {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        &::after {
+          content: url("../../assets/icons/close.svg");
+        }
+      }
+    }
+    .p-dialog-title {
+      margin: 0;
+      @include genText(18px, 21px, 700);
+    }
+  }
+}

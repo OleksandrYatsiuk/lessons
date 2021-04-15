@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
 import { ConfirmComponent } from 'src/app/module-shared/components/dialogs/confirm/confirm.component';
 import { ComponentCanDeactivate } from 'src/app/module-shared/guards/dirty-form.guard';
 
@@ -12,7 +13,7 @@ import { ComponentCanDeactivate } from 'src/app/module-shared/guards/dirty-form.
 export class LessonCreateComponent implements OnInit, ComponentCanDeactivate {
 
   isDirtyForm: boolean;
-  constructor(private dialog: MatDialog) { }
+  constructor(private _cs: ConfirmService) { }
 
 
   isDirty(dirty: boolean): void {
@@ -20,12 +21,9 @@ export class LessonCreateComponent implements OnInit, ComponentCanDeactivate {
   }
   canDeactivate(): boolean | Observable<boolean> {
     if (this.isDirtyForm) {
-      const dialog = this.dialog.open(ConfirmComponent,
-        { data: 'Вы дійсно хочете залишити сторінку? Всі не збережені дані будуть видалені!' });
-      return dialog.afterClosed();
-    } else {
-      return true;
+      return this._cs.confirm();
     }
+    return true;
   }
   ngOnInit(): void {
   }

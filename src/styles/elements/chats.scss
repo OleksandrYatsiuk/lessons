@@ -1,3 +1,5 @@
+@import "../helpers/index.scss";
+
 .message {
   &-content {
     min-width: 300px;
@@ -20,6 +22,9 @@
   &-actions {
     margin: 10px;
     width: 100%;
+    @include mobile-up {
+      margin: auto;
+    }
   }
 }
 .search {

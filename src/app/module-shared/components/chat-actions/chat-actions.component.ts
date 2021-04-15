@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
-import { pluck } from 'rxjs/operators';
 import { CustomMessage, EContentTypes, EMessageTypes } from 'src/app/module-admin-panel/messages/message.interface';
 import { User } from 'src/app/module-admin-panel/users/users.component';
 

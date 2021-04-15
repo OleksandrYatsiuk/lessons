@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Component } from '@angular/core';
 import { PreloaderService } from './core/services/preloader.service';
 
@@ -10,10 +11,14 @@ import { PreloaderService } from './core/services/preloader.service';
 })
 export class AppComponent implements OnInit {
   load = false;
+  isBrowser: boolean;
   constructor(
+    @Inject(PLATFORM_ID) private platformId: any,
     private _ps: PreloaderService,
     private _cd: ChangeDetectorRef
-  ) { }
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   ngOnInit(): void {
     this._ps.loading

@@ -2,15 +2,14 @@
   <div class="bot-form">
     <h3>{{ "pageTitles.connectToPLC" | translate }}</h3>
     <div>
-      <mat-form-field appearance="outline">
-        <mat-label>{{ "labels.phone" | translate }}</mat-label>
-        <input
-          matInput
-          [placeholder]="'placeholders.phone' | translate"
-          [formControl]="phone"
-          placeholder="+38 099 99 99 999"
-        />
-      </mat-form-field>
+      <p-inputMask
+        *ngIf="isBrowser"
+        placeholder="+38(099)-99-99-999"
+        class="plc-input-mask"
+        [formControl]="phone"
+        mask="+38(099)-99-99-999"
+      >
+      </p-inputMask>
       <app-error-validation
         [control]="phone"
         [field]="'labels.phone' | translate"
@@ -20,7 +19,5 @@
     <button class="telegram-btn" (click)="openTelegram()">
       <img src="../../assets/img/telegram.png" alt="telegram" />
     </button>
-
-    <!-- <button mat-stroked-button color="primary" type="submit">Telegram</button> -->
   </div>
 </div>

@@ -8,6 +8,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SelectItems } from 'src/app/core/interfaces/select';
 import { PreloaderService } from 'src/app/core/services/preloader.service';
 import { tap } from 'rxjs/operators';
+import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
 
 @Component({
   selector: 'app-courses',
@@ -21,15 +22,13 @@ export class CoursesComponent implements OnInit {
     { value: ECourseStatus.PUBLISHED, label: 'Опубліковано' },
     { value: ECourseStatus.DRAFT, label: 'Чорновик' }];
   displayedColumns: string[] = ['name', 'createdAt', 'updatedAt', 'status', 'delete'];
-  private config: MatDialogConfig = {
-    autoFocus: false
-  };
+
 
   constructor(
     private http: CourseDataService,
-    private dialog: MatDialog,
     private notify: NotificationsService,
-    private loadService: PreloaderService
+    private loadService: PreloaderService,
+    private _cs: ConfirmService
   ) { }
 
   ngOnInit(): void {
@@ -37,22 +36,18 @@ export class CoursesComponent implements OnInit {
   }
 
   openDialog(course: Course): void {
-    const dialogRef = this.dialog.open(DeleteComponent, { data: { content: `курс "${course.name}`, loading: false }, ...this.config });
-    const dialog = dialogRef.componentInstance;
-    dialog.omSubmit.subscribe(() => {
-      dialog.data.loading = true;
-      this._queryDeleteCourse(course)
-        .subscribe(() => {
-          dialog.data.loading = false;
-          dialogRef.close();
-
-          this.getList();
-          this.notify.openSuccess(`Курс "${course.name}" був видалений успішно!`);
-        }, error => {
-          dialog.data.loading = false;
-          console.error(error);
-        });
+    this._cs.delete().subscribe(isDelete => {
+      if (isDelete) {
+        this._queryDeleteCourse(course)
+          .subscribe(() => {
+            this.getList();
+            this.notify.openSuccess(`Курс "${course.name}" був видалений успішно!`);
+          }, error => {
+            console.error(error);
+          });
+      }
     });
+
   }
 
   public getList(): void {

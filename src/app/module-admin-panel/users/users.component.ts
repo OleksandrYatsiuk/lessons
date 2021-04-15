@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 import { PreloaderService } from 'src/app/core/services/preloader.service';
+import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
 
 export interface User {
   id: string;
@@ -38,7 +39,8 @@ export class UsersComponent implements OnInit {
     private http: UserDataService,
     private dialog: MatDialog,
     private _notify: NotificationsService,
-    private loadService: PreloaderService
+    private loadService: PreloaderService,
+    private _cs: ConfirmService
   ) { }
 
 
@@ -54,20 +56,16 @@ export class UsersComponent implements OnInit {
   }
 
   openDialog(user: User): void {
-    const dialogRef = this.dialog.open(DeleteComponent,
-      { data: { content: 'користувача', loading: false }, ...this.config });
-    const dialog = dialogRef.componentInstance;
-    dialog.omSubmit.subscribe(() => {
-      dialog.data.loading = true;
-      this._queryUserDelete(user)
-        .subscribe(() => {
-          dialog.data.loading = false;
-          this.getData();
-          dialogRef.close();
-          this._notify.openSuccess(`Користувач був видалений успішно!`);
-        }, error => {
-          console.error(error);
-        });
+    this._cs.delete().subscribe(isDelete => {
+      if (isDelete) {
+        this._queryUserDelete(user)
+          .subscribe(() => {
+            this.getData();
+            this._notify.openSuccess(`Користувач був видалений успішно!`);
+          }, error => {
+            console.error(error);
+          });
+      }
     });
   }
 

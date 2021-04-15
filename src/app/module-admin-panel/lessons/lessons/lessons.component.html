@@ -1,5 +1,5 @@
 <div class="container">
-  <p-table [value]="lessons$ | async">
+  <p-table [value]="lessons$ | async" class="plc-table">
     <ng-template pTemplate="header">
       <tr>
         <th>Назва</th>
@@ -31,14 +31,14 @@
           ></p-inputSwitch>
         </td>
         <td>
-          <button (click)="openDialog(product)" class="btn--circle-red">
-            <i class="pi pi-trash"></i>
+          <button (click)="openDialog(product)" class="btn__circle">
+            <i class="icon icon--delete"></i>
           </button>
           <button
             routerLink="/admin/lessons/{{ product.id }}"
-            class="btn--circle-blue"
+            class="btn__circle"
           >
-            <i class="pi pi-pencil"></i>
+            <i class="icon icon--edit"></i>
           </button>
         </td>
       </tr>

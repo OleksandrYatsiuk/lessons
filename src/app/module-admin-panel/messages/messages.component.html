@@ -1,50 +1,53 @@
-<div class="chat-container">
-  <div class="chat">
-    <div class="chat-list">
-      <div>
-        <div class="message-content" *ngFor="let message of messages">
-          <app-message-item
-            [item]="message"
-            (removed)="onRemove()"
-          ></app-message-item>
-        </div>
-        <div class="chat-actions">
-          <app-chat-actions
-            [user]="user"
-            [lessonId]="lessonId"
-            (sended)="fetchSendingMessage()"
-          >
-          </app-chat-actions>
-        </div>
+<div class="chat__container">
+  <div class="chat__content">
+    <div class="chat__list">
+      <div class="message-content" *ngFor="let message of messages">
+        <app-message-item
+          [item]="message"
+          (removed)="onRemove()"
+        ></app-message-item>
       </div>
-      <form [formGroup]="form" class="search">
-        <p-dropdown
-          [options]="usersList$ | async"
-          [placeholder]="'Вибрати користувача'"
-          (onChange)="onChange($event)"
-          formControlName="userId"
-        ></p-dropdown>
-        <p-dropdown
-          [options]="coursesList$ | async"
-          [placeholder]="'Вибрати курс'"
-          (onChange)="setCourse($event)"
-        ></p-dropdown>
-        <p-dropdown
-          [options]="lessonsList$ | async"
-          [disabled]="!isCourseSelected"
-          formControlName="lessonId"
-          [placeholder]="'Вибрати заняття'"
-        ></p-dropdown>
-
-        <app-spin-button
-          [loading]="loading"
-          [disabled]="form.invalid"
-          matType="mat-flat-button"
-          (click)="search()"
-        >
-          <span> Search</span>
-        </app-spin-button>
-      </form>
     </div>
+    <div class="chat-actions">
+      <app-chat-actions
+        [user]="user"
+        [lessonId]="lessonId"
+        (sended)="fetchSendingMessage()"
+      >
+      </app-chat-actions>
+    </div>
+  </div>
+  <div class="chat__search">
+    <form [formGroup]="form" class="chat__search-form">
+      <p-dropdown
+        class="plc-dropdown"
+        [options]="usersList$ | async"
+        [placeholder]="'Вибрати користувача'"
+        (onChange)="onChange($event)"
+        formControlName="userId"
+      ></p-dropdown>
+      <p-dropdown
+        class="plc-dropdown"
+        [options]="coursesList$ | async"
+        [placeholder]="'Вибрати курс'"
+        (onChange)="setCourse($event)"
+      ></p-dropdown>
+      <p-dropdown
+        class="plc-dropdown"
+        [options]="lessonsList$ | async"
+        [disabled]="!isCourseSelected"
+        formControlName="lessonId"
+        [placeholder]="'Вибрати заняття'"
+      ></p-dropdown>
+
+      <app-spin-button
+        [loading]="loading"
+        [disabled]="form.invalid"
+        matType="mat-flat-button"
+        (click)="search()"
+      >
+        <span> Search</span>
+      </app-spin-button>
+    </form>
   </div>
 </div>

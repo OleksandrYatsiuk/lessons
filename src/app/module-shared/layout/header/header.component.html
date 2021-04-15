@@ -1,22 +1,66 @@
 <header class="header">
+  <div (click)="openMenu()" class="header__menu-toggler">
+    <img src="../../../../assets/icons/menu.svg" style="width: 30px" />
+  </div>
   <img src="../../../../assets/logo.png" alt="logo" routerLink="/" />
   <nav class="nav-block">
-    <span routerLink="/homework/lessons" routerLinkActive="active">{{
-      "pageTitles.lessonsList" | translate
-    }}</span>
-    <span routerLink="/payment" routerLinkActive="active">{{
-      "pageTitles.coursePayment" | translate
-    }}</span>
-    <span routerLink="/start" routerLinkActive="active">{{
-      "pageTitles.enrollCourse" | translate
-    }}</span>
-    <span routerLink="/admin" routerLinkActive="active"
-      >{{"pageTitles.adminPanel"|translate}}</span
+    <span
+      *ngFor="let menu of menus"
+      [routerLink]="menu.routerLink"
+      routerLinkActive="active"
+    >
+      {{ menu.label | translate }}</span
     >
   </nav>
-  <p-dropdown
-    [options]="languages"
-    (onChange)="onChangeLang($event)"
-  ></p-dropdown>
+
+  <div class="header__language-toggler">
+    <p-dropdown
+      class="plc-dropdown"
+      [options]="languages"
+      (onChange)="onChangeLang($event)"
+    ></p-dropdown>
+  </div>
+
+  <div class="header__admin-panel" *ngIf="isAdminPanel()">
+    <nav class="nav-block__admin-panel">
+      <span
+        [routerLink]="item.routerLink"
+        routerLinkActive="active"
+        *ngFor="let item of items"
+      >
+        <!-- {{ "pageTitles.lessonsList" | translate }} -->
+        {{ item.label }}
+      </span>
+    </nav>
+  </div>
 </header>
 
+<p-sidebar
+  [(visible)]="display"
+  position="top"
+  [baseZIndex]="100000"
+  [showCloseIcon]="false"
+>
+  <div class="header__menu-toggle">
+    <button (click)="openMenu()">Close</button>
+    <nav class="header__menu-mobile">
+      <span
+        *ngFor="let menu of menus"
+        [routerLink]="menu.routerLink"
+        routerLinkActive="active"
+      >
+        {{ menu.label | translate }}
+      </span>
+      <hr />
+      <ng-container *ngIf="isAdminPanel()">
+        <span
+          *ngFor="let menu of items"
+          [routerLink]="menu.routerLink"
+          routerLinkActive="active"
+        >
+          {{ menu.label | translate }}
+        </span>
+      </ng-container>
+    </nav>
+  </div>
+</p-sidebar>

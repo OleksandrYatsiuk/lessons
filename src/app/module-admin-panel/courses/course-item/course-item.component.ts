@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ComponentCanDeactivate } from 'src/app/module-shared/guards/dirty-form.guard';
 import { Observable } from 'rxjs';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ConfirmComponent } from 'src/app/module-shared/components/dialogs/confirm/confirm.component';
+import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
 
 @Component({
   selector: 'app-course-item',
@@ -15,12 +14,9 @@ export class CourseItemComponent implements OnInit, ComponentCanDeactivate {
   public course: Course;
   panelOpenState = false;
   isDirtyForm: boolean;
-  private config: MatDialogConfig = {
-    autoFocus: false,
-    disableClose: true,
-    hasBackdrop: true
-  };
-  constructor(private route: ActivatedRoute, private dialog: MatDialog) {
+
+  constructor(private route: ActivatedRoute,
+    private _cs: ConfirmService) {
     this.course = this.route.snapshot.data.course;
   }
 
@@ -31,12 +27,9 @@ export class CourseItemComponent implements OnInit, ComponentCanDeactivate {
 
   canDeactivate(): boolean | Observable<boolean> {
     if (this.isDirtyForm) {
-      const dialog = this.dialog.open(ConfirmComponent,
-        { data: 'Вы дійсно хочете залишити сторінку? Всі не збережені дані бужуть видалені!', ...this.config });
-      return dialog.afterClosed();
-    } else {
-      return true;
+      return this._cs.confirm();
     }
+    return true;
   }
 
   ngOnInit(): void {

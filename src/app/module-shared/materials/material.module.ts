@@ -28,7 +28,10 @@ import { BadgeModule } from 'primeng/badge';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { AccordionModule } from 'primeng/accordion';
 import { TableModule } from 'primeng/table';
-import {TabMenuModule} from 'primeng/tabmenu';
+import { SidebarModule } from 'primeng/sidebar';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -60,7 +63,9 @@ import {TabMenuModule} from 'primeng/tabmenu';
     ProgressBarModule,
     AccordionModule,
     TableModule,
-    TabMenuModule
+    SidebarModule,
+    ConfirmDialogModule,
+    DynamicDialogModule
   ],
   exports: [
     MatFormFieldModule,
@@ -91,7 +96,9 @@ import {TabMenuModule} from 'primeng/tabmenu';
     ProgressBarModule,
     AccordionModule,
     TableModule,
-    TabMenuModule
+    SidebarModule,
+    ConfirmDialogModule,
+    DynamicDialogModule
   ]
 })
 export class MaterialModule { }

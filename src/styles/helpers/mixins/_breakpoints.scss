@@ -1,0 +1,75 @@
+@import "../variables/breakpoints";
+
+@mixin fourK {
+  @media only screen and (min-width: $fourK) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media only screen and (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media only screen and (max-width: $fourK - 1) {
+    @content;
+  }
+}
+
+@mixin laptop-up {
+  @media only screen and (min-width: $laptop) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media only screen and (max-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media only screen and (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media only screen and (max-width: $laptop - 1) {
+    @content;
+  }
+}
+
+@mixin mobile-up {
+  @media only screen and (max-width: $tablet - 1) {
+    @content;
+  }
+}
+
+@mixin media($min, $max) {
+  @media only screen and (min-width: $min) and (max-width: $max - 1) {
+    @content;
+  }
+}
+
+@mixin media-min($size) {
+  @media only screen and (min-width: $size) {
+    @content;
+  }
+}
+
+@mixin media-max($size) {
+  @media only screen and (max-width: $size) {
+    @content;
+  }
+}
+
+@mixin phone-landscape {
+  @media only screen and (min-device-width: 320px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape),
+    only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape),
+    only screen and (max-device-height: 411px) and (orientation: landscape) {
+    @content;
+  }
+}

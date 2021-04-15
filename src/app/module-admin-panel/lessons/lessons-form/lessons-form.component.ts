@@ -31,7 +31,7 @@ export class LessonsFormComponent implements OnInit {
 
   editorConfig: AngularEditorConfig = {
     editable: true,
-
+    sanitize: false,
     height: 'auto',
     minHeight: '0',
     maxHeight: 'auto',
@@ -51,7 +51,6 @@ export class LessonsFormComponent implements OnInit {
         tag: 'div'
       },
     ],
-    sanitize: true,
     toolbarPosition: 'top',
   };
   constructor(

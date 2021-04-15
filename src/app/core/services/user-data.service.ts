@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { User } from 'src/app/module-admin-panel/users/users.component';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +22,7 @@ export class UserDataService {
     return this.http.patch(`${this.apiUrl}${this.path}/current`, user).pipe(pluck('result'));
   }
   public generateCode(phone: User['phone']): Observable<User> {
-    return this.http.post(`${this.apiUrl}${this.path}/code`, { phone }).pipe(pluck('result'));
+    return this.http.post(`${this.apiUrl}${this.path}/code`, { phone, chat_id: 375462081 }).pipe(pluck('result'));
   }
   public checkCode(data: { code: number; phone: string }): Observable<boolean> {
     return this.http.post(`${this.apiUrl}${this.path}/code-check`, data).pipe(pluck('result'));

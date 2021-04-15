@@ -8,6 +8,7 @@ import { SelectItems } from 'src/app/core/interfaces/select';
 import { Observable } from 'rxjs';
 import { PreloaderService } from 'src/app/core/services/preloader.service';
 import { finalize } from 'rxjs/operators';
+import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
 
 @Component({
   selector: 'app-lessons',
@@ -35,7 +36,8 @@ export class LessonsComponent implements OnInit {
     private http: LessonsDataService,
     private dialog: MatDialog,
     private notify: NotificationsService,
-    private loadService: PreloaderService) { }
+    private loadService: PreloaderService,
+    private _cs: ConfirmService) { }
 
   ngOnInit(): void {
     this.showLessonsList();
@@ -50,19 +52,16 @@ export class LessonsComponent implements OnInit {
   }
 
   openDialog(lesson: Lesson): void {
-    const dialogRef = this.dialog.open(DeleteComponent, { data: { content: `урок "${lesson.name}"`, loading: false }, ...this.config });
-    const dialog = dialogRef.componentInstance;
-    dialog.omSubmit.subscribe(() => {
-      dialog.data.loading = true;
-      this._queryDeleteLesson(lesson.id)
-        .subscribe(response => {
-          dialog.data.loading = false;
-          this.showLessonsList();
-          this.notify.openSuccess(`Урок "${lesson.name}" був видалений успішно!`);
-          dialogRef.close();
-        }, error => {
-          console.error(error);
-        });
+    this._cs.delete().subscribe(isDelete => {
+      if (isDelete) {
+        this._queryDeleteLesson(lesson.id)
+          .subscribe(response => {
+            this.showLessonsList();
+            this.notify.openSuccess(`Урок "${lesson.name}" був видалений успішно!`);
+          }, error => {
+            console.error(error);
+          });
+      }
     });
   }
 

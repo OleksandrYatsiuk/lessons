@@ -1,58 +1,67 @@
 <div class="container">
   <div class="payment__form">
     <h2 class="payment__title">{{ "pageTitles.coursePayment" | translate }}</h2>
-    <form [formGroup]="form" (ngSubmit)="pay()">
-      <input
-        pInputText
-        class="payment__field"
-        placeholder="Введіть ім'я"
-        formControlName="firstName"
-      />
-      <app-error-validation
-        [control]="form.controls.firstName"
-        [field]="'Ім\'я'"
-      ></app-error-validation>
+    <div [formGroup]="form">
+      <div class="payment__field">
+        <input
+          pInputText
+          class="plc-input"
+          placeholder="Введіть ім'я"
+          formControlName="firstName"
+        />
+        <app-error-validation
+          [control]="form.controls.firstName"
+          [field]="'Ім\'я'"
+        ></app-error-validation>
+      </div>
+      <div class="payment__field">
+        <input
+          pInputText
+          class="plc-input"
+          placeholder="Введіть прізвище"
+          formControlName="lastName"
+        />
+        <app-error-validation
+          [control]="form.controls.lastName"
+          [field]="'Прізвище'"
+        ></app-error-validation>
+      </div>
+      <div class="payment__field">
+        <input
+          pInputText
+          class="plc-input"
+          placeholder="Введіть електронну пошту"
+          formControlName="email"
+        />
+        <app-error-validation
+          [control]="form.controls.email"
+          [field]="'Пошта'"
+        ></app-error-validation>
+      </div>
 
-      <input
-        pInputText
-        class="payment__field"
-        placeholder="Введіть прізвище"
-        formControlName="lastName"
-      />
-      <app-error-validation
-        [control]="form.controls.lastName"
-        [field]="'Прізвище'"
-      ></app-error-validation>
+      <div class="payment__field">
+        <p-inputMask
+          *ngIf="isBrowser"
+          placeholder="+38(099)-99-99-999"
+          class="plc-input-mask"
+          formControlName="phone"
+          mask="+38(099)-99-99-999"
+        >
+        </p-inputMask>
+        <app-error-validation
+          [control]="form.controls.phone"
+          [field]="'Телефон'"
+        ></app-error-validation>
+      </div>
 
-      <input
-        pInputText
-        class="payment__field"
-        placeholder="Введіть електронну пошту"
-        formControlName="email"
-      />
-      <app-error-validation
-        [control]="form.controls.email"
-        [field]="'Пошта'"
-      ></app-error-validation>
-
-      <input
-        pInputText
-        class="payment__field"
-        placeholder="Введіть номер телефона"
-        formControlName="phone"
-      />
-      <app-error-validation
-        [control]="form.controls.phone"
-        [field]="'Телефон'"
-      ></app-error-validation>
-
-      <div class="payment__select-field">
+      <div class="payment__field">
         <p-dropdown
           [options]="courseList$ | async"
-          styleClass="plc-dropdown"
+          class="plc-dropdown"
           optionLabel="name"
           (onChange)="onChange($event)"
           [placeholder]="'Вибрати курс'"
+          formControlName="courseId"
         ></p-dropdown>
       </div>
 
@@ -61,10 +70,14 @@
         [field]="'Вибрати курс'"
       ></app-error-validation>
       <div class="payment__submit">
-        <app-spin-button matType="mat-flat-button" [loading]="loading">
+        <app-spin-button
+          matType="mat-flat-button"
+          [loading]="loading"
+          (click)="pay()"
+        >
           <span> {{ "paymentButtonLabel" | translate: { value: price } }}</span>
         </app-spin-button>
       </div>
-    </form>
+    </div>
   </div>
 </div>

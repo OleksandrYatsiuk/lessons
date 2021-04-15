@@ -8,6 +8,7 @@ import { ICertificate } from 'src/app/core/interfaces/certificates';
 import { Course } from 'src/app/core/interfaces/courses';
 import { SelectItems } from 'src/app/core/interfaces/select';
 import { CertificateDataService } from 'src/app/core/services/certificate.service';
+import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
@@ -38,7 +39,8 @@ export class CertificatesComponent implements OnInit {
     private telegramService: TelegramBotService,
     private notify: NotificationsService,
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _cs: ConfirmService
   ) { }
 
   ngOnInit(): void {
@@ -52,20 +54,16 @@ export class CertificatesComponent implements OnInit {
     this.certificates$ = this._queryCertificatesList(data);
   }
   openDialog(certificate: ICertificate): void {
-    const dialogRef = this.dialog.open(DeleteComponent, { data: { content: 'сертифікат', loading: false } });
-    const dialog = dialogRef.componentInstance;
-    dialog.omSubmit.subscribe(() => {
-      dialog.data.loading = true;
-      this._queryDeleteCertificate(certificate.id)
-        .subscribe(() => {
-          dialog.data.loading = false;
-          dialogRef.close();
-          this.showCertificatesList();
-          this.notify.openSuccess(`Cертифікат був видалений успішно!`);
-        }, ({ error }: HttpErrorResponse) => {
-          dialog.data.loading = false;
-          this.notify.openError(error.result);
-        });
+    this._cs.delete().subscribe(isDelete => {
+      if (isDelete) {
+        this._queryDeleteCertificate(certificate.id)
+          .subscribe(() => {
+            this.showCertificatesList();
+            this.notify.openSuccess(`Cертифікат був видалений успішно!`);
+          }, ({ error }: HttpErrorResponse) => {
+            this.notify.openError(error.result);
+          });
+      }
     });
 
   }

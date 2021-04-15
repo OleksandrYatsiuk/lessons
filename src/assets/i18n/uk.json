@@ -3,8 +3,8 @@
     "coursePayment": "Оплата курсу",
     "connectToPLC": "Приєднатися до \"Practical Legal Courses\"",
     "lessonsList": "Список завдань",
-    "enrollCourse":"Записатися на курс",
-    "adminPanel": "Панель адміністратора"
+    "enrollCourse": "Записатися на курс",
+    "adminPanel": "Адмін панель"
   },
   "paymentButtonLabel": "Оплатити {{value}} грн",
   "labels": {
@@ -15,5 +15,10 @@
   },
   "validations": {
     "required": "Поле \"{{ field }}\" повинно бути заповненим."
-  }
+  },
+  "confirmDeleteHeader": "Підтвердження видалення!",
+  "cancelLabel": "Відмінити",
+  "deleteLabel": "Видалити",
+  "acceptLabel": "Підтвердити",
+  "unsavedChangesQuestion": "У вас є незбережені зміни. Ви впевнені, що хочете залишити цю сторінку?"
 }

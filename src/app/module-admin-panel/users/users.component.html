@@ -1,34 +1,30 @@
-<div class="container">
-  <p-table [value]="users">
+<div class="container users__list">
+  <p-table [value]="users" class="plc-table">
     <ng-template pTemplate="header">
       <tr>
         <th></th>
-        <th>Користувач</th>
-        <th>Телефон</th>
-        <th>Пошта</th>
-        <th>Чат</th>
-        <th>Створено</th>
-        <th>Оновлено</th>
+        <th class="users-header">Користувач</th>
+        <th class="users-header">Телефон</th>
+        <th class="users-header">Пошта</th>
+        <th class="users-header">Чат</th>
+        <th class="users-header">Створено</th>
+        <th class="users-header">Оновлено</th>
         <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-user>
       <tr>
         <td>
-          <button
-            class="btn--circle-blue"
-            routerLink="/admin/users/{{ user?.id }}"
-          >
+          <button class="btn__circle" routerLink="/admin/users/{{ user?.id }}">
             <i
               *ngIf="user?.haveMessages"
-              class="pi pi-user p-mr-4 p-text-secondary"
+              class="icon icon--user p-mr-4 p-text-secondary"
               pBadge
               styleClass="p-mr-2"
               value="1+"
               severity="danger"
             ></i>
-            <i class="pi pi-user" *ngIf="!user?.haveMessages"></i>
-
+            <i class="icon icon--user" *ngIf="!user?.haveMessages"></i>
           </button>
         </td>
         <td>{{ user.firstName }} {{ user.lastName }}</td>
@@ -38,8 +34,8 @@
         <td>{{ user.createdAt | date }}</td>
         <td>{{ user.updatedAt | date }}</td>
         <td>
-          <button (click)="openDialog(user)" class="btn--circle-red">
-            <i class="pi pi-trash"></i>
+          <button (click)="openDialog(user)" class="btn__circle">
+            <i class="icon icon--delete"></i>
           </button>
         </td>
       </tr>

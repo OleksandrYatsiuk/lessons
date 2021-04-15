@@ -36,6 +36,7 @@
       </div>
       <div class="msg-date">{{ item.createdAt | date }}</div>
     </ng-container>
-    <mat-icon (click)="openDialog(item)">close</mat-icon>
+    <i class="icon icon--close msg__close" (click)="openDialog(item)"></i>
+    <!-- <mat-icon (click)="openDialog(item)">close</mat-icon> -->
   </div></ng-container
 >

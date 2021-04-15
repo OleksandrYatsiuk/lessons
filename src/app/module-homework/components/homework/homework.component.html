@@ -3,7 +3,7 @@
 
 <ng-template #content>
   <div class="lesson-preview-page">
-    <div class="lesson-docs-item" *ngIf="lesson?.video">
+    <!-- <div class="lesson-docs-item" *ngIf="lesson?.video">
       <iframe
         [src]="sanitizeLink(lesson.video)"
         width="100%"
@@ -34,8 +34,7 @@
         height="500"
         [src]="sanitizeLink(lesson.file)"
       ></iframe>
-    </div>
-    <hr />
+    </div> -->
     <div class="lesson-description">
       <article [innerHTML]="sanitizeContent(lesson?.context)"></article>
     </div>

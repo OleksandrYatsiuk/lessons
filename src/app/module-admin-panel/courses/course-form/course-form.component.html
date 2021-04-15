@@ -1,13 +1,18 @@
 <form [formGroup]="form" class="form">
   <div class="row">
     <h5>Назва</h5>
-    <input placeholder="Введіть назву курса" formControlName="name" pInputText/>
+    <input
+      placeholder="Введіть назву курса"
+      formControlName="name"
+      pInputText
+    />
     <app-error-validation
       [control]="form.controls.name"
       [field]="'Назва'"
     ></app-error-validation>
     <h5>Виберіть статус публікації</h5>
     <p-dropdown
+      class="plc-dropdown"
       [options]="courseStatuses"
       formControlName="status"
     ></p-dropdown>
@@ -19,9 +24,9 @@
   <div class="row">
     <h5>Ціна</h5>
     <p-inputNumber
-    placeholder="Введіть ціну курса"
-    formControlName="price"
-    type="number"
+      placeholder="Введіть ціну курса"
+      formControlName="price"
+      type="number"
     >
     </p-inputNumber>
     <app-error-validation
@@ -38,7 +43,7 @@
       ></angular-editor>
     </span>
   </div>
-  <mat-divider></mat-divider>
+  <hr />
   <app-spin-button
     matType="mat-flat-button"
     [loading]="loading"

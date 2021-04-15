@@ -17,5 +17,10 @@
   },
   "validations": {
     "required": "Field \"{{ value }}\" is required."
-  }
+  },
+  "confirmDeleteHeader": "Confirm Deleting!",
+  "cancelLabel": "Cancel",
+  "deleteLabel": "Delete",
+  "acceptLabel": "Accept",
+  "unsavedChangesQuestion": "You have unsaved changes. Are you sure you want to leave this page?"
 }

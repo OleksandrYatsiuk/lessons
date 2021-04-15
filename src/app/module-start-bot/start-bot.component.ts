@@ -1,26 +1,31 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { User } from '../module-admin-panel/users/users.component';
 import { ErrorHandlerService } from '../core/services/error-handler.service';
 import { UserDataService } from '../core/services/user-data.service';
-import { phoneValidator } from '../core/validators/phone.validator';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-start-bot',
   templateUrl: './start-bot.component.html',
-  styleUrls: ['./start-bot.component.scss']
+  styleUrls: ['./start-bot.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StartBotComponent implements OnInit {
 
-  phone = new FormControl('', [Validators.required, phoneValidator()]);
-
+  phone = new FormControl('', [Validators.required]);
+  isBrowser: boolean;
   constructor(
+    @Inject(PLATFORM_ID) private platformId: any,
     private http: UserDataService,
-    private errorHandler: ErrorHandlerService
-  ) { }
+    private errorHandler: ErrorHandlerService,
+    private _cd: ChangeDetectorRef
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   ngOnInit(): void {
   }
@@ -28,10 +33,11 @@ export class StartBotComponent implements OnInit {
   openTelegram(): void {
     this.phone.markAllAsTouched();
     if (this.phone.valid) {
-      const phone = this.phone.value;
-      this._queryRegisterUser({ phone: phone.slice(phone.length - 10) })
+      const phone = this.phone.value.replace(/[^0-9]/g, '');
+      this._queryRegisterUser({ phone })
         .subscribe(user => {
-          window.open(`https://t.me/practical_lagacy_courses_bot?start=${user.phone}`);
+          window.open(`https://t.me/practical_lagacy_courses_bot?start=${phone}`);
+          this._cd.detectChanges();
         });
     }
   }

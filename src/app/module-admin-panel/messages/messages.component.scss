@@ -1,0 +1,50 @@
+@import "../../../styles/helpers/index.scss";
+.chat__container {
+  width: 100%;
+  padding: 0 20px;
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  @include mobile-up {
+    grid-template-columns: 1fr;
+    grid-gap: 5%;
+  }
+}
+.chat__search {
+  @include mobile-up {
+    grid-row: 1;
+  }
+  &-form {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 5%;
+  }
+}
+.chat__content {
+  width: 100%;
+  padding: 0 10px;
+
+  @include mobile-up {
+    padding: 0;
+    grid-row: 2;
+  }
+}
+.chat__list {
+  max-height: 400px;
+  height: 100%;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 2px;
+    background-color: $c-lightgray;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: $c-blue;
+  }
+}

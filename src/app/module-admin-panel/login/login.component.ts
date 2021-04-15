@@ -1,5 +1,6 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { EMPTY, Observable } from 'rxjs';
@@ -16,13 +17,17 @@ import { UserDataService } from 'src/app/core/services/user-data.service';
 export class LoginComponent implements OnInit {
   form: FormGroup;
   loading = false;
+  isBrowser: boolean;
   constructor(
+    @Inject(PLATFORM_ID) private platformId: any,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<LoginComponent>,
     private http: UserDataService,
     private errorHandler: ErrorHandlerService,
     private storage: LocalStorageService
-  ) { }
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   ngOnInit(): void {
     this.initForm();

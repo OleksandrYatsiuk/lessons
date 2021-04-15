@@ -1,9 +1,20 @@
-@import "../helpers/variables.scss";
+@import "../helpers/index.scss";
 button {
   cursor: pointer;
   outline: none;
 }
 .btn {
+  &__circle {
+    border-radius: 50%;
+    color: white;
+    border: 0px;
+    padding: 6px 7px;
+    opacity: 0.8;
+    transition: 0.3ms;
+    &:hover {
+      opacity: 1;
+    }
+  }
   &--red {
     border-radius: 8px;
     color: white;
@@ -22,8 +33,7 @@ button {
     color: white;
     border: 0px;
     background-color: red;
-    padding: 10px;
-    margin: 5px;
+    padding: 6px 7px;
     opacity: 0.8;
     transition: 0.3ms;
     &:hover {

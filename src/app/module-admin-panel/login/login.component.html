@@ -1,6 +1,7 @@
 <div [formGroup]="form">
   <h5>Телефон</h5>
   <p-inputMask
+    *ngIf="isBrowser"
     mask="+380999999999"
     placeholder="+38(099)-99-99-999"
     formControlName="phone"

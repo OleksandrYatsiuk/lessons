@@ -1,4 +1,5 @@
 <p-dropdown
+  class="plc-dropdown"
   [options]="coursesList$ | async"
   optionValue="id"
   optionLabel="name"
@@ -43,6 +44,7 @@
     <th mat-header-cell *matHeaderCellDef>Прогрес</th>
     <td mat-cell *matCellDef="let element">
       <p-dropdown
+        class="plc-dropdown"
         [options]="progress"
         [(ngModel)]="element.progress"
         [placeholder]="'Прогрес курсу'"

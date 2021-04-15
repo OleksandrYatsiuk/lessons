@@ -4,6 +4,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Lesson } from 'src/app/core/interfaces/courses';
+import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
 import { ConfirmComponent } from 'src/app/module-shared/components/dialogs/confirm/confirm.component';
 
 @Component({
@@ -16,7 +17,10 @@ export class LessonItemComponent implements OnInit {
   context: SafeHtml;
   text = '';
   isDirtyForm: boolean;
-  constructor(private route: ActivatedRoute, private sanitizer: DomSanitizer, private dialog: MatDialog) {
+  constructor(
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer,
+    private _cs: ConfirmService) {
     this.lesson = this.route.snapshot.data.lesson;
   }
 
@@ -29,12 +33,9 @@ export class LessonItemComponent implements OnInit {
   }
   canDeactivate(): boolean | Observable<boolean> {
     if (this.isDirtyForm) {
-      const dialog = this.dialog.open(ConfirmComponent,
-        { data: 'Вы дійсно хочете залишити сторінку? Всі не збережені дані будуть видалені!' });
-      return dialog.afterClosed();
-    } else {
-      return true;
+      return this._cs.confirm();
     }
+    return true;
   }
 
 }

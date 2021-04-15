@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,6 +13,7 @@ import { PaymentService } from 'src/app/core/services/payment.service';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 import { phoneValidator } from 'src/app/core/validators/phone.validator';
 import { environment } from 'src/environments/environment';
+import { isPlatformBrowser } from '@angular/common';
 
 
 @Component({
@@ -27,23 +28,27 @@ export class PaymentComponent implements OnInit {
   coursesList: Course[];
   user: User;
   loading = false;
+  isBrowser: any;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: any,
     private fb: FormBuilder,
     private payment: PaymentService,
     private http: UserDataService,
     private route: ActivatedRoute,
     private courseService: CourseDataService,
-    public translate: TranslateService
-  ) { }
+    public translate: TranslateService,
+    private _cd: ChangeDetectorRef
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   ngOnInit(): void {
 
     this.translate.onLangChange.subscribe((change: any) => {
       this.translate.use(change.lang);
       this.translate.setDefaultLang(change.lang);
-      console.log(change);
-      // this.cdr.detectChanges();
+      this._cd.detectChanges();
     });
     this.courseList$ = this._queryCourseList();
     this.initForm();
@@ -61,24 +66,25 @@ export class PaymentComponent implements OnInit {
         this.form.patchValue({ ...user, userId: user.id, courseId: this.route.snapshot.queryParams.courseId });
       });
   }
-  public initForm(): void {
+  initForm(): void {
     this.form = this.fb.group({
       userId: [''],
       firstName: [''],
       lastName: [''],
       email: ['', [Validators.email]],
       courseId: [null, Validators.required],
-      phone: ['', [Validators.required, phoneValidator()]]
+      phone: ['', [Validators.required]]
     });
   }
   onChange({ value }: { value: Course }): void {
+    this.form.controls.courseId.setValue(value.id);
     this.price = value.price;
   }
   public pay(): void {
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      const { phone } = this.form.value;
-      this.form.value.phone = phone.slice(phone.length - 10);
+      const { phone } = this.form.value.replace(/[^0-9]/g, '');
+      this.form.value.phone = phone.replace(/[^0-9]/g, '');
       this._queryPreparePayment({
         ...this.form.value, phone, amount: this.price,
         result_url: `${environment.apiUrl}/payments`

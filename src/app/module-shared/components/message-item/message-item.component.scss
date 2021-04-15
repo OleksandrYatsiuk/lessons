@@ -1,35 +1,40 @@
 .msg {
-    &-container {
-        display: flex;
-        width: 100%;
-        background-color: #3d96f394;
-        border-radius: 5px;
+  &-container {
+    display: flex;
+    width: 100%;
+    background-color: #3d96f394;
+    border-radius: 5px;
 
-        &-bot {
-            border: 1px solid black;
-            background-color: #0f509694;
-        }
-        &:hover{
-            background-color: #108cd3b6;
-        }
+    &-bot {
+      border: 1px solid black;
+      background-color: #0f509694;
     }
-    &-content {
-        display: block;
-        width: 100%;
-        a {
-            margin-top: 5px;
-        }
+    &:hover {
+      background-color: #108cd3b6;
     }
-    &-text {
-        padding: 5px 0 0 8px;
-        flex: 1 100%;
-        word-break: break-word;
+  }
+  &-content {
+    display: block;
+    width: 100%;
+    a {
+      margin-top: 5px;
     }
-    &-date {
-        padding: 5px;
-        text-align: right;
-        font-size: 12px;
-        min-width: 90px;
-        width: 100%;
-    }
+  }
+  &-text {
+    padding: 5px 0 0 8px;
+    flex: 1 100%;
+    word-break: break-word;
+  }
+  &-date {
+    padding: 5px;
+    text-align: right;
+    font-size: 12px;
+    min-width: 90px;
+    width: 100%;
+  }
+  &__close {
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+  }
 }

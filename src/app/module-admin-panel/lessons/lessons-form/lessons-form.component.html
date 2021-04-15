@@ -8,6 +8,7 @@
     ></app-error-validation>
     <h5>Статус заняття</h5>
     <p-dropdown
+      class="plc-dropdown"
       [options]="lessonStatuses"
       placeholder="Вибрати статус заняття"
       formControlName="status"
@@ -21,6 +22,7 @@
   <div class="row">
     <h5>Привязати курс</h5>
     <p-dropdown
+      class="plc-dropdown"
       [options]="coursesList$ | async"
       formControlName="courseId"
       placeholder="Привязати курс"
@@ -81,8 +83,7 @@
       [field]="'Опис'"
     ></app-error-validation>
   </div>
-
-  <mat-divider></mat-divider>
+<hr>
   <app-spin-button [loading]="loading" matType="mat-flat-button">
     <span>{{ btnName }}</span>
   </app-spin-button>

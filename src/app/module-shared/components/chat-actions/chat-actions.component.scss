@@ -1,5 +1,19 @@
+@import "../../../../styles/helpers/index.scss";
+
 .panel {
   margin: 5px;
   display: flex;
 
+  textarea {
+    outline: none;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid $c-lightgray;
+    padding: 5px 8px;
+    transition: all 0.3s;
+    &:focus,
+    &:hover {
+      border-color: $c-blue;
+    }
+  }
 }

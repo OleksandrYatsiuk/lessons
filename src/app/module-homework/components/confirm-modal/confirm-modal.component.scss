@@ -1,0 +1,25 @@
+@import "../../../../styles/helpers/index.scss";
+
+.confirm-profile {
+  width: 100%;
+  padding: 0 20px;
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__message {
+    @include genText(20px, 22px, normal, black);
+    text-align: center;
+  }
+
+  &__label {
+    @include genText(14px, 16px, normal, $c-gray);
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px;
+  }
+}

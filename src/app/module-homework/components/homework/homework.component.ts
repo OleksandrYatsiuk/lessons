@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -11,6 +11,7 @@ import { Lesson } from 'src/app/core/interfaces/courses';
 import { LessonsDataService } from 'src/app/core/services/lessons-data.service';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { UserDataService } from 'src/app/core/services/user-data.service';
+import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 @Component({
@@ -26,18 +27,13 @@ export class HomeworkComponent implements OnInit {
   lessonId: Lesson['id'];
   chatId: User['chat_id'];
   contentAllowed = true;
-  private config: MatDialogConfig = {
-    autoFocus: false,
-    disableClose: true,
-    hasBackdrop: true
-  };
   constructor(
     @Inject(PLATFORM_ID) private platformId: any,
-    private dialog: MatDialog,
     private route: ActivatedRoute,
     private lessonService: LessonsDataService,
     private userService: UserDataService,
     private sanitizer: DomSanitizer,
+    private _ds: DialogService,
     private storageService: LocalStorageService) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -88,17 +84,24 @@ export class HomeworkComponent implements OnInit {
   private openDialog(user?: User): void {
 
     this.contentAllowed = false;
-    const dialog = this.dialog.open(ConfirmModalComponent,
-      { data: { text: 'Введіть номер телефону профіля з Телеграму', user }, ...this.config });
 
-    dialog.afterClosed().subscribe(phone => {
-      this._queryLessonDetails(this.lessonId, { phone }).subscribe(lesson => this.lesson = lesson);
-      this.contentAllowed = true;
+    const ref = this._ds.open(ConfirmModalComponent, {
+      data: { text: 'Введіть номер телефону профіля з Телеграму', user },
+      styleClass: 'plc-dynamic-dialog',
+      header: 'Підтвердження профіля'
     });
+
+    ref.onClose.subscribe(res => {
+      if (res) {
+        this.contentAllowed = false;
+      }
+    });
+
+
   }
 
   private _queryCodeCheck(data: { phone: string; code: number }): Observable<boolean> {
-    return this.userService.checkCode(data);
+    return this.userService.checkCode({ ...data, phone: data.phone.replace(/[^0-9]/g, '') });
   }
 
   // tslint:disable-next-line:variable-name
