@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,7 +7,6 @@ import { IStudyProgress, EStudyProgress } from 'src/app/core/interfaces/study-pr
 import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { StudyProgressService } from 'src/app/core/services/study-progress.service';
-import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
 
 @Component({
   selector: 'app-user-progress',
@@ -41,9 +39,7 @@ export class UserProgressComponent implements OnInit {
     private route: ActivatedRoute,
     private studyService: StudyProgressService,
     private courseService: CourseDataService,
-    private notify: NotificationsService,
-    private dialog: MatDialog,
-    private botService: TelegramBotService
+    private notify: NotificationsService
   ) { }
 
   ngOnInit(): void {

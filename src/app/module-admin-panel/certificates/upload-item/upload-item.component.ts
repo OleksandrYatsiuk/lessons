@@ -1,6 +1,6 @@
-import { Component, Inject, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-upload-item',
@@ -14,8 +14,7 @@ export class UploadItemComponent implements OnInit {
   file: File;
   control = new FormControl('', [Validators.required]);
   constructor(
-    public dialogRef: MatDialogRef<UploadItemComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    private _ref: DynamicDialogRef
   ) { }
 
   ngOnInit(): void {
@@ -24,6 +23,6 @@ export class UploadItemComponent implements OnInit {
     this.file = changes.target.files[0];
   }
   upload(): void {
-    this.dialogRef.close(this.file);
+    this._ref.close(this.file);
   }
 }

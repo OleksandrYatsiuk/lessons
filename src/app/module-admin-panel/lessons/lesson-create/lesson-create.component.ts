@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
-import { ConfirmComponent } from 'src/app/module-shared/components/dialogs/confirm/confirm.component';
 import { ComponentCanDeactivate } from 'src/app/module-shared/guards/dirty-form.guard';
 
 @Component({

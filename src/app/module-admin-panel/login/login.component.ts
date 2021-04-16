@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ErrorHandlerService } from 'src/app/core/services/error-handler.service';
@@ -21,10 +21,10 @@ export class LoginComponent implements OnInit {
   constructor(
     @Inject(PLATFORM_ID) private platformId: any,
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<LoginComponent>,
     private http: UserDataService,
     private errorHandler: ErrorHandlerService,
-    private storage: LocalStorageService
+    private storage: LocalStorageService,
+    private _ref: DynamicDialogRef
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       this._queryUserLogin().subscribe(({ token }) => {
         this.storage.writeToLocalStorage('plc_token', token);
-        this.dialogRef.close(true);
+        this._ref.close(true);
       });
     }
   }
@@ -55,7 +55,9 @@ export class LoginComponent implements OnInit {
 
   private _queryUserLogin(): Observable<{ token: string }> {
     this.loading = true;
-    return this.http.login(this.form.value).pipe(
+    return this.http.login({
+      ...this.form.value, phone: this.form.value.phone.replace(/[^0-9]/g, '')
+    }).pipe(
       catchError(({ error }: HttpErrorResponse) => {
         this.errorHandler.validation(error, this.form);
         this.loading = false;

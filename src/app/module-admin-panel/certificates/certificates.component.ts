@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'primeng/dynamicdialog';
 import { EMPTY, Observable } from 'rxjs';
 import { concatMap, map, mergeMap } from 'rxjs/operators';
 import { ICertificate } from 'src/app/core/interfaces/certificates';
@@ -13,7 +13,6 @@ import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
 import { UserDataService } from 'src/app/core/services/user-data.service';
-import { DeleteComponent } from 'src/app/module-shared/components/dialogs/delete/delete.component';
 import { User } from '../users/users.component';
 import { UploadItemComponent } from './upload-item/upload-item.component';
 
@@ -38,9 +37,9 @@ export class CertificatesComponent implements OnInit {
     private certificateService: CertificateDataService,
     private telegramService: TelegramBotService,
     private notify: NotificationsService,
-    private dialog: MatDialog,
     private fb: FormBuilder,
-    private _cs: ConfirmService
+    private _cs: ConfirmService,
+    private _ds: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -71,27 +70,30 @@ export class CertificatesComponent implements OnInit {
   addCertificate(): void {
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      const dialog = this.dialog.open(UploadItemComponent, { disableClose: false });
-      dialog.afterClosed()
-        .pipe(
-          mergeMap(file => {
-            if (file) {
-              return this._querySendCertificate({
-                chat_id: 375462081,
-                document: file,
-                caption: 'Вітання'
-              });
-            } else {
-              return EMPTY;
-            }
-          }),
-          concatMap(message => this._queryCreateCertificate({
-            ...this.form.value,
-            fileId: message.document.file_id,
-          }))
-        ).subscribe(() => {
-          this.showCertificatesList();
+      const ref = this._ds.open(UploadItemComponent,
+        {
+          styleClass: 'plc-dynamic-dialog',
+          header: 'Завантажити сертифікат для користувача'
         });
+      ref.onClose.pipe(
+        mergeMap(file => {
+          if (file) {
+            return this._querySendCertificate({
+              chat_id: 375462081,
+              document: file,
+              caption: 'Вітання'
+            });
+          } else {
+            return EMPTY;
+          }
+        }),
+        concatMap(message => this._queryCreateCertificate({
+          ...this.form.value,
+          fileId: message.document.file_id,
+        }))
+      ).subscribe(() => {
+        this.showCertificatesList();
+      });
     }
 
   }

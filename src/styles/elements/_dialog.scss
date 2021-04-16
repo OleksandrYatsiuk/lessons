@@ -11,10 +11,7 @@
   margin: 50px auto;
 
   &-content {
-    color: $c-red;
-    font-weight: normal;
-    font-size: 24px;
-    line-height: 28px;
+    @include genText(24px, 28px, normal);
   }
   &-title {
     margin: 0 auto;
@@ -103,7 +100,7 @@ body {
 .plc-dynamic-dialog {
   border-radius: 8px;
   &.p-dialog.p-dynamic-dialog {
-    max-width: 100%;
+    width: auto;
     .p-dialog-header {
       padding: 0 24px;
       height: 64px;

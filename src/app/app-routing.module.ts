@@ -20,7 +20,7 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, {
     initialNavigation: 'enabled',
     relativeLinkResolution: 'corrected'
-})],
+  })],
   exports: [RouterModule],
   providers: [AuthGuard]
 })

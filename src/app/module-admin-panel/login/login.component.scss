@@ -1,0 +1,18 @@
+@import "../../../styles/helpers/index.scss";
+
+.login {
+  &__form {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+  &__label {
+    @include genText(20px, 22px, normal, $c-gray);
+  }
+  &__button {
+    margin: 10px auto;
+    &-text {
+      color: $c-white;
+    }
+  }
+}

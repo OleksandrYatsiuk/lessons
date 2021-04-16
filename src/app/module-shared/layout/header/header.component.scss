@@ -10,7 +10,6 @@ img {
 .header {
   min-height: 70px;
   width: 100%;
-  min-width: 340px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -18,12 +17,11 @@ img {
 
   @include mobile-up {
     justify-content: space-between;
-    flex-direction: row-reverse;
   }
 
   &__language-toggler {
     @include mobile-up {
-      margin: 0 10px;
+      padding: 0 10px;
     }
   }
   &__admin-panel {

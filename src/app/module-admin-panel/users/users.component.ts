@@ -1,8 +1,6 @@
 import { Observable } from 'rxjs';
 import { NotificationsService } from '../../core/services/notifications.service';
-import { DeleteComponent } from '../../module-shared/components/dialogs/delete/delete.component';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 import { PreloaderService } from 'src/app/core/services/preloader.service';
 import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
@@ -29,15 +27,9 @@ export interface User {
 export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['view', 'fullName', 'phone', 'email', 'chat_id', 'createdAt', 'updatedAt', 'delete'];
   users: User[];
-  private config: MatDialogConfig = {
-    autoFocus: false,
-    disableClose: true,
-    hasBackdrop: true
-  };
 
   constructor(
     private http: UserDataService,
-    private dialog: MatDialog,
     private _notify: NotificationsService,
     private loadService: PreloaderService,
     private _cs: ConfirmService

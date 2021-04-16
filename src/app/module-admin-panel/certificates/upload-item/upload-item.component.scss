@@ -1,0 +1,11 @@
+.certificate-upload {
+  &__container {
+    width: 100%;
+    padding: 20px;
+  }
+  &__button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}

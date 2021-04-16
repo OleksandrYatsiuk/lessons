@@ -6,8 +6,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageContextComponent } from './page-context/page-context.component';
 import { MessagesComponent } from './messages/messages.component';
 import { CertificatesComponent } from './certificates/certificates.component';
+import { AuthGuard } from '../module-shared/guards/auth.guard';
 
 const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'users'
+  },
   {
     path: '', component: AdminPanelComponent,
     children: [
@@ -18,7 +24,7 @@ const routes: Routes = [
       { path: 'lessons', loadChildren: () => import('./lessons/lessons.module').then(mod => mod.LessonsModule) },
       { path: 'certificates', component: CertificatesComponent },
     ]
-  },
+  }
 ];
 
 
@@ -31,6 +37,6 @@ const routes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [MessagesResolver]
+  providers: [MessagesResolver, AuthGuard]
 })
 export class AdminPanelRoutingModule { }

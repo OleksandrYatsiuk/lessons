@@ -1,19 +1,22 @@
-<div [formGroup]="form">
-  <h5>Телефон</h5>
+<div [formGroup]="form" class="login__form">
+  <label class="login__label">Телефон</label>
   <p-inputMask
     *ngIf="isBrowser"
-    mask="+380999999999"
+    type="tel"
     placeholder="+38(099)-99-99-999"
+    class="plc-input-mask"
     formControlName="phone"
+    mask="+38(099)-99-99-999"
   ></p-inputMask>
   <app-error-validation
     [control]="form.controls.phone"
     [field]="'Телефон'"
   ></app-error-validation>
 
-  <h5>Пароль</h5>
+  <label class="login__label">Пароль</label>
   <input
     pInputText
+    class="plc-input"
     placeholder="Ввести пароль"
     formControlName="password"
     type="password"
@@ -23,11 +26,14 @@
     [control]="form.controls.password"
     [field]="'Пароль'"
   ></app-error-validation>
-  <app-spin-button
-    [loading]="loading"
-    matType="mat-flat-button"
-    (click)="login()"
-  >
-    <span>Авторизуватися</span>
-  </app-spin-button>
+
+  <div class="login__button">
+    <app-spin-button
+      [loading]="loading"
+      matType="mat-flat-button"
+      (click)="login()"
+    >
+      <span class="login__button-text">Авторизуватися</span>
+    </app-spin-button>
+  </div>
 </div>

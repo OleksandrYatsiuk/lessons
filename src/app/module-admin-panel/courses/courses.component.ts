@@ -1,10 +1,8 @@
 import { Observable } from 'rxjs';
 import { NotificationsService } from '../../core/services/notifications.service';
-import { DeleteComponent } from '../../module-shared/components/dialogs/delete/delete.component';
 import { Course, ECourseStatus } from '../../core/interfaces/courses';
 import { Component, OnInit } from '@angular/core';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SelectItems } from 'src/app/core/interfaces/select';
 import { PreloaderService } from 'src/app/core/services/preloader.service';
 import { tap } from 'rxjs/operators';

@@ -1,9 +1,7 @@
 import { NotificationsService } from '../../../core/services/notifications.service';
 import { ECourseStatus, Lesson } from '../../../core/interfaces/courses';
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { LessonsDataService } from 'src/app/core/services/lessons-data.service';
-import { DeleteComponent } from 'src/app/module-shared/components/dialogs/delete/delete.component';
 import { SelectItems } from 'src/app/core/interfaces/select';
 import { Observable } from 'rxjs';
 import { PreloaderService } from 'src/app/core/services/preloader.service';
@@ -26,15 +24,9 @@ export class LessonsComponent implements OnInit {
     { value: ECourseStatus.PUBLISHED, label: 'Опубліковано' },
     { value: ECourseStatus.DRAFT, label: 'Чорновик' }];
 
-  private config: MatDialogConfig = {
-    autoFocus: false,
-    disableClose: true,
-    hasBackdrop: true,
-  };
 
   constructor(
     private http: LessonsDataService,
-    private dialog: MatDialog,
     private notify: NotificationsService,
     private loadService: PreloaderService,
     private _cs: ConfirmService) { }
