@@ -9,7 +9,6 @@ import { CoreModule } from './core/core.module';
 import { MainModule } from './module-main/main.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import {  SpmCoreModule } from 'spm-core';
 import { StartBotComponent } from './module-start-bot/start-bot.component';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
@@ -32,9 +31,6 @@ registerLocaleData(en);
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
-export function getEnv(): any {
-  return environment;
-}
 
 @NgModule({
   declarations: [
@@ -51,7 +47,6 @@ export function getEnv(): any {
     SharedModule,
     CoreModule,
     MainModule,
-    SpmCoreModule.forRoot(getEnv()),
     TranslateModule.forRoot({
       defaultLanguage: ELanguage.uk,
       loader: {

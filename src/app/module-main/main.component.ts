@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
-import { MetaDataService } from 'spm-core';
 
 @Component({
   selector: 'app-main',
@@ -9,14 +8,13 @@ import { MetaDataService } from 'spm-core';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private _md: MetaDataService
-  ) { }
+  constructor(private titleService: Title, private metaService: Meta) { }
 
   ngOnInit(): void {
-    this._md.updateMeta({
-      title: 'PLC Title Example',
-      description: 'This is PLC description example'
-    });
+    this.titleService.setTitle('Practical Legal Courses');
+    this.metaService.addTags([
+      { name: 'description', content: 'Курс процесуальних документів для студентів юридичного факультету та юристів' },
+    ]);
   }
 
 }
