@@ -1,47 +1,53 @@
-<form [formGroup]="form" class="form">
-  <div class="row">
-    <h5>Назва</h5>
-    <input
-      placeholder="Введіть назву курса"
-      formControlName="name"
-      pInputText
-    />
-    <app-error-validation
-      [control]="form.controls.name"
-      [field]="'Назва'"
-    ></app-error-validation>
-    <h5>Виберіть статус публікації</h5>
-    <p-dropdown
-      class="plc-dropdown"
-      [options]="courseStatuses"
-      formControlName="status"
-    ></p-dropdown>
-    <app-error-validation
-      [control]="form.controls.status"
-      [field]="'Статус'"
-    ></app-error-validation>
+<form [formGroup]="form" class="course__form">
+  <div class="course__form-fields">
+    <div class="course__form-inputs">
+      <div class="course__form-field">
+        <label>Назва</label>
+        <input
+          placeholder="Введіть назву курса"
+          formControlName="name"
+          class="plc-input"
+          pInputText
+        />
+        <app-error-validation
+          [control]="form.controls.name"
+          [field]="'Назва'"
+        ></app-error-validation>
+      </div>
+      <div class="course__form-field">
+        <label>Виберіть статус публікації</label>
+        <p-dropdown
+          class="plc-dropdown"
+          [options]="courseStatuses"
+          formControlName="status"
+        ></p-dropdown>
+        <app-error-validation
+          [control]="form.controls.status"
+          [field]="'Статус'"
+        ></app-error-validation>
+      </div>
+      <div class="course__form-field">
+        <label>Ціна</label>
+        <p-inputNumber
+          class="plc-input-number"
+          placeholder="Введіть ціну курса"
+          formControlName="price"
+          type="number"
+        >
+        </p-inputNumber>
+        <app-error-validation
+          [control]="form.controls.price"
+          [field]="'Ціна'"
+        ></app-error-validation>
+      </div>
+    </div>
   </div>
-  <div class="row">
-    <h5>Ціна</h5>
-    <p-inputNumber
-      placeholder="Введіть ціну курса"
-      formControlName="price"
-      type="number"
-    >
-    </p-inputNumber>
-    <app-error-validation
-      [control]="form.controls.price"
-      [field]="'Ціна'"
-    ></app-error-validation>
-  </div>
-  <div class="row">
-    <span>
-      Опис
-      <angular-editor
-        [config]="editorConfig"
-        formControlName="description"
-      ></angular-editor>
-    </span>
+
+  <div class="course__form-editor">
+    <angular-editor
+      [config]="editorConfig"
+      formControlName="description"
+    ></angular-editor>
   </div>
   <hr />
   <app-spin-button

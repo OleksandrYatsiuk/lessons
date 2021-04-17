@@ -49,3 +49,18 @@
     font-weight: 400;
   }
 }
+
+.plc-input-number {
+  .p-inputnumber-input {
+    height: 40px;
+    padding: 0 10px;
+    width: 100%;
+    outline: none;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    transition: all 0.3s;
+    &:focus {
+      border: 1px solid $c-blue-hover;
+    }
+  }
+}

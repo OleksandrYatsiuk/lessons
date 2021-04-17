@@ -83,7 +83,7 @@ export class PaymentComponent implements OnInit {
   public pay(): void {
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      const { phone } = this.form.value.replace(/[^0-9]/g, '');
+      const { phone } = this.form.value;
       this.form.value.phone = phone.replace(/[^0-9]/g, '');
       this._queryPreparePayment({
         ...this.form.value, phone, amount: this.price,
