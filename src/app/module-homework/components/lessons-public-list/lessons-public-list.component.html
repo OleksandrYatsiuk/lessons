@@ -1,14 +1,24 @@
-<div class="container">
-  <p-accordion>
-    <p-accordionTab
-      header="Курс процесуальних документів для студентів юридичного факультету та юристів"
-    >
-      <div *ngFor="let lesson of lessons$ | async">
-        <div>
-          <span routerLink="{{ lesson.id }}">{{ lesson.name }}</span>
-          <i class="pi pi-arrow-circle-right" [routerLink]="lesson.id"></i>
+<div class="tasks__list">
+  <h1>Виберіть заняття зі списку для подальшого проходження</h1>
+  <hr />
+
+  <p-accordion [activeIndex]="0">
+    <p-accordionTab>
+      <ng-template pTemplate="header">
+        <div class="task__title">
+          Курс процесуальних документів для студентів юридичного факультету та
+          юристів
         </div>
-      </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <div
+          *ngFor="let lesson of lessons$ | async"
+          class="task__lesson"
+          [routerLink]="lesson.id"
+        >
+          {{ lesson.name }}
+        </div>
+      </ng-template>
     </p-accordionTab>
   </p-accordion>
 </div>

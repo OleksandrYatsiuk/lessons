@@ -2,12 +2,18 @@
 
 <div class="chat__container">
   <div class="chat__content">
-    <div class="chat__list">
+    <div
+      class="chat__list"
+      [ngClass]="{ 'chat__list--empty': !messages?.length }"
+    >
       <div class="message-content" *ngFor="let message of messages">
         <app-message-item
           [item]="message"
           (removed)="onRemove()"
         ></app-message-item>
+      </div>
+      <div *ngIf="!messages?.length" class="messages__content-empty">
+        Повідомлень ще не має. Виберіть інший чат.
       </div>
     </div>
     <div class="chat-actions">

@@ -7,12 +7,10 @@ import { SharedModule } from '../module-shared/shared.module';
 import { LessonOverviewResolver } from '../module-admin-panel/lessons/lesson-overview.resolver';
 import { LessonsPublicListComponent } from './components/lessons-public-list/lessons-public-list.component';
 
-const routes: Routes = [{
-  path: 'lessons', component: LessonsPublicListComponent
-},
-{
-  path: 'lessons/:id', component: HomeworkComponent
-}];
+const routes: Routes = [
+  { path: 'lessons', component: LessonsPublicListComponent },
+  { path: 'lessons/:id', component: HomeworkComponent }
+];
 
 @NgModule({
   declarations: [

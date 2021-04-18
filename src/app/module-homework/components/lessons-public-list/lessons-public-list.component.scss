@@ -1,4 +1,38 @@
+@import "../../../../styles/helpers/index.scss";
+
 .list {
   min-width: 300px;
   margin-top: 50px;
+}
+
+.tasks__list {
+  margin-top: 30px;
+  padding: 0 20px;
+}
+
+.task__title {
+  @include genText(24px, 26px, bolder);
+  margin-bottom: 10px;
+}
+.task__lesson {
+  @include genText(20px, 22px);
+  margin-top: 10px;
+  margin-left: 90px;
+  cursor: pointer;
+  &::after {
+    content: "";
+    bottom: -3px;
+    left: 0;
+    width: 0px;
+    height: 2px;
+    background-color: $c-blue;
+    display: block;
+    transition: all 0.6s;
+  }
+  &:hover {
+    color: $c-blue;
+    &::after {
+      width: 100%;
+    }
+  }
 }

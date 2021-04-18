@@ -48,4 +48,14 @@
     border-radius: 2px;
     background-color: $c-blue;
   }
+
+  &--empty {
+    background: $c-lightgray;
+  }
+}
+.messages__content-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
