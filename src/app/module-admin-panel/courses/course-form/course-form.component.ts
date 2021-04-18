@@ -1,4 +1,3 @@
-import { NotificationsService } from '../../../core/services/notifications.service';
 import { EMPTY, Observable } from 'rxjs';
 import { CourseDataService } from '../../../core/services/course-data.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
@@ -10,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SelectItems } from 'src/app/core/interfaces/select';
 import { ErrorHandlerService } from 'src/app/core/services/error-handler.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-course-form',
@@ -59,8 +59,8 @@ export class CourseFormComponent implements OnInit {
   constructor(
     private http: CourseDataService,
     private fb: FormBuilder,
-    private notify: NotificationsService,
     private errorHandler: ErrorHandlerService,
+    private _ms: MessageService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -80,13 +80,13 @@ export class CourseFormComponent implements OnInit {
       if (this.course) {
         this._queryEditCourse().subscribe(course => {
           this.loading = false;
-          this.notify.openSuccess(`Курс "${course.name}" був успішно оновлений!`);
+          this._ms.add({ severity: 'success', detail: `Курс "${course.name}" був успішно оновлений!` });
           this.router.navigate([`/admin/courses`]);
         });
       } else {
         this._queryCreateCourse().subscribe(course => {
           this.loading = false;
-          this.notify.openSuccess(`Курс "${course.name}" був успішно створений!`);
+          this._ms.add({ severity: 'success', detail: `Курс "${course.name}" був успішно створений!` });
           this.router.navigate([`/admin/courses`]);
         });
       }

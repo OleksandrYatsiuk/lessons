@@ -1,15 +1,48 @@
 @import "../helpers/index.scss";
 
-
 .mat-simple-snackbar-action {
-    color: $c-white;
+  color: $c-white;
 }
 .toast {
-    color: black;
-    &--success {
-        background-color: rgba(141, 207, 41, 0.795);
-    }
-    &--error {
-        background-color: rgba(236, 114, 114, 0.877);
-    }
+  color: black;
+  &--success {
+    background-color: rgba(141, 207, 41, 0.795);
+  }
+  &--error {
+    background-color: rgba(236, 114, 114, 0.877);
+  }
+}
+.p-toast-message {
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  box-shadow: 6px 3px 5px $c-gray;
+  background: $c-white;
+  opacity: 0.8 !important;
+}
+.p-toast-message-text {
+  margin-top: 10px;
+}
+.p-toast-message-success {
+  background-color: $c-green;
+  color: $c-white;
+}
+.p-toast-message-error {
+  background-color: $c-red;
+  color: $c-white;
+}
+
+.p-toast-icon-close {
+  cursor: pointer;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  .p-toast-icon-close-icon {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    background: url("../../assets/icons/close-small.svg");
+  }
 }

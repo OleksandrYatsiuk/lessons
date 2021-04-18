@@ -1,5 +1,4 @@
 import { Observable } from 'rxjs';
-import { NotificationsService } from '../../core/services/notifications.service';
 import { Course, ECourseStatus } from '../../core/interfaces/courses';
 import { Component, OnInit } from '@angular/core';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
@@ -7,6 +6,7 @@ import { SelectItems } from 'src/app/core/interfaces/select';
 import { PreloaderService } from 'src/app/core/services/preloader.service';
 import { tap } from 'rxjs/operators';
 import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-courses',
@@ -24,7 +24,7 @@ export class CoursesComponent implements OnInit {
 
   constructor(
     private http: CourseDataService,
-    private notify: NotificationsService,
+    private _ms: MessageService,
     private loadService: PreloaderService,
     private _cs: ConfirmService
   ) { }
@@ -39,9 +39,9 @@ export class CoursesComponent implements OnInit {
         this._queryDeleteCourse(course)
           .subscribe(() => {
             this.getList();
-            this.notify.openSuccess(`Курс "${course.name}" був видалений успішно!`);
+            this._ms.add({ severity: 'success', detail: `Курс "${course.name}" був видалений успішно!` });
           }, error => {
-            console.error(error);
+            this._ms.add({ severity: 'error', detail: error });
           });
       }
     });

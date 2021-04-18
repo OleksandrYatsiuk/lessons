@@ -1,4 +1,3 @@
-import { NotificationsService } from '../../../core/services/notifications.service';
 import { ECourseStatus, Lesson } from '../../../core/interfaces/courses';
 import { Component, Input, OnInit } from '@angular/core';
 import { LessonsDataService } from 'src/app/core/services/lessons-data.service';
@@ -7,6 +6,7 @@ import { Observable } from 'rxjs';
 import { PreloaderService } from 'src/app/core/services/preloader.service';
 import { finalize } from 'rxjs/operators';
 import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-lessons',
@@ -27,7 +27,7 @@ export class LessonsComponent implements OnInit {
 
   constructor(
     private http: LessonsDataService,
-    private notify: NotificationsService,
+    private _ms: MessageService,
     private loadService: PreloaderService,
     private _cs: ConfirmService) { }
 
@@ -39,7 +39,7 @@ export class LessonsComponent implements OnInit {
     this._queryUpdateLessonPrice(lesson.id, { name: lesson.name, free, status: lesson.status })
       .subscribe(({ name }) => {
         this.showLessonsList();
-        this.notify.openSuccess(`Урок "${name}" був оновлений успішно!`);
+        this._ms.add({ severity: 'success', detail: `Урок "${name}" був оновлений успішно!` });
       });
   }
 
@@ -49,7 +49,7 @@ export class LessonsComponent implements OnInit {
         this._queryDeleteLesson(lesson.id)
           .subscribe(response => {
             this.showLessonsList();
-            this.notify.openSuccess(`Урок "${lesson.name}" був видалений успішно!`);
+            this._ms.add({ severity: 'success', detail: `Урок "${name}" був оновлений успішно!` });
           }, error => {
             console.error(error);
           });

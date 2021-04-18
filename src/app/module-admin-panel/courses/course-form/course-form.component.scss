@@ -1,10 +1,13 @@
 @import "../../../../styles/helpers/index.scss";
 
+.course__form {
+  margin-top: 30px;
+  padding: 0 10px;
+}
 .course__form-inputs {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 5%;
-  padding: 0 10px;
   @include mobile-up {
     grid-template-columns: 100%;
     grid-gap: 0;
@@ -12,6 +15,5 @@
 }
 .course__form-editor {
   width: 100%;
-  padding: 0 10px;
   margin-top: 20px;
 }

@@ -1,8 +1,8 @@
 <form [formGroup]="form" class="course__form">
-  <div class="course__form-fields">
+  <div class="form-controls">
     <div class="course__form-inputs">
-      <div class="course__form-field">
-        <label>Назва</label>
+      <div class="form-control">
+        <label class="form-control__label">Назва</label>
         <input
           placeholder="Введіть назву курса"
           formControlName="name"
@@ -14,8 +14,8 @@
           [field]="'Назва'"
         ></app-error-validation>
       </div>
-      <div class="course__form-field">
-        <label>Виберіть статус публікації</label>
+      <div class="form-control">
+        <label class="form-control__label">Виберіть статус публікації</label>
         <p-dropdown
           class="plc-dropdown"
           [options]="courseStatuses"
@@ -26,8 +26,8 @@
           [field]="'Статус'"
         ></app-error-validation>
       </div>
-      <div class="course__form-field">
-        <label>Ціна</label>
+      <div class="form-control">
+        <label class="form-control__label">Ціна (грн)</label>
         <p-inputNumber
           class="plc-input-number"
           placeholder="Введіть ціну курса"

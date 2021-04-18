@@ -18,9 +18,8 @@ import { ELanguage } from './core/interfaces/languages.interface';
 import uk from '@angular/common/locales/uk';
 import ru from '@angular/common/locales/ru';
 import en from '@angular/common/locales/en';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { environment } from '@environments/environment';
 
 
 registerLocaleData(uk);
@@ -61,7 +60,7 @@ export function createTranslateLoader(http: HttpClient) {
     TranslateModule
   ],
   providers: [
-    ConfirmationService, DialogService,
+    ConfirmationService, DialogService, MessageService,
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } },
     { provide: LOCALE_ID, useValue: ELanguage.uk }

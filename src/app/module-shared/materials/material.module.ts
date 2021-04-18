@@ -31,6 +31,7 @@ import { TableModule } from 'primeng/table';
 import { SidebarModule } from 'primeng/sidebar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [],
@@ -65,7 +66,8 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
     TableModule,
     SidebarModule,
     ConfirmDialogModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    ToastModule
   ],
   exports: [
     MatFormFieldModule,
@@ -98,7 +100,8 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
     TableModule,
     SidebarModule,
     ConfirmDialogModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    ToastModule
   ]
 })
 export class MaterialModule { }

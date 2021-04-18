@@ -1,76 +1,96 @@
-<form [formGroup]="form" (ngSubmit)="save()" class="form">
-  <div class="row">
-    <h5>Назва заняття</h5>
-    <input pInputText placeholder="Ввести назву урока" formControlName="name" />
-    <app-error-validation
-      [control]="form.controls.name"
-      [field]="'Назва'"
-    ></app-error-validation>
-    <h5>Статус заняття</h5>
-    <p-dropdown
-      class="plc-dropdown"
-      [options]="lessonStatuses"
-      placeholder="Вибрати статус заняття"
-      formControlName="status"
-    ></p-dropdown>
-    <app-error-validation
-      [control]="form.controls.status"
-      [field]="'Статус'"
-    ></app-error-validation>
+<form [formGroup]="form" (ngSubmit)="save()" class="lesson__form">
+  <div class="lesson__form-container">
+    <div class="form-control">
+      <label class="form-control__label">Назва заняття</label>
+      <input
+        pInputText
+        placeholder="Ввести назву урока"
+        formControlName="name"
+        class="plc-input"
+      />
+      <app-error-validation
+        [control]="form.controls.name"
+        [field]="'Назва'"
+      ></app-error-validation>
+    </div>
+    <div class="form-control">
+      <label class="form-control__label">Статус заняття</label>
+      <p-dropdown
+        class="plc-dropdown"
+        [options]="lessonStatuses"
+        placeholder="Вибрати статус заняття"
+        formControlName="status"
+      ></p-dropdown>
+      <app-error-validation
+        [control]="form.controls.status"
+        [field]="'Статус'"
+      ></app-error-validation>
+    </div>
+    <div class="form-control">
+      <label class="form-control__label">Привязати курс</label>
+      <p-dropdown
+        class="plc-dropdown"
+        [options]="coursesList$ | async"
+        formControlName="courseId"
+        placeholder="Привязати курс"
+      ></p-dropdown>
+      <app-error-validation
+        [control]="form.controls.courseId"
+        [field]="'Курс'"
+      ></app-error-validation>
+    </div>
+
+    <!-- <div class="form-control">
+      <label class="form-control__label">Додати посилання на файл</label>
+      <input
+        pInputText
+        placeholder="Додати посилання на файл"
+        formControlName="file"
+        class="plc-input"
+      />
+      <app-error-validation
+        [control]="form.controls.file"
+        [field]="'Файл'"
+      ></app-error-validation>
+    </div>
+    <div class="form-control">
+      <label class="form-control__label">Додати посилання на відео</label>
+      <input
+        pInputText
+        placeholder="Додати посилання на відео"
+        formControlName="video"
+        class="plc-input"
+      />
+
+      <app-error-validation
+        [control]="form.controls.video"
+        [field]="'Відео'"
+      ></app-error-validation>
+    </div>
+    <div class="form-control">
+      <label class="form-control__label">Додати посилання на презентацію</label>
+      <input
+        pInputText
+        placeholder="Додайти посилання  на презентацію"
+        formControlName="presentation"
+        class="plc-input"
+      />
+      <app-error-validation
+        [control]="form.controls.presentation"
+        [field]="'Презентація'"
+      ></app-error-validation>
+    </div> -->
+
+    <div class="form-control">
+      <label class="form-control__label">Безкоштовний</label>
+      <p-inputSwitch
+        formControlName="free"
+        class="plc-switcher"
+      ></p-inputSwitch>
+    </div>
   </div>
 
-  <div class="row">
-    <h5>Привязати курс</h5>
-    <p-dropdown
-      class="plc-dropdown"
-      [options]="coursesList$ | async"
-      formControlName="courseId"
-      placeholder="Привязати курс"
-    ></p-dropdown>
-    <app-error-validation
-      [control]="form.controls.courseId"
-      [field]="'Курс'"
-    ></app-error-validation>
-    <h5>Додати посилання на файл</h5>
-    <input
-      pInputText
-      placeholder="Додати посилання на файл"
-      formControlName="file"
-    />
-    <app-error-validation
-      [control]="form.controls.file"
-      [field]="'Файл'"
-    ></app-error-validation>
-    <h5>Додати посилання на відео</h5>
-    <input
-      pInputText
-      placeholder="Додати посилання на відео"
-      formControlName="video"
-    />
-
-    <app-error-validation
-      [control]="form.controls.video"
-      [field]="'Відео'"
-    ></app-error-validation>
-    <h5>Додати посилання на презентацію</h5>
-    <input
-      pInputText
-      placeholder="Додайти посилання  на презентацію"
-      formControlName="presentation"
-    />
-    <app-error-validation
-      [control]="form.controls.presentation"
-      [field]="'Презентація'"
-    ></app-error-validation>
-  </div>
-
-  <div class="row">
-    <section class="example-section" class="row__col-2">
-      <h5>Безкоштовний</h5>
-      <p-inputSwitch formControlName="free"></p-inputSwitch>
-    </section>
-  </div>
-  <div class="row">
+  <div class="form-control">
     <label for="editor"> Опис </label>
     <angular-editor
       id="editor"
@@ -83,7 +103,7 @@
       [field]="'Опис'"
     ></app-error-validation>
   </div>
-<hr>
+  <hr />
   <app-spin-button [loading]="loading" matType="mat-flat-button">
     <span>{{ btnName }}</span>
   </app-spin-button>

@@ -1,8 +1,11 @@
+<p-toast position="top-right"></p-toast>
+
 <p>Full Name: {{ user?.firstName }} {{ user?.lastName }}</p>
 <p>Phone: {{ user.phone }}</p>
 <p>Create: {{ user.createdAt | date }}</p>
 
 <p-inputSwitch
+  class="plc-switcher"
   [(ngModel)]="user.haveMessages"
   (ngModelChange)="updateStatus($event)"
 >

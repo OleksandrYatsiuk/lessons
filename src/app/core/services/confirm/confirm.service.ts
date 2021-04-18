@@ -15,8 +15,8 @@ export class ConfirmService {
       this._confirmService.confirm({
         key: 'warning',
         message: this._ts.instant('unsavedChangesQuestion'),
-        acceptButtonStyleClass: 'button button--yellow',
-        rejectButtonStyleClass: 'button button--grey',
+        acceptButtonStyleClass: 'btn btn--orange',
+        rejectButtonStyleClass: 'btn btn--gray',
         acceptLabel: this._ts.instant('acceptLabel'),
         rejectLabel: this._ts.instant('cancelLabel'),
         ...confirmation,
@@ -36,8 +36,8 @@ export class ConfirmService {
       this._confirmService.confirm({
         dismissableMask: true,
         header: this._ts.instant('confirmDeleteHeader'),
-        rejectButtonStyleClass: 'button button--grey',
-        acceptButtonStyleClass: 'button button--red',
+        rejectButtonStyleClass: 'btn btn--gray',
+        acceptButtonStyleClass: 'btn btn--red',
         key: 'dangerous',
         rejectLabel: this._ts.instant('cancelLabel'),
         acceptLabel: this._ts.instant('deleteLabel'),

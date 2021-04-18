@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { EMPTY, Observable } from 'rxjs';
 import { concatMap, map, mergeMap } from 'rxjs/operators';
@@ -10,7 +11,6 @@ import { SelectItems } from 'src/app/core/interfaces/select';
 import { CertificateDataService } from 'src/app/core/services/certificate.service';
 import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
-import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { TelegramBotService } from 'src/app/core/services/telegram-bot.service';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 import { User } from '../users/users.component';
@@ -36,7 +36,7 @@ export class CertificatesComponent implements OnInit {
     private courseService: CourseDataService,
     private certificateService: CertificateDataService,
     private telegramService: TelegramBotService,
-    private notify: NotificationsService,
+    private _ms: MessageService,
     private fb: FormBuilder,
     private _cs: ConfirmService,
     private _ds: DialogService
@@ -58,9 +58,9 @@ export class CertificatesComponent implements OnInit {
         this._queryDeleteCertificate(certificate.id)
           .subscribe(() => {
             this.showCertificatesList();
-            this.notify.openSuccess(`Cертифікат був видалений успішно!`);
+            this._ms.add({ severity: 'success', detail: `Cертифікат був видалений успішно!` });
           }, ({ error }: HttpErrorResponse) => {
-            this.notify.openError(error.result);
+            this._ms.add({ severity: 'error', detail: error.result });
           });
       }
     });
@@ -92,6 +92,8 @@ export class CertificatesComponent implements OnInit {
           fileId: message.document.file_id,
         }))
       ).subscribe(() => {
+        this._ms.add({ severity: 'success', detail: `Cертифікат був доданий успішно!` });
+
         this.showCertificatesList();
       });
     }

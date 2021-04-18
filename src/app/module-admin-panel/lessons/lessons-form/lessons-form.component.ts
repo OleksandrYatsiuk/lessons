@@ -1,4 +1,3 @@
-import { NotificationsService } from '../../../core/services/notifications.service';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
 import { EMPTY, Observable } from 'rxjs';
@@ -11,6 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 import { SelectItems } from 'src/app/core/interfaces/select';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandlerService } from 'src/app/core/services/error-handler.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-lessons-form',
@@ -58,7 +58,7 @@ export class LessonsFormComponent implements OnInit {
     private http: LessonsDataService,
     private courseService: CourseDataService,
     private errorHandler: ErrorHandlerService,
-    private notify: NotificationsService,
+    private _ms: MessageService,
     private router: Router) { }
 
 
@@ -79,14 +79,14 @@ export class LessonsFormComponent implements OnInit {
         this._queryUpdate(this.lesson.id, this.form.value)
           .subscribe(lesson => {
             this.loading = false;
-            this.notify.openSuccess(`Урок "${lesson.name}" був успішно оновлений!`);
+            this._ms.add({ severity: 'success', detail: `Урок "${lesson.name}" був успішно оновлений!` });
             this.router.navigate([`/admin/courses/${lesson.courseId}`]);
           });
       } else {
         this._queryCreate(this.form.value)
           .subscribe(lesson => {
             this.loading = false;
-            this.notify.openSuccess(`Урок "${lesson.name}" був успішно створений!`);
+            this._ms.add({ severity: 'success', detail: `Урок "${lesson.name}" був успішно створений!` });
             this.router.navigate([`/admin/courses/${lesson.courseId}`]);
           });
       }

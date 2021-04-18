@@ -2,10 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY, Observable } from 'rxjs';
 import { MessagesService } from 'src/app/core/services/messages.service';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { catchError } from 'rxjs/operators';
 import { CustomMessage, EMessageTypes, EContentTypes } from 'src/app/module-admin-panel/messages/message.interface';
 import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-message-item',
@@ -23,7 +23,7 @@ export class MessageItemComponent implements OnInit {
   constructor(
     private http: MessagesService,
     private _cs: ConfirmService,
-    private notify: NotificationsService) { }
+    private _ms: MessageService) { }
 
   ngOnInit(): void {
   }
@@ -36,9 +36,9 @@ export class MessageItemComponent implements OnInit {
           .subscribe(response => {
             this.removed.emit();
             if (response?.code) {
-              this.notify.openSuccess(response.result);
+              this._ms.add({ severity: 'success', detail: response.result });
             } else {
-              this.notify.openSuccess(`Повідомлення видалено успішно!`);
+              this._ms.add({ severity: 'success', detail: `Повідомлення видалено успішно!` });
             }
           });
       }
@@ -62,7 +62,7 @@ export class MessageItemComponent implements OnInit {
     return this.http.refreshTelegramFileLink(msg)
       .pipe(
         catchError(({ error }: HttpErrorResponse) => {
-          this.notify.openError(error.result);
+          this._ms.add({ severity: 'error', detail: error.result });
           return EMPTY;
         })
       );

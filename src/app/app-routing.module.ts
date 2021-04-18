@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'homework', loadChildren: () => import('./module-homework/homework.module').then(mod => mod.HomeworkModule) },
   { path: 'payment', loadChildren: () => import('./module-payment/payment.module').then(mod => mod.PaymentModule) },
   { path: 'start', component: StartBotComponent },
-  { path: '**', redirectTo: '/' },
+  { path: '**', redirectTo: '/404' },
+  { path: '404', loadChildren: () => import('./module-not-found/not-found.module').then(mod => mod.NotFoundModule) },
 ];
 
 @NgModule({

@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs';
-import { NotificationsService } from '../../core/services/notifications.service';
 import { Component, OnInit } from '@angular/core';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 import { PreloaderService } from 'src/app/core/services/preloader.service';
 import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
+import { MessageService } from 'primeng/api';
 
 export interface User {
   id: string;
@@ -30,7 +30,7 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private http: UserDataService,
-    private _notify: NotificationsService,
+    private _ms: MessageService,
     private loadService: PreloaderService,
     private _cs: ConfirmService
   ) { }
@@ -53,9 +53,9 @@ export class UsersComponent implements OnInit {
         this._queryUserDelete(user)
           .subscribe(() => {
             this.getData();
-            this._notify.openSuccess(`Користувач був видалений успішно!`);
+            this._ms.add({ severity: 'success', detail: 'Користувач був видалений успішно!' });
           }, error => {
-            console.error(error);
+            this._ms.add({ severity: 'error', detail: error });
           });
       }
     });

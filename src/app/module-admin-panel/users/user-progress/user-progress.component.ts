@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Course } from 'src/app/core/interfaces/courses';
 import { IStudyProgress, EStudyProgress } from 'src/app/core/interfaces/study-progress';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
-import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { StudyProgressService } from 'src/app/core/services/study-progress.service';
 
 @Component({
@@ -39,7 +39,7 @@ export class UserProgressComponent implements OnInit {
     private route: ActivatedRoute,
     private studyService: StudyProgressService,
     private courseService: CourseDataService,
-    private notify: NotificationsService
+    private _ms: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -60,7 +60,7 @@ export class UserProgressComponent implements OnInit {
   updateStatus(progress: IStudyProgress, { checked }: { checked: boolean }): void {
     this._queryUpdate(progress._id, { status: checked })
       .subscribe(result => {
-        this.notify.openSuccess('Оновлено статус заняття для користувача');
+        this._ms.add({ severity: 'success', detail: `Оновлено статус заняття для користувача` });
       });
   }
 
@@ -72,7 +72,7 @@ export class UserProgressComponent implements OnInit {
         } else {
           this.studyProgressList$ = this._queryProgress();
         }
-        this.notify.openSuccess('Оновлено статус заняття для користувача');
+        this._ms.add({ severity: 'success', detail: `Оновлено статус заняття для користувача` });
       });
   }
 

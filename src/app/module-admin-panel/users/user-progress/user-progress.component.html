@@ -58,6 +58,7 @@
     <td mat-cell *matCellDef="let element">
       <section class="example-section" class="row__col-2">
         <p-inputSwitch
+          class="plc-switcher"
           [(ngModel)]="element.status"
           (onChange)="updateStatus(element, $event)"
         ></p-inputSwitch>
