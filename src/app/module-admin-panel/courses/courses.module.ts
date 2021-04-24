@@ -1,4 +1,3 @@
-import { DeleteComponent } from '../../module-shared/components/dialogs/delete/delete.component';
 import { SharedModule } from 'src/app/module-shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,7 +15,6 @@ import { CourseCreateComponent } from './course-create/course-create.component';
     CoursesRoutingModule,
     LessonsModule,
     SharedModule
-  ],
-  providers: [DeleteComponent]
+  ]
 })
 export class CoursesModule { }

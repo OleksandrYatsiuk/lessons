@@ -7,6 +7,7 @@
     "adminPanel": "Адмін панель"
   },
   "paymentButtonLabel": "Оплатити {{value}} грн",
+  "emptyChatMessage": "Повідомлень ще немає. Виберіть інший чат.",
   "labels": {
     "phone": "Телефон"
   },

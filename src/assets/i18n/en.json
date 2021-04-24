@@ -6,9 +6,8 @@
     "lessonsList": "List of Lessons",
     "adminPanel": "Admin Panel"
   },
-
   "paymentButtonLabel": "Pay {{value}} uah",
-
+  "emptyChatMessage": "No messages yet. Choose another chat.",
   "labels": {
     "phone": "Phone"
   },

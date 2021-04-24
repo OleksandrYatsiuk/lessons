@@ -14,7 +14,7 @@
         <div class="msg-text">
           Download File
           <a [href]="item.message.content.link">
-            <mat-icon>save_alt</mat-icon>
+            <!-- <mat-icon>save_alt</mat-icon> -->
           </a>
         </div>
         <div class="msg-text">{{ item.message.content.text }}</div>
@@ -24,7 +24,7 @@
     <ng-container *ngSwitchCase="contentTypes.photo">
       <div class="msg-content">
         <div *ngIf="expiredFile">
-          <mat-icon (click)="refreshFileLink(item)">refresh</mat-icon>
+          <!-- <mat-icon (click)="refreshFileLink(item)">refresh</mat-icon> -->
         </div>
         <img
           class="msg-text"

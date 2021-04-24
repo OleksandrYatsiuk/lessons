@@ -10,8 +10,6 @@ import { MainModule } from './module-main/main.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { StartBotComponent } from './module-start-bot/start-bot.component';
-import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ELanguage } from './core/interfaces/languages.interface';
@@ -61,8 +59,6 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   providers: [
     ConfirmationService, DialogService, MessageService,
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } },
     { provide: LOCALE_ID, useValue: ELanguage.uk }
   ],
   bootstrap: [AppComponent]

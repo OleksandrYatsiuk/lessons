@@ -13,7 +13,7 @@
         ></app-message-item>
       </div>
       <div *ngIf="!messages?.length" class="messages__content-empty">
-        Повідомлень ще не має. Виберіть інший чат.
+       {{'emptyChatMessage'|translate}}
       </div>
     </div>
     <div class="chat-actions">

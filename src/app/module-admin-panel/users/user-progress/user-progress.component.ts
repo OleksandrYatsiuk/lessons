@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
@@ -11,16 +11,16 @@ import { StudyProgressService } from 'src/app/core/services/study-progress.servi
 @Component({
   selector: 'app-user-progress',
   templateUrl: './user-progress.component.html',
-  styleUrls: ['./user-progress.component.scss']
+  styleUrls: ['./user-progress.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserProgressComponent implements OnInit {
   selectedCourse: string;
   userId: string;
-  public userProgress = 0;
   studyProgressList$: Observable<IStudyProgress[]>;
   coursesList$: Observable<Course[]>;
-  displayedColumns: string[] = ['lesson', 'isAnswered', 'progress', 'status', 'createdAt', 'course'];
-  public progress = [
+  cols: { field: string; header: string }[];
+  progress = [
     {
       label: 'Не розпочато', value: EStudyProgress.NOT_STARTED
     },
@@ -46,6 +46,15 @@ export class UserProgressComponent implements OnInit {
     this.userId = this.route.snapshot.params.id;
     this.studyProgressList$ = this._queryProgress();
     this.coursesList$ = this._queryCourseList();
+
+    this.cols = [
+      { field: 'lessonId', header: 'Заняття' },
+      { field: 'isAnswered', header: 'Переписка' },
+      { field: 'progress', header: 'Прогрес' },
+      { field: 'status', header: 'Доступність' },
+      { field: 'createdAt', header: 'Створено' },
+      { field: 'courseId', header: 'Назва курсу' }
+    ];
   }
 
   filter({ value }: { value: Course['id'] }): void {
@@ -77,19 +86,10 @@ export class UserProgressComponent implements OnInit {
   }
 
   private _queryProgress(params?: any): Observable<IStudyProgress[]> {
-    return this.studyService.queryProgress(this.userId, params).pipe(
-      map((arr: IStudyProgress[]) => {
-        this._calculateUserProgress(arr);
-        return arr;
-      }));
+    return this.studyService.queryProgress(this.userId, params);
   }
   private _queryUpdate(progressId: IStudyProgress['_id'], data: Partial<IStudyProgress>): Observable<IStudyProgress> {
     return this.studyService.queryUpdateProgress({ _id: progressId }, data);
-  }
-  private _calculateUserProgress(lessons: IStudyProgress[]): void {
-    const max = lessons.length;
-    const completed = lessons.filter(lesson => lesson.progress === EStudyProgress.COMPLETED).length;
-    this.userProgress = completed * 100 / max;
   }
 
   private _queryCourseList(): Observable<Course[]> {

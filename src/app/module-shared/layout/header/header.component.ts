@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   languages: SelectItem[] = [
     { label: 'UK', value: 'uk' },
     { label: 'EN', value: 'en' },
-    { label: 'RU', value: 'ru', disabled: true }
+    // { label: 'RU', value: 'ru', disabled: true }
   ];
   items: any[];
   display: boolean;

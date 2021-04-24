@@ -7,14 +7,6 @@
   <button (click)="sendMessage(message, file)" [disabled]="!message">
     Send
   </button>
-  <i class="pi pi-send" (click)="sendMessage(message, file)"></i>
-  <i class="pi pi-cloud-upload" *ngIf="!file" (click)="fileInput.click()"></i>
-  <mat-icon
-    *ngIf="file"
-    matBadge="1"
-    matBadgeSize="large"
-    (click)="fileInput.click()"
-    >attach_file</mat-icon
-  >
+  <button (click)="fileInput.click()" [disabled]="!message">File</button>
   <input hidden type="file" #fileInput (change)="setFiles($event)" /><br />
 </div>

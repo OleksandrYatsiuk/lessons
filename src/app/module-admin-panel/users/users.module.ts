@@ -1,4 +1,3 @@
-import { DeleteComponent } from '../../module-shared/components/dialogs/delete/delete.component';
 import { UsersRoutingModule } from './users-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,7 +13,6 @@ import { SharedModule } from 'src/app/module-shared/shared.module';
     CommonModule,
     UsersRoutingModule,
     SharedModule
-  ],
-  entryComponents: [DeleteComponent]
+  ]
 })
 export class UsersModule { }

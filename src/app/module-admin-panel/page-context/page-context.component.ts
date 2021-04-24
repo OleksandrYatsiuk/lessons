@@ -1,7 +1,6 @@
 import { StaticPagesService } from '../../core/services/static-pages.service';
 import { Component, OnInit } from '@angular/core';
 import { EStaticPages } from 'src/app/core/interfaces/static-pages';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
 
 @Component({
@@ -38,7 +37,7 @@ export class PageContextComponent implements OnInit {
     this.http.setStaticPage({ type: this.activeLabel, content: this.htmlContent[this.activeLabel] })
       .subscribe(result => { });
   }
-  show(event: MatTabChangeEvent): void {
+  show(event): void {
     this.activeLabel = event.index + 1;
   }
 }

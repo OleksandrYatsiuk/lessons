@@ -1,25 +1,5 @@
 <p-toast position="top-right"></p-toast>
 
-<h1>Course Name: {{course.name}}</h1>
-<mat-accordion>
-    <mat-expansion-panel hideToggle>
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                Відкрити список занять
-            </mat-panel-title>
-            <mat-panel-description>
-                Курс "{{course.name}}"
-            </mat-panel-description>
-        </mat-expansion-panel-header>
-        <app-lessons [courseId]="course.id"></app-lessons>
-    </mat-expansion-panel>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-
-    </mat-expansion-panel>
-</mat-accordion>
-
-
-
-<hr>
+<h1>Course Name: {{ course.name }}</h1>
 
 <app-course-form [course]="course" (dirty)="isDirty($event)"></app-course-form>

@@ -7,75 +7,67 @@
   (onChange)="filter($event)"
 ></p-dropdown>
 
-<p-progressBar [value]="userProgress"></p-progressBar>
-
-<table
-  mat-table
-  [dataSource]="studyProgressList$ | async"
-  class="mat-elevation-z8"
+<p-table
+  [columns]="cols"
+  [value]="studyProgressList$ | async"
+  class="plc-table"
 >
-  <ng-container matColumnDef="lesson">
-    <th mat-header-cell *matHeaderCellDef>Заняття</th>
-    <td mat-cell *matCellDef="let element">{{ element?.lessonId?.name }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="isAnswered">
-    <th mat-header-cell *matHeaderCellDef>Переписка</th>
-    <td mat-cell *matCellDef="let lesson">
-      <i
-        class="pi pi-envelope p-mr-4 p-text-secondary"
-        style="font-size: 2rem"
-        pBadge
-        severity="danger"
-        value="1+"
-        *ngIf="!lesson?.isAnswered"
-        routerLink="lesson/{{ lesson?.lessonId?._id }}"
-      ></i>
-      <i
-        class="pi pi-inbox"
-        style="font-size: 2rem"
-        *ngIf="lesson.isAnswered"
-        routerLink="lesson/{{ lesson?.lessonId?._id }}"
-      ></i>
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="progress">
-    <th mat-header-cell *matHeaderCellDef>Прогрес</th>
-    <td mat-cell *matCellDef="let element">
-      <p-dropdown
-        class="plc-dropdown"
-        [options]="progress"
-        [(ngModel)]="element.progress"
-        [placeholder]="'Прогрес курсу'"
-        (onChange)="updateProgress(element, $event)"
-      ></p-dropdown>
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef>Доступність</th>
-    <td mat-cell *matCellDef="let element">
-      <section class="example-section" class="row__col-2">
-        <p-inputSwitch
-          class="plc-switcher"
-          [(ngModel)]="element.status"
-          (onChange)="updateStatus(element, $event)"
-        ></p-inputSwitch>
-      </section>
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="createdAt">
-    <th mat-header-cell *matHeaderCellDef>Створено</th>
-    <td mat-cell *matCellDef="let element">{{ element?.createdAt | date }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="course">
-    <th mat-header-cell *matHeaderCellDef>Назва курсу</th>
-    <td mat-cell *matCellDef="let lesson">{{ lesson?.courseId?.name }}</td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns">
+        {{ col.header }}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td *ngFor="let col of columns">
+        <ng-container [ngSwitch]="col.field">
+          <ng-container *ngSwitchCase="'lessonId'">
+            {{ rowData[col.field].name }}
+          </ng-container>
+          <ng-container *ngSwitchCase="'isAnswered'">
+            <div class="user-progress__cell-centered">
+              <a
+                class="user-progress__new-message"
+                [ngClass]="{
+                  'user-progress__new-message--full': !rowData?.isAnswered
+                }"
+                [routerLink]="'lesson/' + rowData?.lessonId?._id"
+              >
+                <span *ngIf="!rowData?.isAnswered">1+</span>
+              </a>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'progress'">
+            <p-dropdown
+              class="plc-dropdown"
+              [options]="progress"
+              [(ngModel)]="rowData.progress"
+              [placeholder]="'Прогрес курсу'"
+              (onChange)="updateProgress(rowData, $event)"
+            ></p-dropdown>
+          </ng-container>
+          <ng-container *ngSwitchCase="'status'">
+            <section class="user-progress__cell-centered">
+              <p-inputSwitch
+                class="plc-switcher"
+                [(ngModel)]="rowData.status"
+                (onChange)="updateStatus(rowData, $event)"
+              ></p-inputSwitch>
+            </section>
+          </ng-container>
+          <ng-container *ngSwitchCase="'createdAt'">
+            {{ rowData[col.field] | date }}
+          </ng-container>
+          <ng-container *ngSwitchCase="'courseId'">
+            {{ rowData[col.field].name }}
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            {{ rowData[col.field] }}
+          </ng-container>
+        </ng-container>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

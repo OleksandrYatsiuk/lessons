@@ -8,7 +8,6 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { Course, Lesson } from 'src/app/core/interfaces/courses';
-import { MatSelectChange } from '@angular/material/select';
 import { UserDataService } from 'src/app/core/services/user-data.service';
 import { User } from '../users/users.component';
 import { SelectItem } from 'primeng/api';
@@ -86,7 +85,7 @@ export class MessagesComponent implements OnInit {
       });
     }
   }
-  setCourse(select: MatSelectChange): void {
+  setCourse(select: any): void {
     this.isCourseSelected = true;
     this.lessonsList$ = this.getLessons(select.value);
   }
