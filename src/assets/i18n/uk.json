@@ -4,12 +4,21 @@
     "connectToPLC": "Приєднатися до \"Practical Legal Courses\"",
     "lessonsList": "Список завдань",
     "enrollCourse": "Записатися на курс",
-    "adminPanel": "Адмін панель"
+    "adminPanel": "Адмін панель",
+    "users": "Користувачі",
+    "chat": "Чат",
+    "courses": "Курси",
+    "lessons": "Заняття",
+    "staticPages": "Статичні сторінки",
+    "certificates": "Сертифікати"
   },
   "paymentButtonLabel": "Оплатити {{value}} грн",
   "emptyChatMessage": "Повідомлень ще немає. Виберіть інший чат.",
+
   "labels": {
-    "phone": "Телефон"
+    "phone": "Телефон",
+    "createdDate": "Дата створення",
+    "fullName": "Повне ім'я"
   },
   "placeholders": {
     "phone": "Введіть номер телефону"

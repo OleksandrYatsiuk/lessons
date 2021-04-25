@@ -40,12 +40,12 @@ export class HeaderComponent implements OnInit {
     ];
 
     this.items = [
-      { label: 'Користувачі', routerLink: '/admin/users' },
-      { label: 'Чат', routerLink: '/admin/messages' },
-      { label: 'Курси', routerLink: '/admin/courses' },
-      { label: 'Заняття', routerLink: '/admin/lessons' },
-      { label: 'Статичні сторінки', routerLink: '/admin/pages' },
-      { label: 'Сертифікати', routerLink: '/admin/certificates' }
+      { label: 'pageTitles.users', routerLink: '/admin/users' },
+      { label: 'pageTitles.chat', routerLink: '/admin/messages' },
+      { label: 'pageTitles.courses', routerLink: '/admin/courses' },
+      { label: 'pageTitles.lessons', routerLink: '/admin/lessons' },
+      { label: 'pageTitles.staticPages', routerLink: '/admin/pages' },
+      { label: 'pageTitles.certificates', routerLink: '/admin/certificates' }
     ];
   }
 

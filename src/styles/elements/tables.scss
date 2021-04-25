@@ -29,16 +29,16 @@ table {
     width: 100%;
     tr {
       height: 30px;
-      background: #d6cfcf;
+      background: $c-lightgray;
     }
     th {
-      border-right: 1px solid gray;
+      border-right: 1px solid $c-gray;
     }
   }
   .p-datatable-tbody {
     td {
-      background: white;
-      border-bottom: 1px solid gray;
+      background: $c-white;
+      border-bottom: 1px solid $c-gray;
     }
   }
 }

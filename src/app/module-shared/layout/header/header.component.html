@@ -1,6 +1,10 @@
 <header class="header">
   <div (click)="openMenu()" class="header__menu-toggler">
-    <img src="../../../../assets/icons/menu.svg" style="width: 30px" alt="menu" />
+    <img
+      src="../../../../assets/icons/menu.svg"
+      style="width: 30px"
+      alt="menu"
+    />
   </div>
   <img src="../../../../assets/logo.png" alt="logo" routerLink="/" />
   <nav class="nav-block">
@@ -28,8 +32,7 @@
         routerLinkActive="active"
         *ngFor="let item of items"
       >
-        <!-- {{ "pageTitles.lessonsList" | translate }} -->
-        {{ item.label }}
+        {{ item.label | translate }}
       </span>
     </nav>
   </div>
@@ -42,7 +45,9 @@
   [showCloseIcon]="false"
 >
   <div class="header__menu-toggle">
-    <button (click)="openMenu()">Close</button>
+    <button (click)="openMenu()">
+      <span class="icon icon--close"></span>
+    </button>
     <nav class="header__menu-mobile">
       <span
         *ngFor="let menu of menus"
@@ -51,7 +56,6 @@
       >
         {{ menu.label | translate }}
       </span>
-      <hr />
       <ng-container *ngIf="isAdminPanel()">
         <span
           *ngFor="let menu of items"

@@ -35,4 +35,7 @@
       width: 100%;
     }
   }
+  @include mobile-up {
+    margin-left: 10px;
+  }
 }

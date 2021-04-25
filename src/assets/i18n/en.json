@@ -4,12 +4,20 @@
     "connectToPLC": "Connect to the \"Practical Legal Courses\"",
     "enrollCourse": "Enroll in a Course",
     "lessonsList": "List of Lessons",
-    "adminPanel": "Admin Panel"
+    "adminPanel": "Admin Panel",
+    "users": "Users",
+    "chat": "Chat",
+    "courses": "Courses",
+    "lessons": "Lessons",
+    "staticPages": "Static Pages",
+    "certificates": "Certificates"
   },
   "paymentButtonLabel": "Pay {{value}} uah",
   "emptyChatMessage": "No messages yet. Choose another chat.",
   "labels": {
-    "phone": "Phone"
+    "phone": "Phone",
+    "createdDate": "Created Date",
+    "fullName": "Full Name"
   },
   "placeholders": {
     "phone": "Enter phone number"

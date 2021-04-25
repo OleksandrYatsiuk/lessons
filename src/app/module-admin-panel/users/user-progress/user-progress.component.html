@@ -33,7 +33,8 @@
                 [ngClass]="{
                   'user-progress__new-message--full': !rowData?.isAnswered
                 }"
-                [routerLink]="'lesson/' + rowData?.lessonId?._id"
+                [routerLink]="'/admin/messages'"
+                [queryParams]="{ lessonId: rowData.lessonId._id, userId: userId }"
               >
                 <span *ngIf="!rowData?.isAnswered">1+</span>
               </a>

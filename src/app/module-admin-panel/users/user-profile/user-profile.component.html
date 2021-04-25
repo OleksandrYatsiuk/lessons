@@ -1,14 +1,36 @@
 <p-toast position="top-right"></p-toast>
 
-<p>Full Name: {{ user?.firstName }} {{ user?.lastName }}</p>
-<p>Phone: {{ user.phone }}</p>
-<p>Create: {{ user.createdAt | date }}</p>
+<div class="user-profile__container">
+  <div class="user-profile__info">
+    <span class="user-profile__value">
+      <span class="user-profile__label"
+        >{{ "labels.fullName" | translate }}:</span
+      >
+      {{ user?.firstName }} {{ user?.lastName }}</span
+    >
+    <span class="user-profile__value">
+      <span class="user-profile__label">{{ "labels.phone" | translate }}:</span>
+      {{ user.phone }}</span
+    >
+    <span class="user-profile__value">
+      <span class="user-profile__label"
+        >{{ "labels.createdDate" | translate }}:</span
+      >
+      {{ user.createdAt | date }}</span
+    >
+  </div>
 
-<p-inputSwitch
-  class="plc-switcher"
-  [(ngModel)]="user.haveMessages"
-  (ngModelChange)="updateStatus($event)"
->
-</p-inputSwitch>
-<span>Позначити всі повідомлення як прочитані</span>
-<router-outlet></router-outlet>
+  <hr />
+  <div class="user-profile__filter">
+    <!-- <p-inputSwitch
+      class="plc-switcher"
+      [(ngModel)]="user.haveMessages"
+      (ngModelChange)="updateStatus($event)"
+    >
+    </p-inputSwitch>
+    <span>Позначити всі повідомлення як прочитані</span>
+  </div> -->
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

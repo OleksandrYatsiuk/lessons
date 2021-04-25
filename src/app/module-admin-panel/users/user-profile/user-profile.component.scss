@@ -1,13 +1,28 @@
-.example-headers-align .mat-expansion-panel-header-title,
-.example-headers-align .mat-expansion-panel-header-description {
-  flex-basis: 0;
-}
+@import "../../../../styles/helpers/index.scss";
 
-.example-headers-align .mat-expansion-panel-header-description {
-  justify-content: space-between;
-  align-items: center;
-}
+.user-profile {
+  &__container {
+    margin-top: 30px;
+  }
 
-.example-headers-align .mat-form-field + .mat-form-field {
-  margin-left: 8px;
+  &__info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 5%;
+    @include mobile-up {
+      grid-template-columns: 100%;
+    }
+  }
+  &__filter {
+    grid-template-columns: repeat(2, 1fr);
+    @include mobile-up {
+      grid-template-columns: 100%;
+    }
+  }
+  &__label {
+    @include genText(14px, 16px, normal, $c-gray);
+  }
+  &__value {
+    @include genText(16px, 18px, bold, $c-black);
+  }
 }

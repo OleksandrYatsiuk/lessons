@@ -100,6 +100,9 @@ img {
     width: 100%;
     flex-direction: column;
   }
+  span {
+    margin: 5px;
+  }
 }
 .header__menu-toggler {
   display: none;
