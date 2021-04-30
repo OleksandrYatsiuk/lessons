@@ -1,0 +1,15 @@
+@import "../../../styles/helpers/index.scss";
+
+.page-context {
+  &__container {
+    margin: 10px;
+  }
+  &__filter {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    @include mobile-up {
+      grid-template-columns: 100%;
+    }
+    margin-bottom: 10px;
+  }
+}

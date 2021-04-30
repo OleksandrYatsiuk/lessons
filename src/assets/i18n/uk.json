@@ -14,11 +14,12 @@
   },
   "paymentButtonLabel": "Оплатити {{value}} грн",
   "emptyChatMessage": "Повідомлень ще немає. Виберіть інший чат.",
-
   "labels": {
     "phone": "Телефон",
     "createdDate": "Дата створення",
-    "fullName": "Повне ім'я"
+    "fullName": "Повне ім'я",
+    "privacyPolicy": "Політика конфіденційності",
+    "termsAndConditions": "Правила та умови"
   },
   "placeholders": {
     "phone": "Введіть номер телефону"
@@ -30,5 +31,7 @@
   "cancelLabel": "Відмінити",
   "deleteLabel": "Видалити",
   "acceptLabel": "Підтвердити",
+  "saveLabel": "Зберегти",
+  "updatingSuccess": "Оновлено успішно",
   "unsavedChangesQuestion": "У вас є незбережені зміни. Ви впевнені, що хочете залишити цю сторінку?"
 }

@@ -17,7 +17,9 @@
   "labels": {
     "phone": "Phone",
     "createdDate": "Created Date",
-    "fullName": "Full Name"
+    "fullName": "Full Name",
+    "privacyPolicy": "Privacy Policy",
+    "termsAndConditions": "Terms and Conditions"
   },
   "placeholders": {
     "phone": "Enter phone number"
@@ -29,5 +31,7 @@
   "cancelLabel": "Cancel",
   "deleteLabel": "Delete",
   "acceptLabel": "Accept",
+  "saveLabel": "Save",
+  "updatingSuccess": "Updates was success!",
   "unsavedChangesQuestion": "You have unsaved changes. Are you sure you want to leave this page?"
 }

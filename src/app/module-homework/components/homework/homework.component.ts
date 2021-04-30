@@ -81,20 +81,22 @@ export class HomeworkComponent implements OnInit {
   }
 
   private openDialog(user?: User): void {
+    if (this.isBrowser) {
+      this.contentAllowed = false;
 
-    this.contentAllowed = false;
+      const ref = this._ds.open(ConfirmModalComponent, {
+        data: { text: 'Введіть номер телефону профіля з Телеграму', user },
+        styleClass: 'plc-dynamic-dialog',
+        header: 'Підтвердження профіля'
+      });
 
-    const ref = this._ds.open(ConfirmModalComponent, {
-      data: { text: 'Введіть номер телефону профіля з Телеграму', user },
-      styleClass: 'plc-dynamic-dialog',
-      header: 'Підтвердження профіля'
-    });
+      ref.onClose.subscribe(res => {
+        if (res) {
+          this.contentAllowed = false;
+        }
+      });
+    }
 
-    ref.onClose.subscribe(res => {
-      if (res) {
-        this.contentAllowed = false;
-      }
-    });
 
 
   }
