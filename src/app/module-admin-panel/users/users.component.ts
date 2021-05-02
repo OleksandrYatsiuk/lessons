@@ -6,6 +6,7 @@ import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
 import { MessageService } from 'primeng/api';
 
 export interface User {
+  _id: string;
   id: string;
   phone: string;
   firstName: string;
@@ -62,7 +63,7 @@ export class UsersComponent implements OnInit {
   }
 
   public _queryUserDelete(user: User): Observable<any> {
-    return this.http.remove(user.id);
+    return this.http.remove(user._id);
   }
 
 }

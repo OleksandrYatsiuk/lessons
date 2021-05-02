@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
 import { Course, ECourseStatus } from '../../core/interfaces/courses';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CourseDataService } from 'src/app/core/services/course-data.service';
 import { SelectItems } from 'src/app/core/interfaces/select';
 import { PreloaderService } from 'src/app/core/services/preloader.service';
-import { tap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { ConfirmService } from 'src/app/core/services/confirm/confirm.service';
 import { MessageService } from 'primeng/api';
 
@@ -12,21 +12,21 @@ import { MessageService } from 'primeng/api';
   selector: 'app-courses',
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss'],
-
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoursesComponent implements OnInit {
   courses$: Observable<Course[]>;
   courseStatuses: SelectItems[] = [
     { value: ECourseStatus.PUBLISHED, label: 'Опубліковано' },
     { value: ECourseStatus.DRAFT, label: 'Чорновик' }];
-  displayedColumns: string[] = ['name', 'createdAt', 'updatedAt', 'status', 'delete'];
 
 
   constructor(
     private http: CourseDataService,
     private _ms: MessageService,
-    private loadService: PreloaderService,
-    private _cs: ConfirmService
+    private _ps: PreloaderService,
+    private _cs: ConfirmService,
+    private _cd: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -40,23 +40,23 @@ export class CoursesComponent implements OnInit {
           .subscribe(() => {
             this.getList();
             this._ms.add({ severity: 'success', detail: `Курс "${course.name}" був видалений успішно!` });
-          }, error => {
-            this._ms.add({ severity: 'error', detail: error });
+            this._cd.detectChanges();
           });
       }
     });
 
   }
 
-  public getList(): void {
+  getList(): void {
     this.courses$ = this._queryCoursesList();
+    this._cd.detectChanges();
   }
 
   private _queryDeleteCourse(course: Course): Observable<any> {
-    return this.http.delete(course.id);
+    return this.http.delete(course._id);
   }
   private _queryCoursesList(): Observable<Course[]> {
-    this.loadService.start();
-    return this.http.getCourses().pipe(tap(() => this.loadService.stop()));
+    this._ps.start();
+    return this.http.getCourses().pipe(finalize(() => this._ps.stop()));
   }
 }

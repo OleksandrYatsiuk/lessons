@@ -36,7 +36,7 @@ export class LessonsComponent implements OnInit {
   }
 
   updatePrice(free: boolean, lesson: Lesson): void {
-    this._queryUpdateLessonPrice(lesson.id, { name: lesson.name, free, status: lesson.status })
+    this._queryUpdateLessonPrice(lesson._id, { name: lesson.name, free, status: lesson.status })
       .subscribe(({ name }) => {
         this.showLessonsList();
         this._ms.add({ severity: 'success', detail: `Урок "${name}" був оновлений успішно!` });
@@ -46,12 +46,10 @@ export class LessonsComponent implements OnInit {
   openDialog(lesson: Lesson): void {
     this._cs.delete().subscribe(isDelete => {
       if (isDelete) {
-        this._queryDeleteLesson(lesson.id)
+        this._queryDeleteLesson(lesson._id)
           .subscribe(response => {
             this.showLessonsList();
-            this._ms.add({ severity: 'success', detail: `Урок "${name}" був оновлений успішно!` });
-          }, error => {
-            console.error(error);
+            this._ms.add({ severity: 'success', detail: `Урок "${lesson.name}" був оновлений успішно!` });
           });
       }
     });

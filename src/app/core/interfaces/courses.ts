@@ -6,6 +6,7 @@ export enum ECourseStatus {
 }
 export interface Course {
     readonly id: string;
+    readonly _id: string;
     name: string;
     description?: string;
     status?: number;

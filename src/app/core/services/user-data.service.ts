@@ -9,11 +9,12 @@ import { environment } from '../../../environments/environment';
 })
 export class UserDataService {
   private apiUrl = environment.apiUrl;
+  private _apiUrl = environment.apiNestUrl;
   private path = '/users';
   constructor(private http: HttpClient) { }
 
   public getList(page?: number, limit?: number): Observable<User[]> {
-    return this.http.get(`${this.apiUrl}${this.path}`).pipe(pluck('result'));
+    return this.http.get(`${this._apiUrl}${this.path}`).pipe(pluck('result'));
   }
   public register(user: Partial<User>): Observable<User> {
     return this.http.post(`${this.apiUrl}${this.path}/register`, user).pipe(pluck('result'));
@@ -28,7 +29,7 @@ export class UserDataService {
     return this.http.post(`${this.apiUrl}${this.path}/code-check`, data).pipe(pluck('result'));
   }
   public remove(id: User['id']): Observable<string> {
-    return this.http.delete(`${this.apiUrl}${this.path}/${id}`).pipe(pluck('result'));
+    return this.http.delete(`${this._apiUrl}${this.path}/${id}`).pipe(pluck('result'));
   }
   public getItem(user: any): Observable<User> {
     return this.http.get(`${this.apiUrl}${this.path}/user`, { params: user }).pipe(pluck('result'));

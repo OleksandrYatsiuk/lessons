@@ -21,7 +21,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-product>
       <tr>
-        <td routerLink="/admin/lessons/{{ product.id }}">{{ product.name }}</td>
+        <td routerLink="/admin/lessons/{{ product._id }}">{{ product.name }}</td>
         <td>{{ product.createdAt | date }}</td>
         <td>{{ product.updatedAt | date }}</td>
         <td>{{ product.status | extract: lessonStatuses }}</td>
@@ -37,7 +37,7 @@
             <i class="icon icon--delete"></i>
           </button>
           <button
-            routerLink="/admin/lessons/{{ product.id }}"
+            routerLink="/admin/lessons/{{ product._id }}"
             class="btn__circle"
           >
             <i class="icon icon--edit"></i>

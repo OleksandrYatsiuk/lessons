@@ -76,7 +76,7 @@ export class LessonsFormComponent implements OnInit {
     if (this.form.valid) {
       this.loading = true;
       if (this.lesson) {
-        this._queryUpdate(this.lesson.id, this.form.value)
+        this._queryUpdate(this.lesson._id, this.form.value)
           .subscribe(lesson => {
             this.loading = false;
             this._ms.add({ severity: 'success', detail: `Урок "${lesson.name}" був успішно оновлений!` });
@@ -98,9 +98,9 @@ export class LessonsFormComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       context: ['', []],
-      video: ['', []],
-      presentation: ['', []],
-      file: ['', []],
+      // video: ['', []],
+      // presentation: ['', []],
+      // file: ['', []],
       status: [1, [Validators.required]],
       courseId: [null, [Validators.required]],
       free: [false, [Validators.required]]

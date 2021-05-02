@@ -19,10 +19,10 @@ export class LessonItemComponent implements OnInit {
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private _cs: ConfirmService) {
-    this.lesson = this.route.snapshot.data.lesson;
   }
 
   ngOnInit(): void {
+    this.lesson = this.route.snapshot.data.lesson;
   }
 
 

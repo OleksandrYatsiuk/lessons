@@ -4,28 +4,38 @@ import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { HttpService } from './http.service';
 import { User } from 'src/app/module-admin-panel/users/users.component';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LessonsDataService {
   public path = '/lessons';
-  constructor(private http: HttpService) { }
+  private _apiUrl = environment.apiNestUrl;
+  constructor(private http: HttpService, private _http: HttpClient) { }
 
-  public getLesson(id: Lesson['id'], params?: Partial<User>): Observable<Lesson> {
-    return this.http.get(`${this.path}/${id}`, { params }).pipe(pluck('result'));
+  getLesson(id: Lesson['id'], params?: Partial<User> | any): Observable<Lesson> {
+    return this._http.get<Lesson>(`${this._apiUrl}${this.path}/${id}`, { params });
   }
-  public getLessons(params?: Partial<Lesson>): Observable<Lesson[]> {
-    return this.http.get(`${this.path}`, { params }).pipe(pluck('result'));
+  getLessons(params?: Partial<Lesson> | any): Observable<Lesson[]> {
+
+    const options = {
+      params: new HttpParams()
+        .set('page', String(1))
+        .set('limit', String(20))
+        .set('courseId', params?.courseId || null)
+    };
+    return this._http.get(`${this._apiUrl}${this.path}`, options).pipe(pluck('result'));
   }
-  public create(body: Lesson): Observable<Lesson> {
-    return this.http.post(`${this.path}`, body).pipe(pluck('result'));
+  create(body: Lesson): Observable<Lesson> {
+    return this._http.post<Lesson>(`${this._apiUrl}${this.path}`, body);
   }
-  public update(id: Lesson['id'], body: Partial<Lesson>): Observable<Lesson> {
-    return this.http.path(`${this.path}/${id}`, body).pipe(pluck('result'));
+  update(id: Lesson['id'], body: Partial<Lesson>): Observable<Lesson> {
+    return this._http.put<Lesson>(`${this._apiUrl}${this.path}/${id}`, body);
   }
 
-  public delete(id: Lesson['id']): Observable<any> {
-    return this.http.delete(`${this.path}/${id}`).pipe(pluck('result'));
+  delete(id: Lesson['id']): Observable<null> {
+    return this._http.delete<null>(`${this._apiUrl}${this.path}/${id}`);
   }
 }

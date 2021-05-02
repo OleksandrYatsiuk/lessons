@@ -14,14 +14,16 @@
             color="primary"
             routerLink="/admin/courses/create"
           >
-            <span>Створити заняття</span>
+            <span>Створити курс</span>
           </app-spin-button>
         </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
       <tr>
-        <td routerLink="/admin/lessons/{{ product.id }}">{{ product.name }}</td>
+        <td routerLink="/admin/lessons/{{ product._id }}">
+          {{ product.name }}
+        </td>
         <td>{{ product.createdAt | date }}</td>
         <td>{{ product.updatedAt | date }}</td>
         <td>{{ product.status | extract: courseStatuses }}</td>
@@ -30,7 +32,7 @@
             <i class="icon icon--delete"></i>
           </button>
           <button
-            routerLink="/admin/courses/{{ product.id }}"
+            routerLink="/admin/courses/{{ product._id }}"
             class="btn__circle"
           >
             <i class="icon icon--edit"></i>
