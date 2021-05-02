@@ -12,7 +12,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (request.url.includes(environment.apiUrl)) {
+    if (request.url.includes(environment.apiUrl) || request.url.includes(environment.apiNestUrl)) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${this.bearerToken}`,

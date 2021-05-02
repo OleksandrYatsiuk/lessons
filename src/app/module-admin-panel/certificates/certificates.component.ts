@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { EMPTY, Observable } from 'rxjs';
-import { concatMap, map, mergeMap } from 'rxjs/operators';
+import { concatMap, map, mergeMap, pluck } from 'rxjs/operators';
 import { ICertificate } from 'src/app/core/interfaces/certificates';
 import { Course } from 'src/app/core/interfaces/courses';
 import { SelectItems } from 'src/app/core/interfaces/select';
@@ -50,12 +50,13 @@ export class CertificatesComponent implements OnInit {
 
   }
   showCertificatesList(data?: Partial<ICertificate>): void {
-    this.certificates$ = this._queryCertificatesList(data);
+    console.log(data);
+    this.certificates$ = this._queryCertificatesList(data).pipe(pluck('result'));
   }
   openDialog(certificate: ICertificate): void {
     this._cs.delete().subscribe(isDelete => {
       if (isDelete) {
-        this._queryDeleteCertificate(certificate.id)
+        this._queryDeleteCertificate(certificate._id)
           .subscribe(() => {
             this.showCertificatesList();
             this._ms.add({ severity: 'success', detail: `Cертифікат був видалений успішно!` });
@@ -105,7 +106,7 @@ export class CertificatesComponent implements OnInit {
   }
 
   refreshFileLink(element: ICertificate): void {
-    this._queryUpdateCertificate(element.id, element.fileId)
+    this._queryUpdateCertificate(element._id, element.fileId)
       .subscribe(result => {
         this.showCertificatesList();
       });
@@ -123,15 +124,16 @@ export class CertificatesComponent implements OnInit {
     return this.userService.getList().pipe(
       map(res => {
         this.users = res;
-        return res.map(el => ({ label: `${el.firstName} ${el.lastName}` || el.phone, value: el.id }));
+        return res.map(el => ({ label: `${el.firstName} ${el.lastName}` || el.phone, value: el._id }));
       })
     );
   }
   private _queryCourseList(): Observable<SelectItems[]> {
     return this.courseService.getCourses().pipe(
       map(res => {
+        console.log(res);
         this.courses = res;
-        return res.map(el => ({ label: el.name, value: el.id }));
+        return res.map(el => ({ label: el.name, value: el._id }));
       })
     );
   }
