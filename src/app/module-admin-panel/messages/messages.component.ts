@@ -59,21 +59,21 @@ export class MessagesComponent implements OnInit {
   getUsers(): Observable<SelectItem[]> {
     return this.http2.getList().pipe(map((users: User[]) => users.map(user => {
       if (user.firstName && user.lastName) {
-        return { label: `${user.firstName} ${user.lastName}`, value: user.id };
+        return { label: `${user.firstName} ${user.lastName}`, value: user._id };
       } else {
-        return { label: `${user.phone}`, value: user.id };
+        return { label: `${user.phone}`, value: user._id };
       }
     })));
   }
 
   getCourses(): Observable<SelectItem[]> {
     return this.courseService.getCourses().pipe(map((courses: Course[]) =>
-      courses.map(course => ({ label: course.name, value: course.id }))));
+      courses.map(course => ({ label: course.name, value: course._id }))));
   }
 
   getLessons(courseId: Course['id']): Observable<SelectItem[]> {
     return this.lessonService.getLessons({ courseId }).pipe(
-      map((lessons: Lesson[]) => lessons.map(lesson => ({ label: lesson.name, value: lesson.id }))));
+      map((lessons: Lesson[]) => lessons.map(lesson => ({ label: lesson.name, value: lesson._id }))));
   }
 
   search(): void {

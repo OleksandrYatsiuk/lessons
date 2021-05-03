@@ -56,7 +56,7 @@ export class ChatActionsComponent implements OnInit {
   private _save(res: any, type: EContentTypes, text?: string): void {
     const fileId = this._getFileLink(res, type);
     this.http.saveMessage({
-      userId: this.user.id,
+      userId: this.user._id,
       lessonId: this.lessonId,
       type: EMessageTypes.bot,
       message: {

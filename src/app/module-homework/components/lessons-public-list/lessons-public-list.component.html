@@ -14,7 +14,7 @@
         <div
           *ngFor="let lesson of lessons$ | async"
           class="task__lesson"
-          [routerLink]="lesson.id"
+          [routerLink]="lesson._id"
         >
           {{ lesson.name }}
         </div>

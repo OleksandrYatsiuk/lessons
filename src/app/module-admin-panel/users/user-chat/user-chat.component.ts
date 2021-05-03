@@ -27,7 +27,7 @@ export class UserChatComponent implements OnInit {
   }
 
   private _queryMessageList(): Observable<CustomMessage[]> {
-    return this.http.getList({ userId: this.user.id, lessonId: this.lessonId });
+    return this.http.getList({ userId: this.user._id, lessonId: this.lessonId });
   }
 
 }

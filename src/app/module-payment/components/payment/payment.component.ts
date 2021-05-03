@@ -63,7 +63,7 @@ export class PaymentComponent implements OnInit {
         })
       )
       .subscribe(user => {
-        this.form.patchValue({ ...user, userId: user.id, courseId: this.route.snapshot.queryParams.courseId });
+        this.form.patchValue({ ...user, userId: user._id, courseId: this.route.snapshot.queryParams.courseId });
       });
   }
   initForm(): void {
@@ -77,7 +77,7 @@ export class PaymentComponent implements OnInit {
     });
   }
   onChange({ value }: { value: Course }): void {
-    this.form.controls.courseId.setValue(value.id);
+    this.form.controls.courseId.setValue(value._id);
     this.price = value.price;
   }
   public pay(): void {
