@@ -6,7 +6,7 @@ import { join } from 'path';
 
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync, appendFileSync } from 'fs';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -29,6 +29,14 @@ export function app(): express.Express {
     maxAge: '1y'
   }));
 
+  server.get('/robot.txt', (req, res) => {
+    const host = req.get('x-forwarded-host');
+    const protocol = req.get('x-forwarded-proto');
+    const url = `${protocol}://${host}`;
+    const file = updateRobotsFile(url);
+    res.sendFile(file);
+  });
+
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
@@ -45,6 +53,17 @@ function run(): void {
   server.listen(port, () => {
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
+}
+
+function updateRobotsFile(url: string): string {
+  const sitemapUrl = `\n\nSitemap: ${url}/sitemap.xml`;
+
+  const robots = readFileSync('src/robots.txt', 'utf8');
+  const isExistSitemap = robots.toString().includes('sitemap.xml');
+  if (!isExistSitemap) {
+    appendFileSync('src/robots.txt', sitemapUrl);
+  };
+  return '/Users/user/Projects/plc-frontend/dist/plc/browser' + '/robots.txt';
 }
 
 // Webpack will replace 'require' with '__webpack_require__'
