@@ -30,20 +30,13 @@ export function app(): express.Express {
   }));
 
   server.get('/robots.txt', (req, res) => {
-    // console.log(req.headers);
-    console.log('Host:', res);
-    console.log('Headers Host:', req.get('x-forwarded-host'));
-    const host = req.get('x-forwarded-host')||req.get('host');
+    const host = req.get('host');
     const protocol = req.get('x-forwarded-proto');
     const url = `${protocol}://${host}`;
     const sitemapUrl = `User-agent: *\nDisallow: /admin/\n\nSitemap: ${url}/sitemap.xml`;
-    // const file = updateRobotsFile(url);
 
-    writeFile(distFolder + '/robots.txt', sitemapUrl, (err) => {
-      if (err) {
-        throw err;
-      }
-      res.sendFile(distFolder + '/robots.txt');
+    writeFile(distFolder + '/robots.txt', sitemapUrl, (error) => {
+      error ? res.status(400).send(error) : res.sendFile(distFolder + '/robots.txt');
     });
   });
 
@@ -63,17 +56,6 @@ function run(): void {
   server.listen(port, () => {
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
-}
-
-function updateRobotsFile(url: string): string {
-  const sitemapUrl = `\n\nSitemap: ${url}/sitemap.xml`;
-
-  const robots = readFileSync('src/robots.txt', 'utf8');
-  const isExistSitemap = robots.toString().includes('sitemap.xml');
-  if (!isExistSitemap) {
-    appendFileSync('src/robots.txt', sitemapUrl);
-  };
-  return '/robots.txt';
 }
 
 // Webpack will replace 'require' with '__webpack_require__'
