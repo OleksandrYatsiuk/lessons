@@ -34,7 +34,7 @@ export function app(): express.Express {
     const protocol = req.get('x-forwarded-proto');
     const url = `${protocol}://${host}`;
     const file = updateRobotsFile(url);
-    res.sendFile(file);
+    res.sendFile(distFolder + file);
   });
 
   // All regular routes use the Universal engine
@@ -63,7 +63,7 @@ function updateRobotsFile(url: string): string {
   if (!isExistSitemap) {
     appendFileSync('src/robots.txt', sitemapUrl);
   };
-  return '/Users/user/Projects/plc-frontend/dist/plc/browser' + '/robots.txt';
+  return '/robots.txt';
 }
 
 // Webpack will replace 'require' with '__webpack_require__'
