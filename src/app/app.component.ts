@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
       });
     this._meta.addTags(
       [
+        { property: 'og:site_name', content: 'Practical Legal Courses' },
         { property: 'og:image', content: this._doc.location.origin + '/assets/img/seo-image.png' },
         { property: 'og:locate', content: 'uk_UA' },
         { property: 'og:url', content: this._doc.URL },
