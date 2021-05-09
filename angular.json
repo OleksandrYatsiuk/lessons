@@ -52,7 +52,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/sitemap.xlm"
+              "src/sitemap.xml"
             ],
             "styles": ["src/styles.scss"],
             "scripts": []
