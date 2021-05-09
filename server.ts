@@ -29,12 +29,11 @@ export function app(): express.Express {
     maxAge: '1y'
   }));
 
-  server.get('/robots.txt', (req, res) => {
+  server.get(/robots.txt/, (req, res) => {
     const host = req.get('host');
-    const protocol = req.get('x-forwarded-proto');
+    const protocol = req.protocol || req.get('x-forwarded-proto');
     const url = `${protocol}://${host}`;
     const sitemapUrl = `User-agent: *\nDisallow: /admin/\n\nSitemap: ${url}/sitemap.xml`;
-
     writeFile(distFolder + '/robots.txt', sitemapUrl, (error) => {
       error ? res.status(400).send(error) : res.sendFile(distFolder + '/robots.txt');
     });
