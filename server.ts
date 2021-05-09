@@ -33,8 +33,12 @@ export function app(): express.Express {
     const host = req.get('x-forwarded-host');
     const protocol = req.get('x-forwarded-proto');
     const url = `${protocol}://${host}`;
-    const file = updateRobotsFile(url);
-    res.sendFile(distFolder + file);
+    const sitemapUrl = `User-agent: *\nDisallow: /admin/\n\nSitemap: ${url}/sitemap.xml`;
+    // const file = updateRobotsFile(url);
+
+    res.attachment('robots.txt');
+    res.type('txt');
+    res.send(sitemapUrl);
   });
 
   // All regular routes use the Universal engine
