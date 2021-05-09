@@ -6,7 +6,7 @@ import { join } from 'path';
 
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
-import { existsSync, readFileSync, appendFileSync } from 'fs';
+import { existsSync, readFileSync, appendFileSync, writeFile } from 'fs';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -29,16 +29,21 @@ export function app(): express.Express {
     maxAge: '1y'
   }));
 
-  server.get('/robot.txt', (req, res) => {
+  server.get('/robots.txt', (req, res) => {
+    console.log(req);
+    console.log(req.get('host'));
     const host = req.get('x-forwarded-host');
     const protocol = req.get('x-forwarded-proto');
     const url = `${protocol}://${host}`;
     const sitemapUrl = `User-agent: *\nDisallow: /admin/\n\nSitemap: ${url}/sitemap.xml`;
     // const file = updateRobotsFile(url);
 
-    res.attachment('robots.txt');
-    res.type('txt');
-    res.send(sitemapUrl);
+    writeFile(distFolder + '/robots.txt', sitemapUrl, (err) => {
+      if (err) {
+        throw err;
+      }
+      res.sendFile(distFolder + '/robots.txt');
+    });
   });
 
   // All regular routes use the Universal engine
