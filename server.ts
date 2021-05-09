@@ -31,7 +31,7 @@ export function app(): express.Express {
 
   server.get(/robots.txt/, (req, res) => {
     const host = req.get('host');
-    const protocol = req.protocol || req.get('x-forwarded-proto');
+    const protocol = req.get('x-forwarded-proto') || req.protocol;
     const url = `${protocol}://${host}`;
     const sitemapUrl = `User-agent: *\nDisallow: /admin/\n\nSitemap: ${url}/sitemap.xml`;
     writeFile(distFolder + '/robots.txt', sitemapUrl, (error) => {
