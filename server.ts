@@ -30,9 +30,10 @@ export function app(): express.Express {
   }));
 
   server.get('/robots.txt', (req, res) => {
-    console.log(req);
-    console.log(req.get('host'));
-    const host = req.get('x-forwarded-host');
+    // console.log(req.headers);
+    console.log('Host:', res);
+    console.log('Headers Host:', req.get('x-forwarded-host'));
+    const host = req.get('x-forwarded-host')||req.get('host');
     const protocol = req.get('x-forwarded-proto');
     const url = `${protocol}://${host}`;
     const sitemapUrl = `User-agent: *\nDisallow: /admin/\n\nSitemap: ${url}/sitemap.xml`;
