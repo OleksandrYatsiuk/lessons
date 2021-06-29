@@ -12,6 +12,7 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
+  accessToken: string;
   // eslint-disable-next-line @typescript-eslint/naming-convention
   chat_id: number | null;
   code: number;

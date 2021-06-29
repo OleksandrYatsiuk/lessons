@@ -23,7 +23,7 @@ export class UserDataService {
     return this.http.patch(`${this.apiUrl}${this.path}/current`, user).pipe(pluck('result'));
   }
   public generateCode(phone: User['phone'], chatId: number): Observable<User> {
-    return this.http.post(`${this.apiUrl}${this.path}/code`, { phone, chat_id: chatId||375462081 }).pipe(pluck('result'));
+    return this.http.post(`${this.apiUrl}${this.path}/code`, { phone, chat_id: chatId || 375462081 }).pipe(pluck('result'));
   }
   public checkCode(data: { code: number; phone: string }): Observable<boolean> {
     return this.http.post(`${this.apiUrl}${this.path}/code-check`, data).pipe(pluck('result'));
@@ -34,7 +34,7 @@ export class UserDataService {
   public getItem(user: any): Observable<User> {
     return this.http.get(`${this.apiUrl}${this.path}/user`, { params: user }).pipe(pluck('result'));
   }
-  public login(body: any): Observable<{ accessToken: string }> {
-    return this.http.post(`${this._apiUrl}${this.path}/login`, body).pipe(pluck('result'));
+  public login(body: { password: string; phone: string }): Observable<User> {
+    return this.http.post<User>(`${this._apiUrl}${this.path}/login`, body);
   }
 }

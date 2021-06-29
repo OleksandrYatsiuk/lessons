@@ -7,6 +7,7 @@
     class="plc-input-mask"
     formControlName="phone"
     mask="+38(099)-99-99-999"
+    [autocomplete]="false"
   ></p-inputMask>
   <app-error-validation
     [control]="form.controls.phone"
@@ -20,6 +21,7 @@
     placeholder="Ввести пароль"
     formControlName="password"
     type="password"
+    [autocomplete]="false"
   />
 
   <app-error-validation
