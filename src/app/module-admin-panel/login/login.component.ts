@@ -37,8 +37,8 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      this._queryUserLogin().subscribe(({ token }) => {
-        this.storage.writeToLocalStorage('plc_token', token);
+      this._queryUserLogin().subscribe(({ accessToken }) => {
+        this.storage.writeToLocalStorage('plc_token', accessToken);
         this._ref.close(true);
       });
     }
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-  private _queryUserLogin(): Observable<{ token: string }> {
+  private _queryUserLogin(): Observable<{ accessToken: string }> {
     this.loading = true;
     return this.http.login({
       ...this.form.value, phone: this.form.value.phone.replace(/[^0-9]/g, '')

@@ -69,8 +69,8 @@ export class ConfirmModalComponent implements OnInit {
     this._ref.close();
   }
 
-  private _queryGenerateCode(phone: User['phone']): Observable<User> {
-    return this.http.generateCode(phone.replace(/[^0-9]/g, ''));
+  private _queryGenerateCode(phone: User['phone'], chatId?: number): Observable<User> {
+    return this.http.generateCode(phone.replace(/[^0-9]/g, ''), chatId);
   }
   private _queryCodeCheck(data: { phone: string; code: number }): Observable<boolean> {
     return this.http.checkCode({ ...data, phone: data.phone.replace(/[^0-9]/g, '') });
