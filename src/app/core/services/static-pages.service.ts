@@ -16,13 +16,12 @@ export class StaticPagesService {
   private path = `${this._nestUrl}/pages`;
   constructor(private http: HttpClient) { }
 
-  queryPages(filter?: any): Observable<IStaticPages[]> {
-
-    return this.http.get(this.path, filter || {}).pipe(pluck('result'));
+  queryPages(filter?: any): Observable<any> {
+    return this.http.get<any & { result: IStaticPages[] }>(this.path, filter || {}).pipe(pluck('result'));
   }
 
   queryEditPage(data: IStaticPages): Observable<IStaticPages> {
-    return this.http.post(this.path, data).pipe(pluck('result'));
+    return this.http.post<any & { result: IStaticPages }>(this.path, data).pipe(pluck('result'));
   }
 
 }

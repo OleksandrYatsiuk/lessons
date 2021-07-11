@@ -50,8 +50,7 @@ export class CertificatesComponent implements OnInit {
 
   }
   showCertificatesList(data?: Partial<ICertificate>): void {
-    console.log(data);
-    this.certificates$ = this._queryCertificatesList(data).pipe(pluck('result'));
+    this.certificates$ = this._queryCertificatesList(data);
   }
   openDialog(certificate: ICertificate): void {
     this._cs.delete().subscribe(isDelete => {

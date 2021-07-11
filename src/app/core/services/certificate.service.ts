@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, pluck } from 'rxjs';
 import { ICertificate } from '../interfaces/certificates';
 
 @Injectable({
@@ -22,7 +22,7 @@ export class CertificateDataService {
         .set('userId', params?.userId || null)
         .set('courseId', params?.courseId || null)
     };
-    return this._http.get<ICertificate[]>(`${this._apiUrl}${this.path}`, options);
+    return this._http.get<any & { result: ICertificate[] }>(`${this._apiUrl}${this.path}`, options).pipe(pluck('result'));
   }
   queryDelete(id: ICertificate['id']): Observable<null> {
     return this._http.delete<null>(`${this._apiUrl}${this.path}/${id}`);

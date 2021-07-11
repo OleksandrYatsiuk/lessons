@@ -26,7 +26,7 @@ export class LessonsDataService {
         .set('limit', String(20))
         .set('courseId', params?.courseId || null)
     };
-    return this._http.get(`${this._apiUrl}${this.path}`, options).pipe(pluck('result'));
+    return this._http.get<any & { result: Lesson[] }>(`${this._apiUrl}${this.path}`, options).pipe(pluck('result'));
   }
   create(body: Lesson): Observable<Lesson> {
     return this._http.post<Lesson>(`${this._apiUrl}${this.path}`, body);

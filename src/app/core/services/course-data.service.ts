@@ -25,8 +25,8 @@ export class CourseDataService {
     return this._http.put<Course>(`${this._apiUrl}${this.path}/${id}`, data);
   }
 
-  getCourses(params?: any): Observable<Course[]> {
-    return this._http.get<Course[]>(`${this._apiUrl}${this.path}`, params).pipe(pluck('result'));
+  getCourses(params?: any): Observable<any> {
+    return this._http.get<any>(`${this._apiUrl}${this.path}`, params).pipe(pluck('result'));
   }
   create(body: Partial<Course>): Observable<Course> {
     return this._http.post<Course>(`${this._apiUrl}${this.path}`, body);

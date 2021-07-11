@@ -14,7 +14,7 @@ export class PaymentService {
   constructor(private http: HttpClient) { }
 
   public createPayment(params: Partial<Payments>): Observable<string> {
-    return this.http.post(`${this.apiUrl}/payments`, params).pipe(pluck('result'));
+    return this.http.post<any & { result: string }>(`${this.apiUrl}/payments`, params).pipe(pluck('result'));
   }
 
   public checkPaymentStatus(id: number): Observable<any> {
