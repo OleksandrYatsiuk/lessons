@@ -19,7 +19,7 @@ export class PrivacyPolicyComponent implements OnInit {
   }
 
   getTemplate(): void {
-    this.http.getStaticPages({ type: this.page.privacyPolicy })
+    this.http.queryPages({ type: this.page.privacyPolicy })
       .subscribe(result => this.content = result[0].content);
   }
 

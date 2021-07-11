@@ -1,11 +1,15 @@
 <hr />
-<h1 class="title">Залишились питання?</h1>
-<p>Пиши, ми завжди на зв’язку і готові допомогти</p>
 
-<a routerLink="/pages/terms-and-condition">
-  {{ "labels.termsAndConditions" | translate }}</a
->
-<span>|</span>
-<a routerLink="/pages/privacy-policy">
-  {{ "labels.privacyPolicy" | translate }}
-</a>
+<footer class="footer">
+  <h3 class="title">Залишились питання?</h3>
+  <span>Пиши, ми завжди на зв’язку і готові допомогти</span>
+
+  <div class="pages">
+    <a routerLink="/pages/terms-and-condition">
+      {{ "labels.termsAndConditions" | translate }}</a
+    >
+    <a routerLink="/pages/privacy-policy">
+      {{ "labels.privacyPolicy" | translate }}
+    </a>
+  </div>
+</footer>

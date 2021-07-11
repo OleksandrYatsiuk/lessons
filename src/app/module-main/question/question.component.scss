@@ -1,4 +1,14 @@
+@import "../../../styles/helpers/index.scss";
+
 a {
-    margin: 0 10px;
-    color: gray;
+  padding: 15px;
+  margin: 0 10px;
+  color: $c-gray;
+}
+.footer {
+  padding: 0 8px;
+}
+.pages {
+  display: flex;
+  flex-wrap: wrap;
 }

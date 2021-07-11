@@ -17,7 +17,7 @@ export class TermsAndConditionsComponent implements OnInit {
     this.getTemplate();
   }
   getTemplate(): void {
-    this.http.getStaticPages({ type: this.page.termsAndConditions })
+    this.http.queryPages({ type: this.page.termsAndConditions })
       .subscribe(result => this.content = result[0].content);
   }
 

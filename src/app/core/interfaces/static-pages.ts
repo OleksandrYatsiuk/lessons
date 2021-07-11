@@ -6,7 +6,7 @@ export enum EStaticPages {
 }
 
 export interface IStaticPages {
-    readonly id?: string;
+    readonly _id?: string;
     type: EStaticPages;
     content: string;
 }

@@ -35,7 +35,7 @@ export class PageContextComponent implements OnInit {
   }
 
   getPagesContent(): void {
-    this.http.getStaticPages().subscribe(result => {
+    this.http.queryPages().subscribe(result => {
       result.forEach(page => {
         this.htmlContent[page.type] = page.content;
         this.options = [
@@ -48,7 +48,7 @@ export class PageContextComponent implements OnInit {
   }
 
   save(): void {
-    this.http.setStaticPage({ type: this.activeLabel, content: this.htmlContent[this.activeLabel] })
+    this.http.queryEditPage({ type: this.activeLabel, content: this.htmlContent[this.activeLabel] })
       .subscribe(result => {
         this._cd.detectChanges();
         this._ms.add({ severity: 'success', detail: this._ts.instant('updatingSuccess') });

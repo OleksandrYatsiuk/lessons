@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { pluck } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { IStaticPages } from '../interfaces/static-pages';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '@environments/environment';
 
 
 @Injectable({
@@ -10,14 +12,16 @@ import { IStaticPages } from '../interfaces/static-pages';
 })
 
 export class StaticPagesService {
-  private path = '/static-pages';
-  constructor(private http: HttpService) { }
+  private _nestUrl = environment.apiNestUrl;
+  private path = `${this._nestUrl}/pages`;
+  constructor(private http: HttpClient) { }
 
-  getStaticPages(params?: any): Observable<IStaticPages[]> {
-    return this.http.get(this.path, { params }).pipe(pluck('result'));
+  queryPages(filter?: any): Observable<IStaticPages[]> {
+
+    return this.http.get(this.path, filter || {}).pipe(pluck('result'));
   }
 
-  setStaticPage(data: IStaticPages): Observable<IStaticPages> {
+  queryEditPage(data: IStaticPages): Observable<IStaticPages> {
     return this.http.post(this.path, data).pipe(pluck('result'));
   }
 
