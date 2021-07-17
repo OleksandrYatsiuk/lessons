@@ -6,6 +6,7 @@ import { LessonsRoutingModule } from './lessons-routing.module';
 import { LessonsComponent } from './lessons/lessons.component';
 import { LessonsFormComponent } from './lessons-form/lessons-form.component';
 import { LessonCreateComponent } from './lesson-create/lesson-create.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
@@ -14,6 +15,7 @@ import { LessonCreateComponent } from './lesson-create/lesson-create.component';
   imports: [
     CommonModule,
     SharedModule,
+    DropdownModule,
     LessonsRoutingModule
   ],
   exports: [LessonsComponent]

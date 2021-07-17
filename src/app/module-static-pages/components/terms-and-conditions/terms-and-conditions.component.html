@@ -1,0 +1,4 @@
+<div class="static-pages" *ngIf="pages$ | async as page">
+  <h1>{{ page[0].name }}</h1>
+  <article class="page-context" [innerHtml]="page[0].content"></article>
+</div>

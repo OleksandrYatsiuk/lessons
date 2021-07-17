@@ -12,4 +12,10 @@
     }
     margin-bottom: 10px;
   }
+  &__button {
+    cursor: pointer;
+    margin-top: 10px;
+    background-color: $c-blue;
+    padding: 10px;
+  }
 }

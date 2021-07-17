@@ -1,22 +1,42 @@
 <p-toast position="top-right"></p-toast>
 
-<section class="page-context__container">
+<section class="page-context__container" *ngIf="pages$ | async as pages">
   <div class="page-context__title">
     <h1>{{ "pageTitles.staticPages" | translate }}</h1>
   </div>
+
+
   <div class="page-context__filter">
     <p-dropdown
       class="plc-dropdown"
-      [options]="options"
-      [(ngModel)]="activeLabel"
+      optionLabel="name"
+      placeholder="Вибрати сторінку"
+      [options]="pages"
+      (onChange)="onSelectPage($event.value)"
     ></p-dropdown>
+  </div>
+  <div class="form-control">
+    <label class="form-control__label">Значення роута</label>
+    <input
+      pInputText
+      placeholder="Ввести посилання"
+      [(ngModel)]="path[activeLabel]"
+      class="plc-input"
+    />
   </div>
 
   <angular-editor
-    [placeholder]="'Enter text here...'"
+    placeholder="Почніть вводити текст...."
+    [disabled]="activeLabel === null"
     [(ngModel)]="htmlContent[activeLabel]"
   >
   </angular-editor>
 
-  <button type="submit" (click)="save()">{{ "saveLabel" | translate }}</button>
+  <button
+    class="btn page-context__button"
+    (click)="save(pages)"
+    [disabled]="activeLabel === null"
+  >
+    {{ "saveLabel" | translate }}
+  </button>
 </section>

@@ -26,11 +26,11 @@ export class UserProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserDataService) {
-    this.user = this.route.snapshot.data.user;
   }
 
 
   ngOnInit(): void {
+    this.user = this.route.snapshot.data.user;
 
   }
   updateStatus(haveMessages: boolean): void {

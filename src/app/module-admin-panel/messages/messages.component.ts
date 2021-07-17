@@ -25,7 +25,7 @@ export class MessagesComponent implements OnInit {
   usersList$: Observable<SelectItem[]>;
   coursesList$: Observable<SelectItem[]>;
   lessonsList$: Observable<SelectItem[]>;
-  user: User;
+  user$: Observable<User>;
   form: FormGroup;
   messages: CustomMessage[];
   loading = false;
@@ -53,7 +53,7 @@ export class MessagesComponent implements OnInit {
   }
 
   onChange({ value }: { value: string }): void {
-    this.http2.getItem({ _id: value }).subscribe(user => this.user = user);
+    this.user$ = this.http2.queryUserData(value);
   }
 
   getUsers(): Observable<SelectItem[]> {

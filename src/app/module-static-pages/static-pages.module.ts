@@ -1,15 +1,19 @@
-import { StaticPagesRoutingModule } from './static-pages-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
+import { RouterModule, Routes } from '@angular/router';
+import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
 
 
+const router: Routes = [
+  { path: ':url', component: TermsAndConditionsComponent },
+  { path: '', redirectTo: '/pages/terms-and-conditions' },
+];
 
 @NgModule({
-  declarations: [PrivacyPolicyComponent, TermsAndConditionsComponent],
+  declarations: [TermsAndConditionsComponent],
   imports: [
-    CommonModule, StaticPagesRoutingModule
+    CommonModule,
+    RouterModule.forChild(router)
   ]
 })
 export class StaticPagesModule { }

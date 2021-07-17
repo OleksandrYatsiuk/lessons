@@ -136,7 +136,7 @@ export class LessonsFormComponent implements OnInit {
   private _queryCourseList(): Observable<SelectItems[]> {
     return this.courseService.getCourses().pipe(
       map((courses: Course[]) =>
-        courses.map(course => ({ label: course.name, value: course.id }))
+        courses.map(course => ({ label: course.name, value: course._id }))
       )
     );
   }

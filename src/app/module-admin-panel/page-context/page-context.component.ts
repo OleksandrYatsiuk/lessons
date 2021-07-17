@@ -1,9 +1,11 @@
 import { StaticPagesService } from '../../core/services/static-pages.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { EStaticPages } from 'src/app/core/interfaces/static-pages';
+import { EStaticPages, IStaticPages } from 'src/app/core/interfaces/static-pages';
 import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
-import { MessageService, SelectItem } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable, pluck } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-page-context',
@@ -16,13 +18,12 @@ export class PageContextComponent implements OnInit {
   config: AngularEditorConfig = {
     sanitize: false
   };
-  options: SelectItem[] = [];
+  options: IStaticPages[];
+  pages$: Observable<IStaticPages[]>;
   staticPages = EStaticPages;
-  htmlContent = {
-    [this.staticPages.privacyPolicy]: '',
-    [this.staticPages.termsAndConditions]: ''
-  };
-  activeLabel: number = this.staticPages.privacyPolicy;
+  htmlContent = {};
+  activeLabel: number = null;
+  path = {};
   constructor(
     private http: StaticPagesService,
     private _ts: TranslateService,
@@ -31,30 +32,36 @@ export class PageContextComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getPagesContent();
+    this.pages$ = this.queryPages();
   }
 
-  getPagesContent(): void {
-    this.http.queryPages().subscribe(result => {
-      result.forEach(page => {
-        this.htmlContent[page.type] = page.content;
-        this.options = [
-          { label: this._ts.instant('labels.privacyPolicy'), value: EStaticPages.privacyPolicy },
-          { label: this._ts.instant('labels.termsAndConditions'), value: EStaticPages.termsAndConditions }
-        ];
-        this._cd.detectChanges();
-      });
-    });
+  onSelectPage(page: IStaticPages): void {
+    this.activeLabel = page.type;
+    if (!this.htmlContent[page.type]) {
+      this.htmlContent[page.type] = page.content;
+    }
+    if (!this.path[page.type]) {
+      this.path[page.type] = page.path;
+    }
+
   }
 
-  save(): void {
-    this.http.queryEditPage({ type: this.activeLabel, content: this.htmlContent[this.activeLabel] })
-      .subscribe(result => {
-        this._cd.detectChanges();
+  save(pages: IStaticPages[]): void {
+
+    const page = pages.find(o => o.type === this.activeLabel);
+    this.http.queryEditPage({ ...page, content: this.htmlContent[this.activeLabel], path: this.path[this.activeLabel] })
+      .subscribe(() => {
         this._ms.add({ severity: 'success', detail: this._ts.instant('updatingSuccess') });
+        this._cd.detectChanges();
       });
   }
+
   show(event): void {
     this.activeLabel = event.index + 1;
   }
+
+  queryPages(): Observable<IStaticPages[]> {
+    return this.http.queryPages().pipe(pluck('result'));
+  }
+
 }

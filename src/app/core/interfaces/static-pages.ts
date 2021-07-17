@@ -8,5 +8,7 @@ export enum EStaticPages {
 export interface IStaticPages {
     readonly _id?: string;
     type: EStaticPages;
+    name: string;
     content: string;
+    path?: string;
 }

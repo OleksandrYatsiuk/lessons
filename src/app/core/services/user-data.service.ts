@@ -17,22 +17,25 @@ export class UserDataService {
     return this.http.get<any>(`${this._apiUrl}${this.path}`).pipe(pluck('result'));
   }
   public register(user: Partial<User>): Observable<User> {
-    return this.http.post<any>(`${this.apiUrl}${this.path}/register`, user).pipe(pluck('result'));
+    return this.http.post<User>(`${this._apiUrl}${this.path}`, user);
   }
   public update(user: Partial<User>): Observable<User> {
     return this.http.patch<any>(`${this.apiUrl}${this.path}/current`, user).pipe(pluck('result'));
   }
   public generateCode(phone: User['phone'], chatId: number): Observable<User> {
-    return this.http.post<any>(`${this.apiUrl}${this.path}/code`, { phone, chat_id: chatId || 375462081 }).pipe(pluck('result'));
+    return this.http.post<any>(`${this._apiUrl}${this.path}/generate-code`, { phone, chat_id: chatId || 375462081 });
   }
   public checkCode(data: { code: number; phone: string }): Observable<boolean> {
-    return this.http.post<any>(`${this.apiUrl}${this.path}/code-check`, data).pipe(pluck('result'));
+    return this.http.post<any>(`${this._apiUrl}${this.path}/check-code`, data);
   }
   public remove(id: User['id']): Observable<string> {
     return this.http.delete<any & { result: string }>(`${this._apiUrl}${this.path}/${id}`).pipe(pluck('result'));
   }
   public getItem(user: any): Observable<User> {
     return this.http.get<any & { result: User }>(`${this.apiUrl}${this.path}/user`, { params: user }).pipe(pluck('result'));
+  }
+  queryUserData(id: string): Observable<User> {
+    return this.http.get<User>(`${this._apiUrl}${this.path}/${id}`);
   }
   public login(body: { password: string; phone: string }): Observable<User> {
     return this.http.post<User>(`${this._apiUrl}${this.path}/login`, body);

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { mergeMap, Observable, pipe, pluck } from 'rxjs';
 import { EStaticPages, IStaticPages } from 'src/app/core/interfaces/static-pages';
 import { StaticPagesService } from 'src/app/core/services/static-pages.service';
 
@@ -9,16 +11,16 @@ import { StaticPagesService } from 'src/app/core/services/static-pages.service';
 })
 export class TermsAndConditionsComponent implements OnInit {
 
-  page = EStaticPages;
   content: IStaticPages['content'];
-  constructor(private http: StaticPagesService) { }
+  pages$: Observable<IStaticPages[]>;
+
+  constructor(private http: StaticPagesService, private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getTemplate();
+    this.pages$ = this._route.params.pipe(mergeMap(({ url }) => this.getTemplate(url)));
   }
-  getTemplate(): void {
-    this.http.queryPages({ type: this.page.termsAndConditions })
-      .subscribe(result => this.content = result[0].content);
+  getTemplate(path: string): Observable<IStaticPages[]> {
+    return this.http.queryPages({ path }).pipe(pluck('result'));
   }
 
 }

@@ -9,7 +9,9 @@ const routes: Routes = [
     path: 'admin', loadChildren: () => import('./module-admin-panel/admin-panel.module').then(mod => mod.AdminPanelModule),
     canActivate: [AuthGuard]
   },
-  { path: 'pages', loadChildren: () => import('./module-static-pages/static-pages.module').then(mod => mod.StaticPagesModule) },
+  {
+    path: 'pages', loadChildren: () => import('./module-static-pages/static-pages.module').then(mod => mod.StaticPagesModule)
+  },
   { path: 'homework', loadChildren: () => import('./module-homework/homework.module').then(mod => mod.HomeworkModule) },
   { path: 'payment', loadChildren: () => import('./module-payment/payment.module').then(mod => mod.PaymentModule) },
   { path: 'start', component: StartBotComponent },
